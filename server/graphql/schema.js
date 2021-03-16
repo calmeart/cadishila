@@ -5,7 +5,8 @@ const {
   GraphQLString,
   GraphQLInt,
   GraphQLSchema,
-  GraphQLList
+  GraphQLList,
+  GraphQLNonNull
  } = graphql;
 const _ = require('lodash');
 
@@ -84,11 +85,11 @@ const MutationType = new GraphQLObjectType({
     addProduct: {
       type: ProductType,
       args: {
-        name: { type: GraphQLString },
-        description: { type: GraphQLString },
-        price: { type: GraphQLString },
-        size: {type: GraphQLString },
-        categoryId: {type: GraphQLString}
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        price: { type: new GraphQLNonNull(GraphQLString) },
+        size: {type: new GraphQLNonNull(GraphQLString) },
+        categoryId: {type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
         const tempProduct = new Product({
@@ -104,8 +105,8 @@ const MutationType = new GraphQLObjectType({
     addCategory: {
       type: CategoryType,
       args: {
-        name: { type: GraphQLString },
-        class: { type: GraphQLString },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        class: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
         const tempCategory = new Category({
