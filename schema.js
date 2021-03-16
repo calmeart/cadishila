@@ -1,14 +1,21 @@
 const graphql = require('graphql');
-const { GraphQLObjectType, GraphQLID, GraphQLString, GraphQLInt, GraphQLSchema } = graphql;
+const {
+  GraphQLObjectType,
+  GraphQLID,
+  GraphQLString,
+  GraphQLInt,
+  GraphQLSchema,
+  GraphQLList
+ } = graphql;
 const _ = require('lodash');
 
 //dummy data
 const products = [
-  {"id": "1", "name": "Santa Claus", "price": 60},
-  {"id": "2", "name": "Black Purple", "price": 90},
-  {"id": "3", "name": "Small Bag", "price": 70},
-  {"id": "4", "name": "Plush Appa", "price": 80},
-  {"id": "5", "name": "Pink Stretch", "price": 100},
+  {"id": "1", "name": "Santa Claus", "price": 60, "available": 3, "collectionId": "1"},
+  {"id": "2", "name": "Black Purple", "price": 90, "available": 3, "collectionId": "1"},
+  {"id": "3", "name": "Small Bag", "price": 70, "available": 3, "collectionId": "2"},
+  {"id": "4", "name": "Plush Appa", "price": 80, "available": 3, "collectionId": "3"},
+  {"id": "5", "name": "Pink Stretch", "price": 100, "available": 3, "collectionId": "1"}
 ]
 
 const collections = [
@@ -22,7 +29,14 @@ const ProductType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    available: { type: GraphQLInt },
     price: { type: GraphQLInt },
+    collection: {
+      type: CollectionType,
+      resolve(parent, args) {
+        return _.find(collections, {id: parent.collectionId})
+      }
+    }
   })
 });
 
@@ -31,6 +45,12 @@ const CollectionType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
+    products: {
+      type: new GraphQLList(ProductType),
+      resolve(parent, args) {
+        return _.filter(products, {collectionId: parent.id})
+      }
+    }
   })
 });
 
