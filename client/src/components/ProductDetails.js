@@ -54,7 +54,7 @@ class ProductDetails extends Component {
   render() {
     return (
       <div>
-        <DisplayProductDetails id="605104d22f14f8463c288d64"/>
+        <DisplayProductDetails id={this.props.id}/>
       </div>
     )
   }

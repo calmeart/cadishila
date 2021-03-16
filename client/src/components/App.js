@@ -1,3 +1,4 @@
+import React, { Component } from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
 
 import ProductList from "./ProductList";
@@ -10,17 +11,36 @@ const client = new ApolloClient({
   cache: new InMemoryCache()
 })
 
-function App() {
-  return (
-    <ApolloProvider client={client}>
-      <div>
-        <ProductList />
-        <AddProduct />
-        <AddCategory />
-        <ProductDetails />
-      </div>
-    </ApolloProvider>
-  );
+class App extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      productId: ""
+    };
+    this.selectProduct = this.selectProduct.bind(this);
+  }
+
+  selectProduct(e) {
+    e.preventDefault();
+    console.log(e.target)
+    this.setState({
+      productId: e.target.value
+    })
+  };
+
+  render() {
+    return (
+      <ApolloProvider client={client}>
+        <div>
+          <ProductList selectProduct={this.selectProduct}/>
+          <ProductDetails id={this.state.productId} />
+          <AddProduct />
+          <AddCategory />
+        </div>
+      </ApolloProvider>
+    );
+  }
+
 }
 
 export default App;
