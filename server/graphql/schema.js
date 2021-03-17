@@ -72,8 +72,9 @@ const RootQuery = new GraphQLObjectType({
     },
     categories: {
       type: new GraphQLList(CategoryType),
+      args: {audience: {type: GraphQLString}},
       resolve(parent, args) {
-        return Category.find({})
+        return Category.find({audience: args.audience});
       }
     }
   }
