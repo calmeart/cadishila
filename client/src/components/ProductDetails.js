@@ -12,7 +12,7 @@ query ($id: ID!) {
     category {
       id
       name
-      class
+      audience
       products {
         id
         name

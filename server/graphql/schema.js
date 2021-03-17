@@ -36,7 +36,7 @@ const CategoryType = new GraphQLObjectType({
   fields: () => ({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
-    class: { type: GraphQLString },
+    audience: { type: GraphQLString },
     products: {
       type: new GraphQLList(ProductType),
       resolve(parent, args) {
@@ -106,12 +106,12 @@ const MutationType = new GraphQLObjectType({
       type: CategoryType,
       args: {
         name: { type: new GraphQLNonNull(GraphQLString) },
-        class: { type: new GraphQLNonNull(GraphQLString) },
+        audience: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
         const tempCategory = new Category({
           name: args.name,
-          class: args.class
+          audience: args.audience
         });
         return tempCategory.save();
       }
