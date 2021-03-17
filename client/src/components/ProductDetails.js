@@ -28,7 +28,14 @@ function DisplayProductDetails({ id }) {
   });
 
   if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+
+  if (error) {
+    if (error.message === 'Cast to ObjectId failed for value "" at path "_id" for model "Product"') {
+      return <p>No Products Selected</p>
+    } else {
+    return <p>Error: {error.message}</p>;
+    }
+  }
 
   return (
     <div className="card" style={{width: "18rem", margin: "1rem"}} key={data.product.id}>

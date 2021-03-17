@@ -22,7 +22,6 @@ class App extends Component {
 
   selectProduct(e) {
     e.preventDefault();
-    console.log(e.target)
     this.setState({
       productId: e.target.value
     })
