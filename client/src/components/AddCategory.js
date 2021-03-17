@@ -12,7 +12,7 @@ const CategoryMutation = gql`
 `
 
 function AddCategoryFunction({ resetState, handleNameInputChange, handleAudienceInputChange, name, audience }) {
-  const [addCategory, {data}] = useMutation(CategoryMutation);
+  const [addCategory] = useMutation(CategoryMutation);
 
   return (
     <form className="m-3 p-3 bg-light" onSubmit={e => {
@@ -36,9 +36,9 @@ function AddCategoryFunction({ resetState, handleNameInputChange, handleAudience
         <label htmlFor="inputClass" className="col-sm-2 col-form-label">Audience </label>
         <div className="col-sm-10">
           <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceInputChange}>
-            <option selected disabled>Select Audience</option>
-            <option value="Human">Human</option>
-            <option value="Pet">Pet</option>
+            <option disabled>Select Audience</option>
+            <option value="human">Human</option>
+            <option value="pet">Pet</option>
           </select>
         </div>
       </div>
