@@ -38,8 +38,10 @@ function GetCategories({ audience }) {
   ));
 };
 
+// { resetState, handleNameInputChange, handleDescriptionInputChange, handlePriceInputChange, handleSizeInputChange, handleCategoryIdInputChange, handleAudienceInputChange, name, description, price, size, categoryId, audience }
 
-function AddProductFunction({ resetState, handleNameInputChange, handleDescriptionInputChange, handlePriceInputChange, handleSizeInputChange, handleCategoryIdInputChange, handleAudienceInputChange, name, description, price, size, categoryId, audience }) {
+function AddProductFunction(props) {
+  const { name, description, price, size, categoryId, audience } = props;
   const [addProduct] = useMutation(ProductMutation);
   return (
     <form className="m-3 p-3 bg-light" onSubmit={e => {
@@ -53,41 +55,41 @@ function AddProductFunction({ resetState, handleNameInputChange, handleDescripti
           categoryId
         }
       })
-      resetState();
+      props.resetState();
     }} style={{width: "500px"}}>
       <h5 className="mb-3 text-center">Add Product</h5>
       <div className="row mb-3">
         <label htmlFor="inputName" className="col-sm-2 col-form-label">Name </label>
         <div className="col-sm-10">
-          <input type="text" className="form-control" id="inputName" value={name} onChange={handleNameInputChange} />
+          <input type="text" className="form-control" id="inputName" value={name} onChange={props.handleNameInputChange} />
         </div>
       </div>
       <div className="row mb-3">
         <label htmlFor="inputDescription" className="col-sm-2 col-form-label">Description </label>
         <div className="col-sm-10">
-          <input type="text" className="form-control" id="inputDescription" value={description} onChange={handleDescriptionInputChange} />
+          <input type="text" className="form-control" id="inputDescription" value={description} onChange={props.handleDescriptionInputChange} />
         </div>
       </div>
       <div className="row mb-3">
           <label htmlFor="inputPrice" className="col-sm-2 col-form-label">Price </label>
           <div className="col-sm-5">
-            <input type="text" className="form-control" id="inputPrice" value={price} onChange={handlePriceInputChange} />
+            <input type="text" className="form-control" id="inputPrice" value={price} onChange={props.handlePriceInputChange} />
           </div>
           <label htmlFor="inputSize" className="col-sm-1 col-form-label">Size </label>
           <div className="col-sm-4">
-            <input type="text" className="form-control" id="inputSize" value={size} onChange={handleSizeInputChange} />
+            <input type="text" className="form-control" id="inputSize" value={size} onChange={props.handleSizeInputChange} />
           </div>
       </div>
       <div className="row mb-3">
         <div className="col-sm-6">
-        <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceInputChange}>
+        <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={props.handleAudienceInputChange}>
           <option disabled>Select Audience</option>
           <option value="human">Human</option>
           <option value="pet">Pet</option>
         </select>
         </div>
         <div className="col-sm-6">
-          <select className="form-select" id="inputCatType" value={categoryId} aria-label="Select Type" onChange={handleCategoryIdInputChange}>
+          <select className="form-select" id="inputCatType" value={categoryId} aria-label="Select Type" onChange={props.handleCategoryIdInputChange}>
             <option disabled>Select Type</option>
             <GetCategories audience={audience}/>
           </select>
@@ -106,8 +108,8 @@ class AddProduct extends Component {
       description: "",
       price: "",
       size: "",
-      categoryId: "",
-      audience: "",
+      categoryId: "Select Type",
+      audience: "Select Audience",
     }
     this.handleNameInputChange = this.handleNameInputChange.bind(this);
     this.handleDescriptionInputChange = this.handleDescriptionInputChange.bind(this);
@@ -168,9 +170,8 @@ class AddProduct extends Component {
       description: "",
       price: "",
       size: "",
-      categoryId: "",
-      audience: "",
-      categoryName: ""
+      categoryId: "Select Type",
+      audience: "Select Audience",
     })
   }
 
