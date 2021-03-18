@@ -31,15 +31,15 @@ function DisplayProductDetails({ id }) {
 
   if (error) {
     if (error.message === 'Cast to ObjectId failed for value "" at path "_id" for model "Product"') {
-      return <p>No Products Selected</p>
+      return <p className="errorMessage">No Products Selected</p>
     } else {
-    return <p>Error: {error.message}</p>;
+    return <p className="errorMessage">Error: {error.message}</p>;
     }
   }
 
   return (
-    <div className="card" style={{width: "18rem", margin: "1rem"}} key={data.product.id}>
-      <div style={{width: "100%", height: "10rem", backgroundColor: "gray"}}>This will be an image</div>
+    <div className="card" key={data.product.id}>
+      <div className="cardImg">This will be an image</div>
       <div className="card-body">
         <h5 className="card-title">{data.product.name}</h5>
         <p className="card-text">{data.product.description}</p>
@@ -60,7 +60,7 @@ function DisplayProductDetails({ id }) {
 class ProductDetails extends Component {
   render() {
     return (
-      <div>
+      <div id="productDetailsBox">
         <DisplayProductDetails id={this.props.id}/>
       </div>
     )

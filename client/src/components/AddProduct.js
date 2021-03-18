@@ -44,7 +44,7 @@ function AddProductFunction(props) {
   const { name, description, price, size, categoryId, audience } = props;
   const [addProduct] = useMutation(ProductMutation);
   return (
-    <form className="m-3 p-3 bg-light" onSubmit={e => {
+    <form className="p-3 bg-light" onSubmit={e => {
       e.preventDefault()
       addProduct({
         variables: {
@@ -56,46 +56,52 @@ function AddProductFunction(props) {
         }
       })
       props.resetState();
-    }} style={{width: "500px"}}>
+    }}>
       <h5 className="mb-3 text-center">Add Product</h5>
+
       <div className="row mb-3">
-        <label htmlFor="inputName" className="col-sm-2 col-form-label">Name </label>
-        <div className="col-sm-10">
-          <input type="text" className="form-control" id="inputName" value={name} onChange={props.handleNameInputChange} />
+        <div className="col-sm-4">
+          <div className="form-floating">
+            <input type="text" className="form-control" id="inputName" value={name} onChange={props.handleNameInputChange} placeholder="Name" />
+            <label htmlFor="inputName">Name</label>
+          </div>
+        </div>
+
+        <div className="col-sm-4">
+          <div className="form-floating">
+            <input type="text" className="form-control" id="inputPrice" value={price} onChange={props.handlePriceInputChange} placeholder="Price "/>
+            <label htmlFor="inputPrice">Price</label>
+          </div>
+        </div>
+
+        <div className="col-sm-4">
+          <div className="form-floating">
+            <input type="text" className="form-control" id="inputSize" value={size} onChange={props.handleSizeInputChange} placeholder="Size"/>
+            <label htmlFor="inputSize">Size</label>
+          </div>
         </div>
       </div>
-      <div className="row mb-3">
-        <label htmlFor="inputDescription" className="col-sm-2 col-form-label">Description </label>
-        <div className="col-sm-10">
-          <input type="text" className="form-control" id="inputDescription" value={description} onChange={props.handleDescriptionInputChange} />
-        </div>
+
+      <div className="form-floating mb-3">
+        <input type="text" className="form-control" id="inputDescription" value={description} onChange={props.handleDescriptionInputChange} placeholder="Description" />
+        <label htmlFor="inputDescription">Description</label>
       </div>
-      <div className="row mb-3">
-          <label htmlFor="inputPrice" className="col-sm-2 col-form-label">Price </label>
-          <div className="col-sm-5">
-            <input type="text" className="form-control" id="inputPrice" value={price} onChange={props.handlePriceInputChange} />
-          </div>
-          <label htmlFor="inputSize" className="col-sm-1 col-form-label">Size </label>
-          <div className="col-sm-4">
-            <input type="text" className="form-control" id="inputSize" value={size} onChange={props.handleSizeInputChange} />
-          </div>
-      </div>
-      <div className="row mb-3">
-        <div className="col-sm-6">
+      <div className="row">
+        <div className="col-sm-5">
         <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={props.handleAudienceInputChange}>
           <option disabled>Select Audience</option>
           <option value="human">Human</option>
           <option value="pet">Pet</option>
         </select>
         </div>
-        <div className="col-sm-6">
+        <div className="col-sm-5">
           <select className="form-select" id="inputCatType" value={categoryId} aria-label="Select Type" onChange={props.handleCategoryIdInputChange}>
             <option disabled>Select Type</option>
             <GetCategories audience={audience}/>
           </select>
         </div>
+        <button type="submit" className="btn btn-primary col-sm-2">Submit</button>
       </div>
-      <button type="submit" className="btn btn-primary">Submit</button>
     </form>
   )
 }
@@ -123,42 +129,36 @@ class AddProduct extends Component {
   // name={this.state.name} description={this.state.description} price={this.state.price} size={this.state.size} categroyId={this.state.categoryId} handleCategoryIdInputChange={this.handleCategoryIdInputChange} handleSizeInputChange={this.handleSizeInputChange} handlePriceInputChange={this.handlePriceInputChange} handleNameInputChange={this.handleNameInputChange} handleDescriptionInputChange={this.handleDescriptionInputChange}
 
   handleNameInputChange(e) {
-    e.preventDefault();
     this.setState({
       name: e.target.value
     })
   };
 
   handleDescriptionInputChange(e) {
-    e.preventDefault();
     this.setState({
       description: e.target.value
     })
   };
 
   handlePriceInputChange(e) {
-    e.preventDefault();
     this.setState({
       price: e.target.value
     })
   };
 
   handleSizeInputChange(e) {
-    e.preventDefault();
     this.setState({
       size: e.target.value
     })
   };
 
   handleCategoryIdInputChange(e) {
-    e.preventDefault();
     this.setState({
       categoryId: e.target.value
     })
   };
 
   handleAudienceInputChange(e) {
-    e.preventDefault();
     this.setState({
       audience: e.target.value
     })
@@ -177,7 +177,7 @@ class AddProduct extends Component {
 
   render() {
     return (
-      <div>
+      <div id="addProductBox">
         <AddProductFunction
           name={this.state.name}
           description={this.state.description}

@@ -15,7 +15,7 @@ function AddCategoryFunction({ resetState, handleNameInputChange, handleAudience
   const [addCategory] = useMutation(CategoryMutation);
 
   return (
-    <form className="m-3 p-3 bg-light" onSubmit={e => {
+    <form className="p-3 bg-light" onSubmit={e => {
       e.preventDefault()
       addCategory({
         variables: {
@@ -24,23 +24,18 @@ function AddCategoryFunction({ resetState, handleNameInputChange, handleAudience
         }
       })
       resetState();
-    }} style={{width: "500px"}}>
+    }}>
       <h5 className="mb-3 text-center">Add Category</h5>
-      <div className="row mb-3">
-        <label htmlFor="inputName" className="col-sm-2 col-form-label">Name </label>
-        <div className="col-sm-10">
-          <input type="text" className="form-control" id="inputName" value={name} onChange={handleNameInputChange} />
-        </div>
+      <div className="form-floating mb-3">
+        <input type="text" className="form-control" id="inputName" placeholder="Name" value={name} onChange={handleNameInputChange} />
+        <label htmlFor="inputName">Name</label>
       </div>
-      <div className="row mb-3">
-        <label htmlFor="inputClass" className="col-sm-2 col-form-label">Audience </label>
-        <div className="col-sm-10">
-          <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceInputChange}>
-            <option disabled>Select Audience</option>
+      <div className="form-floating mb-3">
+          <select className="form-select" id="inputAudience" aria-label="Select Audience" value={audience} onChange={handleAudienceInputChange}>
             <option value="human">Human</option>
             <option value="pet">Pet</option>
           </select>
-        </div>
+          <label htmlFor="floatingSelect">Select Audience</label>
       </div>
       <button type="submit" className="btn btn-primary">Submit</button>
     </form>
@@ -52,7 +47,7 @@ class AddCategory extends Component {
     super(props);
     this.state = {
       name: "",
-      audience: "Select Audience",
+      audience: "",
     }
     this.handleNameInputChange = this.handleNameInputChange.bind(this);
     this.handleAudienceInputChange = this.handleAudienceInputChange.bind(this);
@@ -60,14 +55,12 @@ class AddCategory extends Component {
   }
 
   handleNameInputChange(e) {
-    e.preventDefault();
     this.setState({
       name: e.target.value
     })
   };
 
   handleAudienceInputChange(e) {
-    e.preventDefault();
     this.setState({
       audience: e.target.value
     })
@@ -76,14 +69,20 @@ class AddCategory extends Component {
   resetState() {
     this.setState({
       name: "",
-      audience: "Select Audience"
+      audience: ""
     })
   }
 
   render() {
     return (
-        <div>
-          <AddCategoryFunction resetState={this.resetState} handleNameInputChange={this.handleNameInputChange} handleAudienceInputChange={this.handleAudienceInputChange} name={this.state.name} audience={this.state.audience} />
+        <div id="addCategoryBox">
+          <AddCategoryFunction
+            resetState={this.resetState}
+            handleNameInputChange={this.handleNameInputChange}
+            handleAudienceInputChange={this.handleAudienceInputChange}
+            name={this.state.name}
+            audience={this.state.audience}
+          />
         </div>
     )
   }

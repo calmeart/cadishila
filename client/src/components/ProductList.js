@@ -15,17 +15,15 @@ query {
 function DisplayProducts({ selectProduct }) {
   const { loading, error, data } = useQuery(GetProductsQuery);
 
-  if (loading) return <p>Loading...</p>;
-  if (error) return <p>Error :(</p>;
+  if (loading) return <p className="errorMessage">Loading...</p>;
+  if (error) return <p className="errorMessage">Error :(</p>;
 
   return data.products.map(item => (
-    <div className="card" style={{width: "18rem", margin: "1rem"}} key={item.id}>
-      <div style={{width: "100%", height: "10rem", backgroundColor: "gray"}}>This will be an image</div>
+    <div className="card" key={item.id}>
+      <div className="cardImg">This will be an image</div>
       <div className="card-body">
         <h5 className="card-title" >{item.name}</h5>
-        <p className="card-text">{item.description}</p>
-        <p className="card-text">TRY {item.price}</p>
-        <button className="btn bg-transparent stretched-link" value={item.id} onClick={selectProduct}></button>
+        <button className="btn bg-transparent stretched-link" value={item.id} onClick={selectProduct}><p className="card-text">TRY {item.price}</p></button>
       </div>
     </div>
   ));
@@ -35,7 +33,7 @@ function DisplayProducts({ selectProduct }) {
 class ProductList extends Component {
   render() {
     return (
-      <div className="d-flex" id="products">
+      <div id="products">
         <DisplayProducts selectProduct={this.props.selectProduct}/>
       </div>
     )
