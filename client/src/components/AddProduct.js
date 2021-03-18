@@ -1,29 +1,7 @@
 import React, {Component} from "react"
 import { gql, useMutation, useQuery } from '@apollo/client';
+import { GetCategoriesQuery, ProductMutation } from '../graphql/queries';
 
-const ProductMutation = gql`
-  mutation ($name: String!, $description: String!, $price: String!, $size: String!, $categoryId: String!) {
-    addProduct(name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId) {
-      id
-      name
-      price
-      category {
-        id
-        name
-        audience
-      }
-    }
-  }
-`;
-
-const GetCategoriesQuery = gql`
-  query ($audience: String!) {
-    categories(audience: $audience) {
-      id
-      name
-    }
-  }
-`;
 
 function GetCategories({ audience }) {
   const { loading, error, data } = useQuery(GetCategoriesQuery, {

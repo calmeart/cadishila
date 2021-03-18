@@ -1,15 +1,6 @@
 import React, {Component} from "react"
 import { gql, useMutation } from '@apollo/client';
-
-const CategoryMutation = gql`
-  mutation ($name: String!, $audience: String!) {
-    addCategory(name: $name, audience: $audience) {
-      id
-      name
-      audience
-    }
-  }
-`
+import { CategoryMutation } from '../graphql/queries';
 
 function AddCategoryFunction({ resetState, handleNameInputChange, handleAudienceInputChange, name, audience }) {
   const [addCategory] = useMutation(CategoryMutation);

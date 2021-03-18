@@ -1,26 +1,6 @@
 import React, {Component} from "react";
 import { gql, useQuery } from '@apollo/client';
-
-const GetProductQuery = gql`
-query ($id: ID!) {
-  product(id: $id) {
-    id
-    name
-    description
-    price
-    size
-    category {
-      id
-      name
-      audience
-      products {
-        id
-        name
-      }
-    }
-  }
-}
-`;
+import { GetProductQuery } from '../graphql/queries';
 
 function DisplayProductDetails({ id }) {
   const { loading, error, data } = useQuery(GetProductQuery, {
