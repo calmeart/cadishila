@@ -1,6 +1,6 @@
 import React, {Component} from "react"
 import { gql, useMutation, useQuery } from '@apollo/client';
-import { GetCategoriesQuery, ProductMutation } from '../graphql/queries';
+import { GetCategoriesQuery, ProductMutation, GetProductsQuery } from '../graphql/queries';
 
 
 function GetCategories({ audience }) {
@@ -31,7 +31,8 @@ function AddProductFunction(props) {
           price,
           size,
           categoryId
-        }
+        },
+        refetchQueries: [{query: GetProductsQuery }]
       })
       props.resetState();
     }}>
