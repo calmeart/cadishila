@@ -13,6 +13,9 @@ const _ = require('lodash');
 const Product = require('../models/product-model');
 const Category = require('../models/category-model');
 
+const Joi = require('joi');
+const { productSchema, categorySchema } = require('../validation');
+
 
 const ProductType = new GraphQLObjectType({
   name: 'Product',
@@ -93,14 +96,14 @@ const MutationType = new GraphQLObjectType({
         categoryId: {type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        const tempProduct = new Product({
-          name: args.name,
-          description: args.description,
-          price: args.price,
-          size: args.size,
-          categoryId: args.categoryId
-        });
-        return tempProduct.save()
+        const { name, description, price, size, categoryId } = args;
+        try {
+          const tempProduct = productSchema.validate({ name, description, price, size, categoryId });
+          return new Product(tempProduct).save();
+        }
+        catch (err) {
+          return err;
+        }
       }
     },
     addCategory: {
@@ -110,11 +113,15 @@ const MutationType = new GraphQLObjectType({
         audience: { type: new GraphQLNonNull(GraphQLString) },
       },
       resolve(parent, args) {
-        const tempCategory = new Category({
-          name: args.name,
-          audience: args.audience
-        });
-        return tempCategory.save();
+        const { name, audience } = args;
+        try {
+          const tempCategory = categorySchema.validate({ name, audience });
+          return new Category(tempCategory).save();
+        }
+        catch (err) {
+          return err;
+        }
+
       }
     }
   }
