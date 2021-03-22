@@ -99,7 +99,11 @@ const MutationType = new GraphQLObjectType({
         const { name, description, price, size, categoryId } = args;
         try {
           const tempProduct = productSchema.validate({ name, description, price, size, categoryId });
-          return new Product(tempProduct).save();
+          if (tempProduct.error) {
+            throw new Error(tempProduct.error.details[0].message);
+          }
+          console.log(tempProduct.value);
+          return new Product(tempProduct.value).save();
         }
         catch (err) {
           return err;
@@ -116,6 +120,9 @@ const MutationType = new GraphQLObjectType({
         const { name, audience } = args;
         try {
           const tempCategory = categorySchema.validate({ name, audience });
+          if (tempCategory.error) {
+            throw new Error(tempCategory.error.details[0].message);
+          }
           return new Category(tempCategory).save();
         }
         catch (err) {
