@@ -24,7 +24,7 @@ const ProductType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     price: { type: GraphQLString },
-    size: {type: GraphQLString },
+    size: { type: new GraphQLList(GraphQLString) },
     category: {
       type: CategoryType,
       resolve(parent, args) {
@@ -92,7 +92,7 @@ const MutationType = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
         price: { type: new GraphQLNonNull(GraphQLString) },
-        size: {type: new GraphQLNonNull(GraphQLString) },
+        size: { type: new GraphQLList(GraphQLString) },
         categoryId: {type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
@@ -102,7 +102,6 @@ const MutationType = new GraphQLObjectType({
           if (tempProduct.error) {
             throw new Error(tempProduct.error.details[0].message);
           }
-          console.log(tempProduct.value);
           return new Product(tempProduct.value).save();
         }
         catch (err) {
