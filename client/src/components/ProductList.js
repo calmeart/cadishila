@@ -1,5 +1,5 @@
 import React, {Component} from "react";
-import { gql, useQuery } from '@apollo/client';
+import { useQuery } from '@apollo/client';
 import { GetProductsQuery } from '../graphql/queries';
 
 function DisplayProducts({ selectProduct }) {

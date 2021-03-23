@@ -52,7 +52,7 @@ const CategoryMutation = gql`
 `;
 
 const ProductMutation = gql`
-  mutation ($name: String!, $description: String!, $price: String!, $size: String!, $categoryId: String!) {
+  mutation ($name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!) {
     addProduct(name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId) {
       id
       name

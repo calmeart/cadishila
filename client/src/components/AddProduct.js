@@ -1,7 +1,13 @@
 import React, {Component} from "react"
-import { gql, useMutation, useQuery } from '@apollo/client';
+import { useMutation, useQuery } from '@apollo/client';
 import { GetCategoriesQuery, ProductMutation, GetProductsQuery } from '../graphql/queries';
 
+function unCheck() {
+   var x = document.getElementsByClassName("btn-check");
+   for (let i = 0; i < x.length; i++) {
+     x[i].checked = false;
+   }
+ };
 
 function GetCategories({ audience }) {
   const { loading, error, data } = useQuery(GetCategoriesQuery, {
@@ -24,17 +30,24 @@ function AddProductFunction(props) {
   return (
     <form className="p-3 bg-light" onSubmit={e => {
       e.preventDefault()
-      addProduct({
-        variables: {
-          name,
-          description,
-          price,
-          size,
-          categoryId
-        },
-        refetchQueries: [{query: GetProductsQuery }]
-      })
-      props.resetState();
+      try {
+        addProduct({
+          variables: {
+            name,
+            description,
+            price,
+            size,
+            categoryId
+          },
+          refetchQueries: [{query: GetProductsQuery }]
+        })
+        props.resetState();
+        unCheck();
+      }
+      catch (err) {
+        return console.log(err);
+      }
+
     }}>
       <h5 className="mb-3 text-center">Add Product</h5>
 
@@ -53,11 +66,18 @@ function AddProductFunction(props) {
           </div>
         </div>
 
-        <div className="col-sm-4">
-          <div className="form-floating">
-            <input type="text" className="form-control" id="inputSize" value={size} onChange={props.handleSizeInputChange} placeholder="Size"/>
-            <label htmlFor="inputSize">Size</label>
-          </div>
+        <div className="col-sm-4 p-0">
+            <input type="checkbox" className="btn-check" id="btnXS" value="XS" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnXS">XS</label>
+
+            <input type="checkbox" className="btn-check" id="btnS" value="S" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnS">S</label>
+
+            <input type="checkbox" className="btn-check" id="btnM" value="M" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnM">M</label>
+
+            <input type="checkbox" className="btn-check" id="btnL" value="L" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnL">L</label>
         </div>
       </div>
 
@@ -92,7 +112,7 @@ class AddProduct extends Component {
       name: "",
       description: "",
       price: "",
-      size: "",
+      size: [],
       categoryId: "Select Type",
       audience: "Select Audience",
     }
@@ -126,9 +146,16 @@ class AddProduct extends Component {
   };
 
   handleSizeInputChange(e) {
+    let array = [...this.state.size];
+    let index = array.indexOf(e.target.value);
+    if ( index > -1 ) {
+      array.splice(index, 1);
+    } else {
+      array.push(e.target.value);
+    }
     this.setState({
-      size: e.target.value
-    })
+      size: array
+    });
   };
 
   handleCategoryIdInputChange(e) {
@@ -148,7 +175,7 @@ class AddProduct extends Component {
       name: "",
       description: "",
       price: "",
-      size: "",
+      size: [],
       categoryId: "Select Type",
       audience: "Select Audience",
     })
