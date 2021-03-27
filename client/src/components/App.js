@@ -33,8 +33,12 @@ class App extends Component {
         <div>
           <ProductList selectProduct={this.selectProduct}/>
           <ProductDetails id={this.state.productId} />
-          <AddProduct />
-          <AddCategory />
+          <div id="addProductBox">
+            <AddProduct />
+          </div>
+          <div id="addCategoryBox">
+            <AddCategory />
+          </div>
         </div>
       </ApolloProvider>
     );

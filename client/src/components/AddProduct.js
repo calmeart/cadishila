@@ -1,4 +1,4 @@
-import React, {Component} from "react"
+import React, { useState } from "react"
 import { useMutation, useQuery } from '@apollo/client';
 import { GetCategoriesQuery, ProductMutation, GetProductsQuery } from '../graphql/queries';
 
@@ -24,77 +24,113 @@ function GetCategories({ audience }) {
 
 // { resetState, handleNameInputChange, handleDescriptionInputChange, handlePriceInputChange, handleSizeInputChange, handleCategoryIdInputChange, handleAudienceInputChange, name, description, price, size, categoryId, audience }
 
-function AddProductFunction(props) {
-  const { name, description, price, size, categoryId, audience } = props;
+function AddProduct() {
   const [addProduct] = useMutation(ProductMutation);
-  return (
-    <form className="p-3 bg-light" onSubmit={e => {
-      e.preventDefault()
-      try {
-        addProduct({
-          variables: {
-            name,
-            description,
-            price,
-            size,
-            categoryId
-          },
-          refetchQueries: [{query: GetProductsQuery }]
-        })
-        props.resetState();
-        unCheck();
-      }
-      catch (err) {
-        return console.log(err);
-      }
 
-    }}>
+  const [product, setProduct] = useState({
+    name: "",
+    description: "",
+    price: "",
+    size: [],
+    categoryId: "Select Type"
+  })
+
+  const [audience, setAudience] = useState("Select Audience");
+
+  function handleInputChange(e) {
+    let { name, value } = e.target;
+    if (name === "size") {
+      let array = [...product.size];
+      let index = array.indexOf(value);
+      if ( index > -1 ) {
+        array.splice(index, 1);
+      } else {
+        array.push(value);
+        value = [...array];
+      }
+    }
+    setProduct(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  function handleAudienceChange(e) {
+    const value = e.target.value
+    setAudience(value);
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault()
+    console.log(product);
+    try {
+      addProduct({
+        variables: product,
+        refetchQueries: [{query: GetProductsQuery }]
+      })
+      setProduct({
+        name: "",
+        description: "",
+        price: "",
+        size: [],
+        categoryId: "Select Type"
+      });
+      setAudience("Select Audience");
+      unCheck();
+    }
+    catch (err) {
+      return console.log(err);
+    }
+  }
+
+  return (
+    <form className="p-3 bg-light" onSubmit={handleSubmit}>
       <h5 className="mb-3 text-center">Add Product</h5>
 
       <div className="row mb-3">
         <div className="col-sm-4">
           <div className="form-floating">
-            <input type="text" className="form-control" id="inputName" value={name} onChange={props.handleNameInputChange} placeholder="Name" />
+            <input type="text" className="form-control" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
             <label htmlFor="inputName">Name</label>
           </div>
         </div>
 
         <div className="col-sm-4">
           <div className="form-floating">
-            <input type="text" className="form-control" id="inputPrice" value={price} onChange={props.handlePriceInputChange} placeholder="Price "/>
+            <input type="text" className="form-control" id="inputPrice" name="price" value={product.price} onChange={handleInputChange} placeholder="Price "/>
             <label htmlFor="inputPrice">Price</label>
           </div>
         </div>
 
         <div className="col-sm-4 p-0">
-            <input type="checkbox" className="btn-check" id="btnXS" value="XS" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <input type="checkbox" className="btn-check" id="btnXS" name="size" value="XS" onClick={handleInputChange} autoComplete="off" />
             <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnXS">XS</label>
 
-            <input type="checkbox" className="btn-check" id="btnS" value="S" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <input type="checkbox" className="btn-check" id="btnS" name="size" value="S" onClick={handleInputChange} autoComplete="off" />
             <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnS">S</label>
 
-            <input type="checkbox" className="btn-check" id="btnM" value="M" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <input type="checkbox" className="btn-check" id="btnM" name="size" value="M" onClick={handleInputChange} autoComplete="off" />
             <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnM">M</label>
 
-            <input type="checkbox" className="btn-check" id="btnL" value="L" onClick={props.handleSizeInputChange} autoComplete="off" />
+            <input type="checkbox" className="btn-check" id="btnL" name="size" value="L" onClick={handleInputChange} autoComplete="off" />
             <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnL">L</label>
         </div>
       </div>
 
       <div className="form-floating mb-3">
-        <input type="text" className="form-control" id="inputDescription" value={description} onChange={props.handleDescriptionInputChange} placeholder="Description" />
+        <input type="text" className="form-control" id="inputDescription" name="description" value={product.description} onChange={handleInputChange} placeholder="Description" />
         <label htmlFor="inputDescription">Description</label>
       </div>
       <div className="row">
         <div className="col-sm-5">
-        <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={props.handleAudienceInputChange}>
+        <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange}>
           <option disabled>Select Audience</option>
           <option value="human">Human</option>
           <option value="pet">Pet</option>
         </select>
         </div>
         <div className="col-sm-5">
-          <select className="form-select" id="inputCatType" value={categoryId} aria-label="Select Type" onChange={props.handleCategoryIdInputChange}>
+          <select className="form-select" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange}>
             <option disabled>Select Type</option>
             <GetCategories audience={audience}/>
           </select>
@@ -103,104 +139,6 @@ function AddProductFunction(props) {
       </div>
     </form>
   )
-}
-
-class AddProduct extends Component {
-  constructor(props){
-    super(props);
-    this.state = {
-      name: "",
-      description: "",
-      price: "",
-      size: [],
-      categoryId: "Select Type",
-      audience: "Select Audience",
-    }
-    this.handleNameInputChange = this.handleNameInputChange.bind(this);
-    this.handleDescriptionInputChange = this.handleDescriptionInputChange.bind(this);
-    this.handlePriceInputChange = this.handlePriceInputChange.bind(this);
-    this.handleSizeInputChange = this.handleSizeInputChange.bind(this);
-    this.handleCategoryIdInputChange = this.handleCategoryIdInputChange.bind(this);
-    this.handleAudienceInputChange = this.handleAudienceInputChange.bind(this);
-    this.resetState = this.resetState.bind(this);
-  }
-
-  // name={this.state.name} description={this.state.description} price={this.state.price} size={this.state.size} categroyId={this.state.categoryId} handleCategoryIdInputChange={this.handleCategoryIdInputChange} handleSizeInputChange={this.handleSizeInputChange} handlePriceInputChange={this.handlePriceInputChange} handleNameInputChange={this.handleNameInputChange} handleDescriptionInputChange={this.handleDescriptionInputChange}
-
-  handleNameInputChange(e) {
-    this.setState({
-      name: e.target.value
-    })
-  };
-
-  handleDescriptionInputChange(e) {
-    this.setState({
-      description: e.target.value
-    })
-  };
-
-  handlePriceInputChange(e) {
-    this.setState({
-      price: e.target.value
-    })
-  };
-
-  handleSizeInputChange(e) {
-    let array = [...this.state.size];
-    let index = array.indexOf(e.target.value);
-    if ( index > -1 ) {
-      array.splice(index, 1);
-    } else {
-      array.push(e.target.value);
-    }
-    this.setState({
-      size: array
-    });
-  };
-
-  handleCategoryIdInputChange(e) {
-    this.setState({
-      categoryId: e.target.value
-    })
-  };
-
-  handleAudienceInputChange(e) {
-    this.setState({
-      audience: e.target.value
-    })
-  };
-
-  resetState() {
-    this.setState({
-      name: "",
-      description: "",
-      price: "",
-      size: [],
-      categoryId: "Select Type",
-      audience: "Select Audience",
-    })
-  }
-
-  render() {
-    return (
-      <div id="addProductBox">
-        <AddProductFunction
-          name={this.state.name}
-          description={this.state.description}
-          price={this.state.price} size={this.state.size}
-          categoryId={this.state.categoryId}
-          audience={this.state.audience}
-          handleCategoryIdInputChange={this.handleCategoryIdInputChange}
-          handleSizeInputChange={this.handleSizeInputChange}
-          handlePriceInputChange={this.handlePriceInputChange}
-          handleNameInputChange={this.handleNameInputChange}
-          handleDescriptionInputChange={this.handleDescriptionInputChange}
-          handleAudienceInputChange={this.handleAudienceInputChange}
-          resetState={this.resetState}
-        />
-      </div>
-    )
-  }
 }
 
 export default AddProduct;
