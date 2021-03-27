@@ -122,7 +122,7 @@ const MutationType = new GraphQLObjectType({
           if (tempCategory.error) {
             throw new Error(tempCategory.error.details[0].message);
           }
-          return new Category(tempCategory).save();
+          return new Category(tempCategory.value).save();
         }
         catch (err) {
           return err;

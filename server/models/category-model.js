@@ -6,14 +6,15 @@ const mongoCategorySchema = new mongoose.Schema({
     type: String,
     required: true,
     lowercase: true,
-    get: v => _.capitalize(v),
-    enum: [ "human", "pet" ]
+    get: v => _.capitalize(v)
+
   },
   audience: {
     type: String,
     required: true,
     lowercase: true,
-    get: v => _.capitalize(v)
+    get: v => _.capitalize(v),
+    enum: [ "human", "pet" ]
   }
 });
 
