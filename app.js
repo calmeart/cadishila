@@ -8,7 +8,7 @@ const path = require('path');
 
 require('./models/connection')();
 
-app.use(express.static(path.join(__dirname, '../client/build')));
+app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(cors());
 app.use('/graphql', graphqlHTTP({
   schema,
@@ -16,7 +16,7 @@ app.use('/graphql', graphqlHTTP({
 }))
 
 app.get('*', (req, res) => {
-  res.sendFile(path.join(__dirname + '/../client/build/index.html'))
+  res.sendFile(path.join(__dirname + '/client/build/index.html'))
 });
 
 const port = process.env.PORT || 4000;
