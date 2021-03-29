@@ -32,7 +32,8 @@ function AddProduct(props) {
     description: "",
     price: "",
     size: [],
-    categoryId: ""
+    categoryId: "",
+    imageLink:""
   })
 
   const [audience, setAudience] = useState("");
@@ -73,7 +74,8 @@ function AddProduct(props) {
             description: "",
             price: "",
             size: [],
-            categoryId: ""
+            categoryId: "",
+            imageLink: ""
         });
         setAudience("");
         unCheck();
@@ -84,26 +86,20 @@ function AddProduct(props) {
 
   return (
 
-    <div class="btn-group dropup w-100">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+    <div class="dropup w-100">
+      <button type="button" class="btn btn-primary dropdown-toggle w-100" id="dropdownAddProduct" data-bs-toggle="dropdown" aria-expanded="false">
         Add Product
       </button>
-      <div class="dropdown-menu w-100">
+      <div class="dropdown-menu w-100" aria-labelledby="dropdownAddProduct" onClick={(e) => e.stopPropagation()}>
         <form className="p-3 bg-light" onSubmit={handleSubmit}>
 
           <div className="row mb-3">
             <div className="col-sm-4">
-              <div className="form-floating">
-                <input type="text" className="form-control" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
-                <label htmlFor="inputName">Name</label>
-              </div>
+              <input type="text" className="form-control" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
             </div>
 
             <div className="col-sm-4">
-              <div className="form-floating">
                 <input type="text" className="form-control" id="inputPrice" name="price" value={product.price} onChange={handleInputChange} placeholder="Price "/>
-                <label htmlFor="inputPrice">Price</label>
-              </div>
             </div>
 
             <div className="col-sm-4 p-0">
@@ -121,25 +117,31 @@ function AddProduct(props) {
             </div>
           </div>
 
-          <div className="form-floating mb-3">
+          <div className="mb-3">
             <input type="text" className="form-control" id="inputDescription" name="description" value={product.description} onChange={handleInputChange} placeholder="Description" />
-            <label htmlFor="inputDescription">Description</label>
           </div>
-          <div className="row">
-            <div className="col-sm-5">
+          <div className="row mb-3">
+            <div className="col-sm-6">
             <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange} required>
               <option value="">Select Audience</option>
               <option value="human">Human</option>
               <option value="pet">Pet</option>
             </select>
             </div>
-            <div className="col-sm-5">
+            <div className="col-sm-6">
               <select className="form-select" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange} required>
                 <option value="">Select Type</option>
                 <GetCategories audience={audience}/>
               </select>
             </div>
-            <button type="submit" className="btn btn-primary col-sm-2">Submit</button>
+          </div>
+          <div className="row">
+            <div className="col-sm-9">
+                <input type="text" className="form-control" id="inputImageLink" name="imageLink" value={product.imageLink} onChange={handleInputChange} placeholder="Image Link" />
+            </div>
+            <div className="col-sm-3">
+              <button type="submit" className="btn btn-primary w-100">Submit</button>
+            </div>
           </div>
         </form>
       </div>

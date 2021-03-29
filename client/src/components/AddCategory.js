@@ -33,22 +33,20 @@ function AddCategory(props) {
   return (
 
     <div class="btn-group dropup w-100">
-      <button type="button" class="btn btn-secondary dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+      <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownAddCategory" data-bs-toggle="dropdown" aria-expanded="false">
         Add Category
       </button>
-      <div class="dropdown-menu w-100">
+      <div class="dropdown-menu w-100" aria-labelledby="dropdownAddCategory" onClick={(e) => e.stopPropagation()}>
         <form className="p-3 bg-light" onSubmit={handleSubmit}>
           <h5 className="mb-3 text-center">Add Category</h5>
-          <div className="form-floating mb-3">
+          <div className="mb-3">
             <input type="text" className="form-control" id="inputName" name="name" value={category.name} onChange={handleInputChange} placeholder="Name"  />
-            <label htmlFor="inputName">Name</label>
           </div>
-          <div className="form-floating mb-3">
+          <div className="mb-3">
               <select className="form-select" id="inputAudience" name="audience" value={category.audience} onChange={handleInputChange} aria-label="Select Audience">
                 <option value="human">Human</option>
                 <option value="pet">Pet</option>
               </select>
-              <label htmlFor="floatingSelect">Select Audience</label>
           </div>
           <button type="submit" className="btn btn-primary">Submit</button>
         </form>
