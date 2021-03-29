@@ -51,7 +51,7 @@ class App extends Component {
       <ApolloProvider client={client}>
         <div>
           <ProductList selectProduct={this.selectProduct}/>
-          <ProductDetails id={this.state.productId} />
+          <ProductDetails id={this.state.productId} selectProduct={this.selectProduct} />
           <div id="addProductBox">
             <AddProduct appointError={this.appointError}  />
           </div>

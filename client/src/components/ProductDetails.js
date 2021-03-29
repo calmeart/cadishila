@@ -1,8 +1,9 @@
 import React, {Component} from "react";
 import { useQuery } from '@apollo/client';
 import { GetProductQuery } from '../graphql/queries';
+import ProductCard from "./ProductCard";
 
-function DisplayProductDetails({ id }) {
+function DisplayProductDetails({ id, selectProduct }) {
   const { loading, error, data } = useQuery(GetProductQuery, {
     variables: { id }
   });
@@ -18,20 +19,32 @@ function DisplayProductDetails({ id }) {
   }
 
   return (
-    <div className="card" key={data.product.id}>
-      <div className="cardImg">This will be an image</div>
-      <div className="card-body">
-        <h5 className="card-title">{data.product.name}</h5>
-        <p className="card-text">{data.product.description}</p>
-        <p className="card-text">{data.product.size}</p>
-        <p className="card-text">TRY {data.product.price}</p>
+    <div className="productContainer">
+      <div className="productImg">This will be an image</div>
+      <div className="p-3">
+        <h5>{data.product.name}</h5>
+        <p>{data.product.description}</p>
+        <table className="table table-borderless table-sm">
+          <tbody>
+            <tr>
+              <th scope="row">Available Size: </th>
+              <td><p className="card-text">{data.product.size.join(" - ")}</p></td>
+            </tr>
+            <tr>
+              <th scope="row">Price: </th>
+              <td><p className="card-text">TRY {data.product.price}</p></td>
+            </tr>
+          </tbody>
+        </table>
+        <button type="button" className="btn btn-primary disabled w-100">Order Product</button>
       </div>
-      <div className="card-body">
-        <ul>
-        {data.product.category.products.map(item => {
-          return <li key={item.id}>{item.name}</li>
-        })}
-        </ul>
+      <div className="p-3">
+        <h5 className="card-title">Similar Products</h5>
+        <div className="d-flex">
+          {data.product.category.products.map(item => {
+            return <ProductCard key={item.id} item={item} selectProduct={selectProduct} />
+          })}
+        </div>
       </div>
     </div>
   );
@@ -41,7 +54,7 @@ class ProductDetails extends Component {
   render() {
     return (
       <div id="productDetailsBox">
-        <DisplayProductDetails id={this.props.id}/>
+        <DisplayProductDetails id={this.props.id} selectProduct={this.props.selectProduct}/>
       </div>
     )
   }

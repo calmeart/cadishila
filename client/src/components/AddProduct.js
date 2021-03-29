@@ -123,14 +123,14 @@ function AddProduct(props) {
       <div className="row">
         <div className="col-sm-5">
         <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange} required>
-          <option value="" selected>Select Audience</option>
+          <option value="">Select Audience</option>
           <option value="human">Human</option>
           <option value="pet">Pet</option>
         </select>
         </div>
         <div className="col-sm-5">
           <select className="form-select" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange} required>
-            <option value="" selected>Select Type</option>
+            <option value="">Select Type</option>
             <GetCategories audience={audience}/>
           </select>
         </div>

@@ -15,6 +15,7 @@ query ($id: ID!) {
       products {
         id
         name
+        price
       }
     }
   }
