@@ -25,6 +25,7 @@ const ProductType = new GraphQLObjectType({
     description: { type: GraphQLString },
     price: { type: GraphQLString },
     size: { type: new GraphQLList(GraphQLString) },
+    imageLink: { type: GraphQLString },
     category: {
       type: CategoryType,
       resolve(parent, args) {
@@ -93,12 +94,13 @@ const MutationType = new GraphQLObjectType({
         description: { type: new GraphQLNonNull(GraphQLString) },
         price: { type: new GraphQLNonNull(GraphQLString) },
         size: { type: new GraphQLList(GraphQLString) },
-        categoryId: {type: new GraphQLNonNull(GraphQLString) }
+        categoryId: { type: new GraphQLNonNull(GraphQLString) },
+        imageLink: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        const { name, description, price, size, categoryId } = args;
+        const { name, description, price, size, categoryId, imageLink } = args;
         try {
-          const tempProduct = productSchema.validate({ name, description, price, size, categoryId });
+          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink });
           if (tempProduct.error) {
             throw new Error(tempProduct.error.details[0].message);
           }

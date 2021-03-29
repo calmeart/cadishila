@@ -28,6 +28,10 @@ const mongoProductSchema = new mongoose.Schema({
   categoryId: {
     type: String,
     required: true
+  },
+  imageLink: {
+    type: String,
+    required: true
   }
 });
 
