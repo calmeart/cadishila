@@ -8,6 +8,7 @@ query ($id: ID!) {
     description
     price
     size
+    imageLink
     category {
       id
       name
@@ -29,6 +30,7 @@ query {
     name
     description
     price
+    imageLink
   }
 }
 `;
@@ -53,8 +55,8 @@ const CategoryMutation = gql`
 `;
 
 const ProductMutation = gql`
-  mutation ($name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!) {
-    addProduct(name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId) {
+  mutation ($name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!, $imageLink: String!) {
+    addProduct(name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId, imageLink: $imageLink) {
       id
       name
       price
