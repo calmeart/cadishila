@@ -32,10 +32,10 @@ function AddProduct(props) {
     description: "",
     price: "",
     size: [],
-    categoryId: "Select Type"
+    categoryId: ""
   })
 
-  const [audience, setAudience] = useState("Select Audience");
+  const [audience, setAudience] = useState("");
 
   function handleInputChange(e) {
     let { name, value } = e.target;
@@ -61,7 +61,7 @@ function AddProduct(props) {
   }
 
   function handleSubmit(e) {
-    e.preventDefault()
+    e.preventDefault();
     const returnedPromise = addProduct({
       variables: product,
       refetchQueries: [{query: GetProductsQuery }]
@@ -73,9 +73,9 @@ function AddProduct(props) {
             description: "",
             price: "",
             size: [],
-            categoryId: "Select Type"
+            categoryId: ""
         });
-        setAudience("Select Audience");
+        setAudience("");
         unCheck();
     })).catch(err => {
       props.appointError(err.message);
@@ -122,15 +122,15 @@ function AddProduct(props) {
       </div>
       <div className="row">
         <div className="col-sm-5">
-        <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange}>
-          <option disabled>Select Audience</option>
+        <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange} required>
+          <option value="" selected>Select Audience</option>
           <option value="human">Human</option>
           <option value="pet">Pet</option>
         </select>
         </div>
         <div className="col-sm-5">
-          <select className="form-select" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange}>
-            <option disabled>Select Type</option>
+          <select className="form-select" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange} required>
+            <option value="" selected>Select Type</option>
             <GetCategories audience={audience}/>
           </select>
         </div>

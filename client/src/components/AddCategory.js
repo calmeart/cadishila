@@ -28,7 +28,6 @@ function AddCategory(props) {
     }).catch(err => {
       props.appointError(err.message);
     })
-
   };
 
   return (
