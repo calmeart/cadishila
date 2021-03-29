@@ -86,11 +86,11 @@ function AddProduct(props) {
 
   return (
 
-    <div class="dropup w-100">
-      <button type="button" class="btn btn-primary dropdown-toggle w-100" id="dropdownAddProduct" data-bs-toggle="dropdown" aria-expanded="false">
+    <div className="dropup w-100">
+      <button type="button" className="btn btn-primary dropdown-toggle w-100" id="dropdownAddProduct" data-bs-toggle="dropdown" aria-expanded="false">
         Add Product
       </button>
-      <div class="dropdown-menu w-100" aria-labelledby="dropdownAddProduct" onClick={(e) => e.stopPropagation()}>
+      <div className="dropdown-menu w-100" aria-labelledby="dropdownAddProduct" onClick={(e) => e.stopPropagation()}>
         <form className="p-3 bg-light" onSubmit={handleSubmit}>
 
           <div className="row mb-3">

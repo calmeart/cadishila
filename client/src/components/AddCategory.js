@@ -32,11 +32,11 @@ function AddCategory(props) {
 
   return (
 
-    <div class="btn-group dropup w-100">
-      <button type="button" class="btn btn-primary dropdown-toggle" id="dropdownAddCategory" data-bs-toggle="dropdown" aria-expanded="false">
+    <div className="btn-group dropup w-100">
+      <button type="button" className="btn btn-primary dropdown-toggle" id="dropdownAddCategory" data-bs-toggle="dropdown" aria-expanded="false">
         Add Category
       </button>
-      <div class="dropdown-menu w-100" aria-labelledby="dropdownAddCategory" onClick={(e) => e.stopPropagation()}>
+      <div className="dropdown-menu w-100" aria-labelledby="dropdownAddCategory" onClick={(e) => e.stopPropagation()}>
         <form className="p-3 bg-light" onSubmit={handleSubmit}>
           <h5 className="mb-3 text-center">Add Category</h5>
           <div className="mb-3">
