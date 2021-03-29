@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useMutation } from '@apollo/client';
 import { CategoryMutation } from '../graphql/queries';
 
-function AddCategory() {
+function AddCategory(props) {
   const [addCategory] = useMutation(CategoryMutation);
   const [category, setCategory] = useState({
     name: "",
@@ -15,14 +15,20 @@ function AddCategory() {
   };
 
   function handleSubmit(e) {
+    e.preventDefault();
     const { name, audience } = category;
-    addCategory({
+    const returnedPromise = addCategory({
       variables: {
         name,
         audience
       }
     });
-    setCategory(prev => ({ ...prev, name: "" }));
+    returnedPromise.then(result => {
+      setCategory(prev => ({ ...prev, name: "" }));
+    }).catch(err => {
+      props.appointError(err.message);
+    })
+
   };
 
   return (

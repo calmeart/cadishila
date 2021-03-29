@@ -24,7 +24,7 @@ function GetCategories({ audience }) {
 
 // { resetState, handleNameInputChange, handleDescriptionInputChange, handlePriceInputChange, handleSizeInputChange, handleCategoryIdInputChange, handleAudienceInputChange, name, description, price, size, categoryId, audience }
 
-function AddProduct() {
+function AddProduct(props) {
   const [addProduct] = useMutation(ProductMutation);
 
   const [product, setProduct] = useState({
@@ -62,25 +62,24 @@ function AddProduct() {
 
   function handleSubmit(e) {
     e.preventDefault()
-    console.log(product);
-    try {
-      addProduct({
-        variables: product,
-        refetchQueries: [{query: GetProductsQuery }]
-      })
-      setProduct({
-        name: "",
-        description: "",
-        price: "",
-        size: [],
-        categoryId: "Select Type"
-      });
-      setAudience("Select Audience");
-      unCheck();
-    }
-    catch (err) {
-      return console.log(err);
-    }
+    const returnedPromise = addProduct({
+      variables: product,
+      refetchQueries: [{query: GetProductsQuery }]
+    });
+    returnedPromise.then((result => {
+        console.log('success');
+        setProduct({
+            name: "",
+            description: "",
+            price: "",
+            size: [],
+            categoryId: "Select Type"
+        });
+        setAudience("Select Audience");
+        unCheck();
+    })).catch(err => {
+      props.appointError(err.message);
+    })
   }
 
   return (
@@ -138,6 +137,8 @@ function AddProduct() {
         <button type="submit" className="btn btn-primary col-sm-2">Submit</button>
       </div>
     </form>
+
+
   )
 }
 
