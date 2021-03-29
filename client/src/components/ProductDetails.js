@@ -20,7 +20,7 @@ function DisplayProductDetails({ id, selectProduct }) {
 
   return (
     <div className="productContainer">
-      <div className="productImg">This will be an image</div>
+      <div className="productImg"><img src={data.product.imageLink} alt={data.product.description} /></div>
       <div className="p-3">
         <h5>{data.product.name}</h5>
         <p>{data.product.description}</p>

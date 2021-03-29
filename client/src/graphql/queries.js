@@ -16,7 +16,10 @@ query ($id: ID!) {
       products {
         id
         name
+        description
         price
+        imageLink
+
       }
     }
   }
