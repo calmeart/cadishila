@@ -80,20 +80,6 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return Category.find({audience: args.audience});
       }
-    },
-    deleteProduct: {
-      type: ProductType,
-      args: { id: { type: GraphQLID }},
-      resolve( parents, args ) {
-        return Product.findByIdAndDelete(args.id)
-      }
-    },
-    deleteCategory: {
-      type: CategoryType,
-      args: { id: { type: GraphQLID }},
-      resolve( parents, args ) {
-        return Category.findByIdAndDelete(args.id)
-      }
     }
   }
 });
@@ -169,6 +155,20 @@ const MutationType = new GraphQLObjectType({
         catch (err) {
           return err;
         }
+      }
+    },
+    deleteProduct: {
+      type: ProductType,
+      args: { id: { type: GraphQLID }},
+      resolve( parents, args ) {
+        return Product.findByIdAndDelete(args.id)
+      }
+    },
+    deleteCategory: {
+      type: CategoryType,
+      args: { id: { type: GraphQLID }},
+      resolve( parents, args ) {
+        return Category.findByIdAndDelete(args.id)
       }
     }
   }
