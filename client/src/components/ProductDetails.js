@@ -51,7 +51,7 @@ function DisplayProductDetails({ id, selectProduct }) {
       <div className="p-3">
         <h5 className="card-title">Similar Products</h5>
         <div className="d-flex">
-          {data.product.category.products.map(item => {
+          {data.product.category.products.filter(item => (item.id !== data.product.id)).map(item => {
             return <ProductCard key={item.id} item={item} selectProduct={selectProduct} />
           })}
         </div>
