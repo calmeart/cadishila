@@ -1,6 +1,23 @@
 import React from "react";
+import { useMutation } from '@apollo/client';
+import { DeleteProductMutation } from '../graphql/queries';
 
-function DeleteButton() {
+function DeleteButton({ id, appointError }) {
+  const [deleteProduct] = useMutation(DeleteProductMutation);
+
+  function handleDelete() {
+
+    const returnedPromise = deleteProduct({ variables: { id } });
+    returnedPromise.then(() => {
+      window.location.reload(false);
+    }).catch(err => {
+      console.log(err);
+    })
+  }
+
+
+
+
   return (
     <div>
       <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -14,7 +31,7 @@ function DeleteButton() {
               Are you sure you want to delete this product?
             </div>
             <div className="modal-footer">
-              <button type="button" className="btn btn-danger">Delete</button>
+              <button type="button" className="btn btn-danger" onClick={handleDelete}>Delete</button>
             </div>
           </div>
         </div>

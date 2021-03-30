@@ -67,7 +67,7 @@ class ProductDetails extends Component {
         <div id="productDetailsBox">
           <DisplayProductDetails id={this.props.id} selectProduct={this.props.selectProduct}/>
         </div>
-        <DeleteButton />
+        <DeleteButton id={this.props.id} />
       </div>
     )
   }

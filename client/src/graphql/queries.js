@@ -47,8 +47,8 @@ const GetCategoriesQuery = gql`
   }
 `;
 
-const DeleteProductQuery = gql`
-  query ($id: ID!) {
+const DeleteProductMutation = gql`
+  mutation ($id: ID!) {
     deleteProduct(id: $id) {
       id
     }
@@ -96,4 +96,4 @@ const EditProductMutation = gql`
 `;
 
 
-export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation};
+export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation, DeleteProductMutation};
