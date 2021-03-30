@@ -80,6 +80,20 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return Category.find({audience: args.audience});
       }
+    },
+    deleteProduct: {
+      type: ProductType,
+      args: { id: { type: GraphQLID }},
+      resolve( parents, args ) {
+        return Product.findByIdAndDelete(args.id)
+      }
+    },
+    deleteCategory: {
+      type: CategoryType,
+      args: { id: { type: GraphQLID }},
+      resolve( parents, args ) {
+        return Category.findByIdAndDelete(args.id)
+      }
     }
   }
 });
@@ -130,6 +144,31 @@ const MutationType = new GraphQLObjectType({
           return err;
         }
 
+      }
+    },
+    editProduct: {
+      type: ProductType,
+      args: {
+        id: { type: GraphQLID },
+        name: { type: new GraphQLNonNull(GraphQLString) },
+        description: { type: new GraphQLNonNull(GraphQLString) },
+        price: { type: new GraphQLNonNull(GraphQLString) },
+        size: { type: new GraphQLList(GraphQLString) },
+        categoryId: { type: new GraphQLNonNull(GraphQLString) },
+        imageLink: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      resolve( parents, args ) {
+        const { id, name, description, price, size, categoryId, imageLink } = args;
+        try {
+          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink });
+          if (tempProduct.error) {
+            throw new Error(tempProduct.error.details[0].message);
+          }
+          return Product.findByIdAndUpdate(id, { $set: { name, description, price, size, categoryId, imageLink }});
+        }
+        catch (err) {
+          return err;
+        }
       }
     }
   }
