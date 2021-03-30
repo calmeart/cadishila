@@ -47,6 +47,14 @@ const GetCategoriesQuery = gql`
   }
 `;
 
+const DeleteProductQuery = gql`
+  query ($id: ID!) {
+    deleteProduct(id: $id) {
+      id
+    }
+  }
+`;
+
 const CategoryMutation = gql`
   mutation ($name: String!, $audience: String!) {
     addCategory(name: $name, audience: $audience) {
@@ -60,6 +68,21 @@ const CategoryMutation = gql`
 const ProductMutation = gql`
   mutation ($name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!, $imageLink: String!) {
     addProduct(name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId, imageLink: $imageLink) {
+      id
+      name
+      price
+      category {
+        id
+        name
+        audience
+      }
+    }
+  }
+`;
+
+const EditProductMutation = gql`
+  mutation ($id: ID!, $name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!, $imageLink: String!) {
+    addProduct(id: $id, name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId, imageLink: $imageLink) {
       id
       name
       price
