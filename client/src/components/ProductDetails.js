@@ -2,6 +2,7 @@ import React, {Component} from "react";
 import { useQuery } from '@apollo/client';
 import { GetProductQuery } from '../graphql/queries';
 import ProductCard from "./ProductCard";
+import DeleteButton from "./deleteButton";
 
 function DisplayProductDetails({ id, selectProduct }) {
   const { loading, error, data } = useQuery(GetProductQuery, {
@@ -22,8 +23,17 @@ function DisplayProductDetails({ id, selectProduct }) {
     <div className="productContainer">
       <div className="productImg"><img src={data.product.imageLink} alt={data.product.description} /></div>
       <div className="p-3">
-        <h5>{data.product.name}</h5>
-        <p>{data.product.description}</p>
+        <div className="d-flex justify-content-between">
+          <div>
+            <h5>{data.product.name}</h5>
+            <p>{data.product.description}</p>
+          </div>
+          <div>
+            <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+              Delete
+            </button>
+          </div>
+        </div>
         <table className="table table-borderless table-sm">
           <tbody>
             <tr>
@@ -53,8 +63,11 @@ function DisplayProductDetails({ id, selectProduct }) {
 class ProductDetails extends Component {
   render() {
     return (
-      <div id="productDetailsBox">
-        <DisplayProductDetails id={this.props.id} selectProduct={this.props.selectProduct}/>
+      <div>
+        <div id="productDetailsBox">
+          <DisplayProductDetails id={this.props.id} selectProduct={this.props.selectProduct}/>
+        </div>
+        <DeleteButton />
       </div>
     )
   }
