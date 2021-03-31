@@ -4,6 +4,7 @@ const {
   GraphQLID,
   GraphQLString,
   GraphQLInt,
+  GraphQLBoolean,
   GraphQLSchema,
   GraphQLList,
   GraphQLNonNull
@@ -12,9 +13,10 @@ const _ = require('lodash');
 
 const Product = require('../models/product-model');
 const Category = require('../models/category-model');
+const User = require('../models/user-model');
 
 const Joi = require('joi');
-const { productSchema, categorySchema } = require('../validation');
+const { productSchema, categorySchema, userSchema } = require('../validation');
 
 
 const ProductType = new GraphQLObjectType({
@@ -50,6 +52,24 @@ const CategoryType = new GraphQLObjectType({
   })
 });
 
+const UserType = new GraphQLObjectType({
+  name: 'User',
+  fields: () => ({
+    id: { type: GraphQLID },
+    username: { type: GraphQLString },
+    password:  { type: GraphQLString },
+    email: { type: GraphQLString },
+    isAdmin: { type: GraphQLBoolean },
+    isMember: { type: GraphQLBoolean },
+    products: {
+      type: new GraphQLList(ProductType),
+      resolve( parent, args ) {
+        return Product.find({userId: parent.id});
+      }
+    }
+  })
+});
+
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
   fields: {
@@ -64,7 +84,6 @@ const RootQuery = new GraphQLObjectType({
       type: CategoryType,
       args: {id: { type: GraphQLID }},
       resolve(parents, args) {
-        //return _.find(collections, { id: args.id })
         return Category.findById(args.id)
       }
     },
@@ -169,6 +188,59 @@ const MutationType = new GraphQLObjectType({
       args: { id: { type: GraphQLID }},
       resolve( parents, args ) {
         return Category.findByIdAndDelete(args.id)
+      }
+    },
+    registerUser: {
+      type: UserType,
+      args: {
+        username: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      async resolve( parent, args ) {
+        const { username, password, email } = args;
+
+        try {
+          const tempUser = userSchema.validate({username, password, email});
+          if (tempUser.error) {
+            throw new Error(tempUser.error.details[0].message);
+          }
+
+          const checkEmail = await User.findOne({ email });
+          if (checkEmail) throw new Error('This email address is already registered');
+
+          const checkUserName = await User.findOne({ username });
+          if (checkUserName) throw new Error('This username is already taken');
+
+          tempUser.value.isAdmin = false;
+          tempUser.value.isMember = true;
+          return new User(tempUser.value).save();
+        }
+        catch (err) {
+          return err;
+        }
+      }
+    },
+    loginUser: {
+      type: UserType,
+      args: {
+        password: { type: new GraphQLNonNull(GraphQLString) },
+        email: { type: new GraphQLNonNull(GraphQLString) }
+      },
+      async resolve( parent, args ) {
+        const { password, email } = args;
+
+        try {
+          const user = await User.findOne({email});
+
+          if (!user) throw new Error('there is no account with this email address');
+          if (password !== user.password) throw new Error('password is wrong');
+
+          return user
+        }
+        catch (err) {
+          return err;
+        }
       }
     }
   }
