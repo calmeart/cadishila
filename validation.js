@@ -25,4 +25,10 @@ const categorySchema = Joi.object({
     .required()
 });
 
-module.exports = { productSchema, categorySchema };
+const userSchema = Joi.object({
+  username: Joi.string().alphanum().trim().min(5).max(50).required(),
+  email: Joi.string().required().email(),
+  password: Joi.string().trim().min(8).max(50).required()
+});
+
+module.exports = { productSchema, categorySchema, userSchema };
