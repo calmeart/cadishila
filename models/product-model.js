@@ -32,6 +32,10 @@ const mongoProductSchema = new mongoose.Schema({
   imageLink: {
     type: String,
     required: true
+  },
+  userId: {
+    type: String,
+    required: true
   }
 });
 

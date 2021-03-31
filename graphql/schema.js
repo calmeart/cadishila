@@ -33,6 +33,12 @@ const ProductType = new GraphQLObjectType({
       resolve(parent, args) {
         return Category.findById(parent.categoryId);
       }
+    },
+    user: {
+      type: UserType,
+      resolve( parent, args ) {
+        return User.findById(parent.userId);
+      }
     }
   })
 });
@@ -114,12 +120,13 @@ const MutationType = new GraphQLObjectType({
         price: { type: new GraphQLNonNull(GraphQLString) },
         size: { type: new GraphQLList(GraphQLString) },
         categoryId: { type: new GraphQLNonNull(GraphQLString) },
-        imageLink: { type: new GraphQLNonNull(GraphQLString) }
+        imageLink: { type: new GraphQLNonNull(GraphQLString) },
+        userId: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        const { name, description, price, size, categoryId, imageLink } = args;
+        const { name, description, price, size, categoryId, imageLink, userId } = args;
         try {
-          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink });
+          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink, userId });
           if (tempProduct.error) {
             throw new Error(tempProduct.error.details[0].message);
           }
