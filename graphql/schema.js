@@ -10,12 +10,12 @@ const {
   GraphQLNonNull
  } = graphql;
 const _ = require('lodash');
+const Joi = require('joi');
+const jwt = require('jsonwebtoken');
 
 const Product = require('../models/product-model');
 const Category = require('../models/category-model');
 const User = require('../models/user-model');
-
-const Joi = require('joi');
 const { productSchema, categorySchema, userSchema } = require('../validation');
 
 
@@ -67,6 +67,7 @@ const UserType = new GraphQLObjectType({
     email: { type: GraphQLString },
     isAdmin: { type: GraphQLBoolean },
     isMember: { type: GraphQLBoolean },
+    token: { type: GraphQLString },
     products: {
       type: new GraphQLList(ProductType),
       resolve( parent, args ) {
@@ -186,8 +187,24 @@ const MutationType = new GraphQLObjectType({
     deleteProduct: {
       type: ProductType,
       args: { id: { type: GraphQLID }},
-      resolve( parents, args ) {
-        return Product.findByIdAndDelete(args.id)
+      resolve( parents, args, context ) {
+
+        console.log(context.req.headers);
+        const authHeader = context.req.headers.authorization;
+        if (authHeader){
+          const token = authHeader.split('Bearer ');
+          if (token) {
+            try {
+              const user = jwt.verify(token, process.env.JWT_SECRET_KEY);
+              return Product.findByIdAndDelete(args.id)
+            }
+            catch(err) {
+              throw err;
+            }
+          }
+          throw new Error('You are not allowed to use this property');
+        }
+        throw new Error('Authorization is not provided.')
       }
     },
     deleteCategory: {
@@ -221,7 +238,12 @@ const MutationType = new GraphQLObjectType({
 
           tempUser.value.isAdmin = false;
           tempUser.value.isMember = true;
-          return new User(tempUser.value).save();
+
+          const user = new User(tempUser.value);
+          const res = await user.save();
+          const token = jwt.sign({user}, process.env.JWT_SECRET_KEY);
+
+          return { ...res._doc, id: res._id, token };
         }
         catch (err) {
           return err;
@@ -243,7 +265,9 @@ const MutationType = new GraphQLObjectType({
           if (!user) throw new Error('there is no account with this email address');
           if (password !== user.password) throw new Error('password is wrong');
 
-          return user
+          const token = jwt.sign({user}, process.env.JWT_SECRET_KEY);
+
+          return {...user._doc, id: user._id, token };
         }
         catch (err) {
           return err;
