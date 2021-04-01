@@ -1,3 +1,4 @@
+const bcrypt = require('bcrypt');
 const graphql = require('graphql');
 const {
   GraphQLObjectType,
@@ -236,6 +237,9 @@ const MutationType = new GraphQLObjectType({
           const checkUserName = await User.findOne({ username });
           if (checkUserName) throw new Error('This username is already taken');
 
+          const hash = await bcrypt.hash(tempUser.value.password, 12);
+          tempUser.value.password = hash;
+
           tempUser.value.isAdmin = false;
           tempUser.value.isMember = true;
 
@@ -263,7 +267,8 @@ const MutationType = new GraphQLObjectType({
           const user = await User.findOne({email});
 
           if (!user) throw new Error('there is no account with this email address');
-          if (password !== user.password) throw new Error('password is wrong');
+          const checkPassword = await bcrypt.compare(password, user.password);
+          if (!checkPassword) throw new Error('password is wrong');
 
           const token = jwt.sign({user}, process.env.JWT_SECRET_KEY);
 
