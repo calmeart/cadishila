@@ -10,10 +10,11 @@ require('./models/connection')();
 
 app.use(express.static(path.join(__dirname, '/client/build')));
 app.use(cors());
-app.use('/graphql', graphqlHTTP({
+app.use('/graphql', graphqlHTTP((req, res, graphQLParams) => ({
   schema,
-  graphiql: true
-}))
+  graphiql: true,
+  context: { req }
+})));
 
 app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname + '/client/build/index.html'))
