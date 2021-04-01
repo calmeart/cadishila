@@ -10,4 +10,4 @@ const mongoOrderSchema = new mongoose.Schema({
   userId: String
 });
 
-module.exports = new mongoose.model('User', mongoOrderSchema);
+module.exports = new mongoose.model('Order', mongoOrderSchema);
