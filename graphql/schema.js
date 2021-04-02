@@ -51,6 +51,31 @@ const RootQuery = new GraphQLObjectType({
       resolve(parent, args) {
         return Category.find({audience: args.audience});
       }
+    },
+    users: {
+      type: new GraphQLList(UserType),
+      resolve( parent, args ) {
+        return User.find({});
+      }
+    },
+    orders: {
+      type: new GraphQLList(OrderType),
+      resolve( parent, args ) {
+        return Order.find({});
+      }
+    },
+    reviews: {
+      type: new GraphQLList(ReviewType),
+      resolve( parent, args ) {
+        return Review.find({});
+      }
+    },
+    productReviews: {
+      type: new GraphQLList(ReviewType),
+      args: { id: { type: GraphQLID }},
+      resolve( parent, args ) {
+        return Review.find({ productId: args.productId })
+      }
     }
   }
 });
