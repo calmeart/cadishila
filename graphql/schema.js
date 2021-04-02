@@ -17,6 +17,8 @@ const jwt = require('jsonwebtoken');
 const Product = require('../models/product-model');
 const Category = require('../models/category-model');
 const User = require('../models/user-model');
+const Review = require('../models/review-model');
+const Order = require('../models/order-model');
 const { productSchema, categorySchema, userSchema } = require('../validation');
 
 
@@ -35,10 +37,10 @@ const ProductType = new GraphQLObjectType({
         return Category.findById(parent.categoryId);
       }
     },
-    user: {
-      type: UserType,
+    reviews: {
+      type: ReviewType,
       resolve( parent, args ) {
-        return User.findById(parent.userId);
+        return Review.find({ productId: parent.id });
       }
     }
   })
@@ -75,6 +77,35 @@ const UserType = new GraphQLObjectType({
         return Product.find({userId: parent.id});
       }
     }
+  })
+});
+
+const ReviewType = new GraphQLObjectType({
+  name: 'Review',
+  fields: () => ({
+    id: { type: GraphQLID },
+    userId: { type: GraphQLID },
+    productId: { type: GraphQLID },
+    reviewBody: { type: GraphQLString },
+    score: { type: GraphQLString },
+    images: { type: new GraphQLList(GraphQLString) },
+    createdAt: { type: GraphQLString }
+  })
+});
+
+const OrderType = new GraphQLObjectType({
+  name: 'Order',
+  fields: () => ({
+    id: { type: GraphQLID },
+    productName: { type: GraphQLString },
+    productSize: { type: GraphQLString },
+    productPrice: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
+    deliveryMethod: { type: GraphQLString },
+    deliveryAddress: { type: GraphQLString },
+    userId: { type: GraphQLID },
+    status: { type: GraphQLString },
+    deliveredAt: { type: GraphQLString }
   })
 });
 
