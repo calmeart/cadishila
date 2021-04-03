@@ -95,5 +95,25 @@ const EditProductMutation = gql`
   }
 `;
 
+const LoginUser = gql`
+  mutation ($email: String!, $password: String!) {
+    loginUser(email: $email, password: $password) {
+      id
+      username
+      email
+    }
+  }
+`
 
-export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation, DeleteProductMutation};
+const RegisterUser = gql`
+  mutation ($username: String!, $email: String!, $password: String!) {
+    registerUser(username: $username, email: $email, password: $password) {
+      id
+      username
+      email
+    }
+  }
+`
+
+
+export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation, DeleteProductMutation, LoginUser, RegisterUser};

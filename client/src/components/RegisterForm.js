@@ -1,4 +1,7 @@
 import React, { useState } from "react";
+import { useMutation } from '@apollo/client';
+
+import { RegisterUser } from '../graphql/queries';
 
 function RegisterForm() {
 
@@ -9,6 +12,8 @@ function RegisterForm() {
     confirmPassword: ""
   });
 
+  const [registerUser] = useMutation(RegisterUser);
+
   function handleChange(e) {
     const { name, value } = e.target;
     setRegisterInput(prev => ({
@@ -17,9 +22,36 @@ function RegisterForm() {
     }));
   };
 
+  function handleSubmit(e) {
+    const { username, email, password, confirmPassword} = registerInput;
+    e.preventDefault();
+    if (password !== confirmPassword) {
+      console.log('Confirm Password is wrong');
+      return;
+    }
+    const user = registerUser({
+      variables: {
+        username,
+        email,
+        password
+      }
+    })
+    user.then(result => {
+      console.log(result);
+      setRegisterInput({
+        username: "",
+        email: "",
+        password: "",
+        confirmPassword: ""
+      })
+    }).catch(err => {
+      console.log(err.message)
+    })
+  }
+
   return (
     <div>
-      <form>
+      <form onSubmit={handleSubmit}>
         <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
 
         <div className="form-floating mb-3">
@@ -27,7 +59,7 @@ function RegisterForm() {
           <label htmlFor="usernameInput">Username</label>
         </div>
         <div className="form-floating mb-3">
-          <input type="email" className="form-control" name="password" value={registerInput.email} onChange={handleChange} id="emailInput" placeholder="E-Mail" />
+          <input type="email" className="form-control" name="email" value={registerInput.email} onChange={handleChange} id="emailInput" placeholder="E-Mail" />
           <label htmlFor="emailInput">E-Mail</label>
         </div>
 
