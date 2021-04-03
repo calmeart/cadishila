@@ -2,16 +2,14 @@ import React, { useState } from "react";
 import { ApolloClient, InMemoryCache, ApolloProvider} from '@apollo/client'
 import { BrowserRouter as Router, Route, Switch, Link } from "react-router-dom";
 
-import ProductList from "./ProductList";
-import AddProduct from "./AddProduct";
-import AddCategory from "./AddCategory";
-import ProductDetails from "./ProductDetails";
-import ErrorToast from "./ErrorToast";
+import Home from "../pages/home";
+import About from "../pages/about";
+import Login from "../pages/login";
 
 const client = new ApolloClient({
   uri: "/graphql",
   cache: new InMemoryCache()
-})
+});
 
 function App() {
 
@@ -22,38 +20,7 @@ function App() {
   function handleNavbarClick(e) {
     setActiveLink(e.target.name);
   };
-  // constructor(props) {
-  //   super(props);
-  //   this.state = {
-  //     productId: "",
-  //     errorMessage: "",
-  //     errorState: false
-  //   };
-  //   this.selectProduct = this.selectProduct.bind(this);
-  //   this.appointError = this.appointError.bind(this);
-  //   this.dismissError = this.dismissError.bind(this);
-  // }
 
-  // selectProduct(e) {
-  //   e.preventDefault();
-  //   this.setState({
-  //     productId: e.target.value
-  //   })
-  // };
-  //
-  // appointError(errMessage) {
-  //   this.setState({
-  //     errorMessage: errMessage,
-  //     errorState: true
-  //   })
-  // }
-  //
-  // dismissError() {
-  //   this.setState({
-  //     errorMessage: "",
-  //     errorState: false
-  //   })
-  // }
     return (
       <ApolloProvider client={client}>
         <Router>
@@ -82,31 +49,18 @@ function App() {
 
             <Switch>
               <Route path="/about" >
-                <h1>About</h1>
+                <About />
               </Route>
               <Route path="/login" >
-                <h1>Login</h1>
+                <Login />
               </Route>
               <Route path="/" >
-                <h1>Home</h1>
+                <Home />
               </Route>
             </Switch>
 
           </div>
         </Router>
-        {
-        // <div>
-        //   <ProductList selectProduct={this.selectProduct}/>
-        //   <ProductDetails id={this.state.productId} selectProduct={this.selectProduct} />
-        //   <div id="addProductBox">
-        //     <AddProduct appointError={this.appointError}  />
-        //   </div>
-        //   <div id="addCategoryBox">
-        //     <AddCategory appointError={this.appointError} />
-        //   </div>
-        //   {this.state.errorState && (<ErrorToast errorMessage={this.state.errorMessage} dismissError={this.dismissError} />)}
-        // </div>
-        }
       </ApolloProvider>
     );
 }
