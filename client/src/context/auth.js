@@ -10,7 +10,7 @@ const initialState = {
 
 if (localStorage.getItem('jwtToken')) {
   const decodedToken = jwtDecode(localStorage.getItem('jwtToken'));
-  initialState.user = decodedToken;
+  initialState.user = decodedToken.user;
 }
 
 const AuthContext = createContext({
