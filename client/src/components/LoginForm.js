@@ -27,7 +27,6 @@ function LoginForm(props) {
       variables: loginInput
     })
     user.then(result => {
-      console.log(result.data.loginUser);
       context.login(result.data.loginUser);
       setLoginInput({
         email: "",

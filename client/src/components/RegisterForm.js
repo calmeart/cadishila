@@ -38,7 +38,6 @@ function RegisterForm(props) {
       }
     })
     user.then(result => {
-      console.log(result.data.registerUser);
       context.login(result.data.registerUser);
       setRegisterInput({
         username: "",

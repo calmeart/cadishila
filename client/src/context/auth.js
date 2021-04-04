@@ -3,6 +3,10 @@ import React, { useReducer, createContext } from 'react';
 const LOGIN = 'LOGIN';
 const LOGOUT = 'LOGOUT';
 
+const initialState = {
+  user: null
+}
+
 const AuthContext = createContext({
   user: null,
   login: (userData) => {},
@@ -27,7 +31,7 @@ const authReducer = (state, action) => {
 };
 
 function AuthProvider(props) {
-  const [state, dispatch] = useReducer(authReducer, { user: null });
+  const [state, dispatch] = useReducer(authReducer, initialState);
 
   function login(userData) {
     dispatch({
