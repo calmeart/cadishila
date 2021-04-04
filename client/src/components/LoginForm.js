@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 
 import { LoginUser } from '../graphql/queries';
 
-function LoginForm() {
+function LoginForm(props) {
 
   const [loginInput, setLoginInput] = useState({
     email: "",
@@ -30,7 +30,8 @@ function LoginForm() {
       setLoginInput({
         email: "",
         password: ""
-      })
+      });
+      props.history.push('/');
     }).catch(err => {
       console.log(err.message)
     })

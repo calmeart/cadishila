@@ -3,7 +3,7 @@ import { useMutation } from '@apollo/client';
 
 import { RegisterUser } from '../graphql/queries';
 
-function RegisterForm() {
+function RegisterForm(props) {
 
   const [registerInput, setRegisterInput] = useState({
     username: "",
@@ -44,6 +44,7 @@ function RegisterForm() {
         password: "",
         confirmPassword: ""
       })
+      props.history.push("/");
     }).catch(err => {
       console.log(err.message)
     })

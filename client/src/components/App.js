@@ -48,15 +48,10 @@ function App() {
             </nav>
 
             <Switch>
-              <Route path="/about" >
-                <About />
-              </Route>
-              <Route path="/login" >
-                <Login />
-              </Route>
-              <Route path="/" >
-                <Home />
-              </Route>
+              <Route path="/about" component={About} />
+              <Route path="/login" component={Login} />
+              <Route path="/" component={Home} />
+
             </Switch>
 
           </div>
