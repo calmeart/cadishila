@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation } from '@apollo/client';
 
+import { AuthContext } from '../context/auth';
 import { RegisterUser } from '../graphql/queries';
 
 function RegisterForm(props) {
-
+  const context = useContext(AuthContext);
   const [registerInput, setRegisterInput] = useState({
     username: "",
     email: "",
@@ -37,7 +38,8 @@ function RegisterForm(props) {
       }
     })
     user.then(result => {
-      console.log(result);
+      console.log(result.data.registerUser);
+      context.login(result.data.registerUser);
       setRegisterInput({
         username: "",
         email: "",

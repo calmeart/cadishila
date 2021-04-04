@@ -101,6 +101,7 @@ const LoginUser = gql`
       id
       username
       email
+      token
     }
   }
 `
@@ -111,6 +112,7 @@ const RegisterUser = gql`
       id
       username
       email
+      token
     }
   }
 `

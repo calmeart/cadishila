@@ -1,10 +1,11 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useMutation } from '@apollo/client';
 
+import { AuthContext } from "../context/auth";
 import { LoginUser } from '../graphql/queries';
 
 function LoginForm(props) {
-
+  const context = useContext(AuthContext);
   const [loginInput, setLoginInput] = useState({
     email: "",
     password: ""
@@ -26,7 +27,8 @@ function LoginForm(props) {
       variables: loginInput
     })
     user.then(result => {
-      console.log(result);
+      console.log(result.data.loginUser);
+      context.login(result.data.loginUser);
       setLoginInput({
         email: "",
         password: ""
