@@ -6,17 +6,11 @@ import AddCategory from "../components/AddCategory";
 import ProductDetails from "../components/ProductDetails";
 
 function Home(props) {
-  const [productId, setProductId] = useState("");
   const [audience, setAudience] = useState("Human");
 
   function handleAudienceClick(e) {
     const { name } = e.target
     setAudience(name);
-  };
-
-  function selectProduct(e) {
-    e.preventDefault();
-    setProductId(e.target.value);
   };
 
   return (
@@ -26,7 +20,7 @@ function Home(props) {
         <button className="btn btn-primary mx-5" name="Human" onClick={handleAudienceClick}>Human</button>
         <button className="btn btn-primary mx-5" name="Pet" onClick={handleAudienceClick}>Pet</button>
       </div>
-      <ProductList selectProduct={selectProduct} audience={audience}/>
+      <ProductList audience={audience}/>
       {
       //   <ProductDetails id={productId} selectProduct={selectProduct} />
       // <div id="addProductBox">

@@ -8,6 +8,7 @@ import Home from "../pages/home";
 import About from "../pages/about";
 import Login from "../pages/login";
 import ErrorToast from "./ErrorToast";
+import ProductDetails from "./ProductDetails";
 
 function App() {
   const [errors, setErrors] = useState({
@@ -36,7 +37,7 @@ function App() {
             <div className="container">
 
               <NavBar />
-              
+
               <Switch>
                 <Route
                   exact
@@ -52,6 +53,11 @@ function App() {
                   exact
                   path="/"
                   render={(props) => (<Home {...props} appointError={appointError} />)}
+                  />
+                <Route
+                  exact
+                  path="/products/:id"
+                  component={ProductDetails}
                   />
               </Switch>
               {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}

@@ -1,10 +1,11 @@
 import React, {Component} from "react";
+import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client';
 import { GetProductQuery } from '../graphql/queries';
 import ProductCard from "./ProductCard";
 import DeleteButton from "./deleteButton";
 
-function DisplayProductDetails({ id, selectProduct }) {
+function DisplayProductDetails({ id }) {
   const { loading, error, data } = useQuery(GetProductQuery, {
     variables: { id }
   });
@@ -52,7 +53,7 @@ function DisplayProductDetails({ id, selectProduct }) {
         <h5 className="card-title">Similar Products</h5>
         <div className="d-flex">
           {data.product.category.products.filter(item => (item.id !== data.product.id)).map(item => {
-            return <ProductCard key={item.id} item={item} selectProduct={selectProduct} />
+            return <ProductCard key={item.id} item={item} />
           })}
         </div>
       </div>
@@ -60,17 +61,18 @@ function DisplayProductDetails({ id, selectProduct }) {
   );
 }
 
-class ProductDetails extends Component {
-  render() {
+function ProductDetails(props) {
+
+  const { id } = useParams();
+
     return (
       <div>
         <div id="productDetailsBox">
-          <DisplayProductDetails id={this.props.id} selectProduct={this.props.selectProduct}/>
+          <DisplayProductDetails id={id} />
         </div>
-        <DeleteButton id={this.props.id} />
+        <DeleteButton id={id} />
       </div>
     )
-  }
 }
 
 export default ProductDetails;
