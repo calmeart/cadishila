@@ -7,6 +7,12 @@ import ProductDetails from "../components/ProductDetails";
 
 function Home(props) {
   const [productId, setProductId] = useState("");
+  const [audience, setAudience] = useState("Human");
+
+  function handleAudienceClick(e) {
+    const { name } = e.target
+    setAudience(name);
+  };
 
   function selectProduct(e) {
     e.preventDefault();
@@ -15,14 +21,21 @@ function Home(props) {
 
   return (
     <div>
-      <ProductList selectProduct={selectProduct}/>
-      <ProductDetails id={productId} selectProduct={selectProduct} />
-      <div id="addProductBox">
-        <AddProduct appointError={props.appointError}  />
+      <div id="header" className="text-center">
+        <h1>CadiShila</h1>
+        <button className="btn btn-primary mx-5" name="Human" onClick={handleAudienceClick}>Human</button>
+        <button className="btn btn-primary mx-5" name="Pet" onClick={handleAudienceClick}>Pet</button>
       </div>
-      <div id="addCategoryBox">
-        <AddCategory appointError={props.appointError} />
-      </div>
+      <ProductList selectProduct={selectProduct} audience={audience}/>
+      {
+      //   <ProductDetails id={productId} selectProduct={selectProduct} />
+      // <div id="addProductBox">
+      //   <AddProduct appointError={props.appointError}  />
+      // </div>
+      // <div id="addCategoryBox">
+      //   <AddCategory appointError={props.appointError} />
+      // </div>
+    }
 
     </div>
   )

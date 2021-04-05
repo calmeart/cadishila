@@ -34,6 +34,11 @@ query {
     description
     price
     imageLink
+    category {
+      id
+      name
+      audience
+    }
   }
 }
 `;
