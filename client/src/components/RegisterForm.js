@@ -38,13 +38,13 @@ function RegisterForm(props) {
       }
     })
     user.then(result => {
-      context.login(result.data.registerUser);
       setRegisterInput({
         username: "",
         email: "",
         password: "",
         confirmPassword: ""
       })
+      context.login(result.data.registerUser);
       props.history.push("/");
     }).catch(err => {
       console.log(err.message)

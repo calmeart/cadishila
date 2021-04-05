@@ -27,11 +27,11 @@ function LoginForm(props) {
       variables: loginInput
     })
     user.then(result => {
-      context.login(result.data.loginUser);
       setLoginInput({
         email: "",
         password: ""
       });
+      context.login(result.data.loginUser);
       props.history.push('/');
     }).catch(err => {
       console.log(err.message)
