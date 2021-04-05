@@ -47,7 +47,7 @@ function RegisterForm(props) {
       context.login(result.data.registerUser);
       props.history.push("/");
     }).catch(err => {
-      console.log(err.message)
+      props.appointError(err.message);
     })
   }
 

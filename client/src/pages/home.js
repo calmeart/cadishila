@@ -4,33 +4,13 @@ import ProductList from "../components/ProductList";
 import AddProduct from "../components/AddProduct";
 import AddCategory from "../components/AddCategory";
 import ProductDetails from "../components/ProductDetails";
-import ErrorToast from "../components/ErrorToast";
 
-function Home() {
-
+function Home(props) {
   const [productId, setProductId] = useState("");
-  const [errors, setErrors] = useState({
-    errorMessage: "",
-    errorState: false
-  });
 
   function selectProduct(e) {
     e.preventDefault();
     setProductId(e.target.value);
-  };
-
-  function appointError(errMessage) {
-    setErrors({
-      errorMessage: errMessage,
-      errorState: true
-    });
-  };
-
-  function dismissError() {
-    setErrors({
-      errorMessage: "",
-      errorState: false
-    });
   };
 
   return (
@@ -38,12 +18,12 @@ function Home() {
       <ProductList selectProduct={selectProduct}/>
       <ProductDetails id={productId} selectProduct={selectProduct} />
       <div id="addProductBox">
-        <AddProduct appointError={appointError}  />
+        <AddProduct appointError={props.appointError}  />
       </div>
       <div id="addCategoryBox">
-        <AddCategory appointError={appointError} />
+        <AddCategory appointError={props.appointError} />
       </div>
-      {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}
+
     </div>
   )
 

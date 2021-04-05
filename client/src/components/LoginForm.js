@@ -34,7 +34,7 @@ function LoginForm(props) {
       context.login(result.data.loginUser);
       props.history.push('/');
     }).catch(err => {
-      console.log(err.message)
+      props.appointError(err.message);
     })
   }
 
