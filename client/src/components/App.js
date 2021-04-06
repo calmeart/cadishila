@@ -16,6 +16,34 @@ function App() {
     errorMessage: "",
     errorState: false
   });
+  const [cartContent, setCartContent] = useState([]);
+
+  function addItemToCart(productObject) {
+    const { id, name, description, size, price, imageLink } = productObject;
+    const isPresent = cartContent.find(item => item.productDetails.id === id)
+    setCartContent(prev => {
+      const tempArray = [...prev];
+      if (isPresent) {
+        const indexOfPresent = cartContent.findIndex(item => item.productDetails.id === id);
+        tempArray.splice(indexOfPresent, 1);
+        isPresent.count++;
+        tempArray.push(isPresent);
+      } else {
+        tempArray.push({
+          productDetails: {
+            id,
+            name,
+            description,
+            size,
+            price,
+            imageLink
+          },
+          count: 1
+        })
+      }
+      return tempArray;
+    })
+  }
 
   function appointError(errMessage) {
     setErrors({
@@ -38,7 +66,7 @@ function App() {
             <div className="container">
 
               <NavBar />
-              <CartContainer />
+              <CartContainer cartContent={cartContent}/>
 
               <Switch>
                 <Route
@@ -59,7 +87,7 @@ function App() {
                 <Route
                   exact
                   path="/products/:id"
-                  component={ProductDetails}
+                  render={(props) => (<ProductDetails {...props} addItemToCart={addItemToCart} />)}
                   />
               </Switch>
               {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}
