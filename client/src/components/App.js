@@ -9,6 +9,7 @@ import About from "../pages/about";
 import Login from "../pages/login";
 import ErrorToast from "./ErrorToast";
 import ProductDetails from "./ProductDetails";
+import CartContainer from "./CartContainer";
 
 function App() {
   const [errors, setErrors] = useState({
@@ -37,6 +38,7 @@ function App() {
             <div className="container">
 
               <NavBar />
+              <CartContainer />
 
               <Switch>
                 <Route

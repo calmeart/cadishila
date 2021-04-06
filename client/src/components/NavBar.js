@@ -27,6 +27,11 @@ function NavBar() {
                 <Link className="nav-link active" to="/" name={context.user.username} >{context.user.username}</Link>
               </li>
               <li className="nav-item">
+                <a className="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Cart
+                </a>
+              </li>
+              <li className="nav-item">
                 <Link className="nav-link" to="/login" name="logout" onClick={context.logout} >Logout</Link>
               </li>
             </ul>
@@ -46,6 +51,11 @@ function NavBar() {
               </li>
               <li className="nav-item">
                 <Link className={activeLink === "about" ? "nav-link active" : "nav-link"} to="/about" name="about" onClick={handleNavbarClick} >About</Link>
+              </li>
+              <li className="nav-item">
+                <a className="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                  Cart
+                </a>
               </li>
               <li className="nav-item">
                 <Link className={activeLink === "login" ? "nav-link active" : "nav-link"} to="/login" name="login" onClick={handleNavbarClick} >Login</Link>
