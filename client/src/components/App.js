@@ -43,6 +43,33 @@ function App() {
       }
       return tempArray;
     })
+  };
+
+  function incrementCountInCart(e) {
+    const { name } = e.target;
+    const tempArray = [...cartContent];
+    const foundProductIndex = tempArray.findIndex(item => item.productDetails.id === name);
+    tempArray[foundProductIndex].count++;
+    setCartContent(tempArray);
+  };
+
+  function decrementCountInCart(e) {
+    const { name } = e.target;
+    const tempArray = [...cartContent];
+    const foundProductIndex = tempArray.findIndex(item => item.productDetails.id === name);
+    if (tempArray[foundProductIndex].count == 0) {
+      return;
+    }
+    tempArray[foundProductIndex].count--;
+    setCartContent(tempArray);
+  };
+
+  function removeItemFromCart(e) {
+    const { name } = e.target;
+    const tempArray = [...cartContent];
+    const foundProductIndex = tempArray.findIndex(item => item.productDetails.id === name);
+    tempArray.splice(foundProductIndex, 1);
+    setCartContent(tempArray);
   }
 
   function appointError(errMessage) {
@@ -66,7 +93,7 @@ function App() {
             <div className="container">
 
               <NavBar />
-              <CartContainer cartContent={cartContent}/>
+              <CartContainer cartContent={cartContent} increment={incrementCountInCart} decrement={decrementCountInCart} remove={removeItemFromCart} />
 
               <Switch>
                 <Route

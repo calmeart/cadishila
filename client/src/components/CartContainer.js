@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CartContainer({ cartContent }) {
+function CartContainer({ cartContent, increment, decrement, remove }) {
 
   let totalPrice = 0;
 
@@ -27,7 +27,7 @@ if (cartContent.length > 0) {
                 </div>
                 <div className="col-md-6">
                   <div className="card-body position-relative">
-                    <button type="button" className="btn-close position-absolute top-0 end-0" aria-label="Close"></button>
+                    <button type="button" className="btn-close position-absolute top-0 end-0" name={item.productDetails.id} onClick={remove} aria-label="Close"></button>
                     <h5 className="card-title">{item.productDetails.name}</h5>
                     <p className="card-text">{item.productDetails.description}</p>
                     <p className="card-text">{item.productDetails.size}</p>
@@ -37,13 +37,13 @@ if (cartContent.length > 0) {
               <div className="row">
                 <div className="col-md-6">
                   <div className="d-flex justify-content-between cartButton align-items-center">
-                    <button type="button" className="btn btn-secondary px-2">-</button>
+                    <button type="button" className="btn btn-secondary px-2" name={item.productDetails.id} onClick={decrement}>-</button>
                     <p className="card-text m-0">{item.count}</p>
-                    <button type="button" className="btn btn-secondary px-2">+</button>
+                    <button type="button" className="btn btn-secondary px-2" name={item.productDetails.id} onClick={increment}>+</button>
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <p className="card-text"><strong>{item.productDetails.price}</strong></p>
+                  <p className="card-text"><strong>{Number(item.productDetails.price) * item.count}</strong></p>
                 </div>
               </div>
             </div>
