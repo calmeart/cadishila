@@ -1,0 +1,50 @@
+:root {
+  --main-color: #d6b0b1;
+}
+
+/*****NAVBAR*****/
+
+.navbar-nav {
+  width: 100%;
+  justify-content: space-around;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  font-weight: bold;
+}
+
+/*****HOME******/
+
+#header {
+  background-image: url("images/pattern.png");
+  background-color: #d6b0b1;
+  color: #fff;
+}
+
+h1 {
+  font-family: 'Ruthie', cursive;
+  font-size: 9rem;
+  padding: 25px 0;
+}
+
+.headerButtons {
+  display: flex;
+  justify-content: space-between;
+  width: 550px;
+  margin: auto;
+}
+
+.headerImage {
+  position: relative;
+  bottom: 50px;
+  border: 1px solid rgba(255, 183, 0);
+  border-radius: 100%;
+  width: 100px;
+  height: 100px;
+  height: auto;
+  transition: all .2s ease-in-out;
+}
+
+.headerImage:hover {
+  transform: scale(1.2);
+  box-shadow: 0 0 10px 5px rgba(255, 183, 0, 0.6);
+}
