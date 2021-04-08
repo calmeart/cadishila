@@ -6,7 +6,6 @@ function CartContainer({ cartContent, increment, decrement, remove }) {
 
 if (cartContent.length > 0) {
   function reducer(acc, cur) {
-
     const curPrice = (Number(cur.productDetails.price) * cur.count);
     return acc + curPrice;
   }
@@ -30,7 +29,7 @@ if (cartContent.length > 0) {
                     <button type="button" className="btn-close position-absolute top-0 end-0" name={item.productDetails.id} onClick={remove} aria-label="Close"></button>
                     <h5 className="card-title">{item.productDetails.name}</h5>
                     <p className="card-text">{item.productDetails.description}</p>
-                    <p className="card-text">{item.productDetails.size}</p>
+                    <p className="card-text">Size: {item.productDetails.size}</p>
                   </div>
                 </div>
               </div>
@@ -43,7 +42,7 @@ if (cartContent.length > 0) {
                   </div>
                 </div>
                 <div className="col-md-6">
-                  <p className="card-text"><strong>{Number(item.productDetails.price) * item.count}</strong></p>
+                  <p className="card-text">Price: <strong>TRY {Number(item.productDetails.price) * item.count}</strong></p>
                 </div>
               </div>
             </div>

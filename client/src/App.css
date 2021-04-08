@@ -53,15 +53,7 @@ h1 {
 
 #products {
   position: relative;
-  display: flex;
   flex-wrap: wrap;
-  width: 60%;
-  overflow: scroll;
-  overflow-x: hidden;
-}
-
-#products::-webkit-scrollbar {
-  display: none;
 }
 
 .card {
@@ -108,8 +100,20 @@ h1 {
   z-index: 1000;
 }
 
+.cartContainer .card {
+  width: 100%;
+}
+
 .cartButton {
   width: 80%;
   padding-bottom: 1rem;
   margin: auto;
+}
+
+/******LOGIN*****/
+
+.loginForm {
+  width: 400px;
+  margin: auto;
+  text-align: center;
 }
