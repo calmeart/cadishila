@@ -9,6 +9,7 @@ import NavBar from "./components//NavBar";
 import Home from "./pages/home";
 import About from "./pages/about";
 import Login from "./pages/login";
+import Profile from "./pages/profile";
 import ErrorToast from "./components/ErrorToast";
 import ProductDetails from "./components/ProductDetails";
 import CartContainer from "./components/CartContainer";
@@ -116,6 +117,11 @@ function App() {
                   exact
                   path="/"
                   render={(props) => (<Home {...props} appointError={appointError} />)}
+                  />
+                <Route
+                  exact
+                  path="/users/:id"
+                  render={(props) => (<Profile {...props} appointError={appointError} />)}
                   />
                 <Route
                   exact

@@ -106,6 +106,7 @@ const LoginUser = gql`
       id
       username
       email
+      isAdmin
       token
     }
   }
@@ -117,6 +118,7 @@ const RegisterUser = gql`
       id
       username
       email
+      isAdmin
       token
     }
   }

@@ -24,7 +24,10 @@ function NavBar() {
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <Link className="nav-link active" to="/" name={context.user.username} >{context.user.username}</Link>
+                <Link className={activeLink === "home" ? "nav-link active" : "nav-link"} to="/" name="home" onClick={handleNavbarClick} >Home</Link>
+              </li>
+              <li className="nav-item">
+                <Link className="nav-link active" to={'/users/' + context.user.id} name={context.user.username} >{context.user.username}</Link>
               </li>
               <li className="nav-item">
                 <a className="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
