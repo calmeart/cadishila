@@ -86,13 +86,9 @@ function AddProduct(props) {
 
   return (
 
-    <div className="dropup w-100">
-      <button type="button" className="btn btn-primary dropdown-toggle w-100" id="dropdownAddProduct" data-bs-toggle="dropdown" aria-expanded="false">
-        Add Product
-      </button>
-      <div className="dropdown-menu w-100" aria-labelledby="dropdownAddProduct" onClick={(e) => e.stopPropagation()}>
+      <div className="w-100" onClick={(e) => e.stopPropagation()}>
         <form className="p-3 bg-light" onSubmit={handleSubmit}>
-
+          <h5 className="mb-3 text-center">Add Product</h5>
           <div className="row mb-3">
             <div className="col-sm-4">
               <input type="text" className="form-control" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
@@ -145,7 +141,6 @@ function AddProduct(props) {
           </div>
         </form>
       </div>
-    </div>
 
 
   )

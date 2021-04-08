@@ -123,3 +123,10 @@ h1 {
   margin: auto;
   text-align: center;
 }
+
+/*****PROFILE*****/
+
+/******ADMIN PORTAL*****/
+#adminPortal {
+  height: 500px;
+}

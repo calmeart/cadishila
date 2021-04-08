@@ -125,4 +125,4 @@ const RegisterUser = gql`
 `
 
 
-export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation, DeleteProductMutation, LoginUser, RegisterUser};
+export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation, DeleteProductMutation, EditProductMutation, LoginUser, RegisterUser};
