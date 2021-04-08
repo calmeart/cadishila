@@ -37,7 +37,7 @@ function ProductDetails({ addItemToCart }) {
     <div className="container pb-3">
       <div className="row">
         <div className="col-md-6 py-3">
-          <div className="productImg"><img className="w-100" src={data.product.imageLink} alt={data.product.description} /></div>
+          <div className="productImg w-100"><img className="w-100" src={data.product.imageLink} alt={data.product.description} /></div>
         </div>
         <div className="col-md-6">
           <div className="py-3">
@@ -47,7 +47,7 @@ function ProductDetails({ addItemToCart }) {
                 <p>{data.product.description}</p>
               </div>
             </div>
-            <table className="table table-borderless table-sm">
+            <table className="table table-borderless table-sm w-auto">
               <tbody>
                 <tr>
                   <th scope="row">Available Size: </th>

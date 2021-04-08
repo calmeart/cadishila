@@ -53,8 +53,8 @@ function RegisterForm(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+      <form className="my-3" onSubmit={handleSubmit}>
+        <h2 className="h3 mb-3 fw-normal">Fill below to create account</h2>
 
         <div className="form-floating mb-3">
           <input type="text" className="form-control" name="username" value={registerInput.username} onChange={handleChange} id="usernameInput" placeholder="Username" />

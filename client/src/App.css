@@ -2,14 +2,27 @@
   --main-color: #d6b0b1;
 }
 
+h5 {
+  color: #8b5e83;
+  font-family:'Oswald', sans-serif;
+  font-size: 1.5rem;
+  letter-spacing: 0.1rem;
+  text-transform: uppercase;
+}
+
+p, span {
+  font-family: 'Raleway', sans-serif;
+  font-size: 1rem;
+}
+
 /*****NAVBAR*****/
 
 .navbar-nav {
   width: 100%;
   justify-content: space-around;
   text-transform: uppercase;
+  font-family:'Oswald', sans-serif;
   font-size: 1.25rem;
-  font-weight: bold;
 }
 
 /*****HOME******/
@@ -78,13 +91,6 @@ h1 {
 
 /*****PRODUCT DETAILS******/
 
-.productImg {
-  width: 100%;
-}
-
-#productDetailsBox table {
-  width: auto !important
-}
 
 /*****CART CONTAINER****/
 

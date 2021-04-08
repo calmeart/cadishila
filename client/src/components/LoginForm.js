@@ -40,8 +40,8 @@ function LoginForm(props) {
 
   return (
     <div>
-      <form onSubmit={handleSubmit}>
-        <h1 className="h3 mb-3 fw-normal">Please sign in</h1>
+      <form className="my-3" onSubmit={handleSubmit}>
+        <h2 className="h3 mb-3 fw-normal">Please sign in</h2>
 
         <div className="form-floating mb-3">
           <input type="email" className="form-control" name="email" value={loginInput.email} onChange={handleChange} id="emailInput" placeholder="E-Mail" />
