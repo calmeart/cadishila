@@ -24,6 +24,7 @@ h1 {
   font-family: 'Ruthie', cursive;
   font-size: 9rem;
   padding: 25px 0;
+  margin-bottom: 0;
 }
 
 .headerButtons {
@@ -40,11 +41,75 @@ h1 {
   border-radius: 100%;
   width: 100px;
   height: 100px;
-  height: auto;
   transition: all .2s ease-in-out;
 }
 
 .headerImage:hover {
   transform: scale(1.2);
   box-shadow: 0 0 10px 5px rgba(255, 183, 0, 0.6);
+}
+
+/*****PRODUCTS*****/
+
+#products {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  width: 60%;
+  overflow: scroll;
+  overflow-x: hidden;
+}
+
+#products::-webkit-scrollbar {
+  display: none;
+}
+
+.card {
+  width: 15rem;
+}
+
+.cardImg {
+  width: 100%;
+}
+
+.cardImg img, .productImg img {
+  width: 100%;
+}
+
+.card button {
+  padding: 0;
+}
+
+.card button:focus {
+  box-shadow: none;
+}
+
+/*****PRODUCT DETAILS******/
+
+.productImg {
+  width: 100%;
+}
+
+#productDetailsBox table {
+  width: auto !important
+}
+
+/*****CART CONTAINER****/
+
+.cartContainer {
+  background-color: rgba(255, 255, 255, .6);
+  position: fixed;
+  top: 0;
+  right: 0;
+  height: 100vh;
+  width: 30%;
+  min-width: 400px;
+  padding: .5rem;
+  z-index: 1000;
+}
+
+.cartButton {
+  width: 80%;
+  padding-bottom: 1rem;
+  margin: auto;
 }

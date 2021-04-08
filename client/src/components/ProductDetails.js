@@ -3,9 +3,11 @@ import { useParams } from 'react-router-dom'
 import { useQuery } from '@apollo/client';
 import { GetProductQuery } from '../graphql/queries';
 import ProductCard from "./ProductCard";
-import DeleteButton from "./deleteButton";
 
-function DisplayProductDetails({ id, addItemToCart }) {
+function ProductDetails({ addItemToCart }) {
+
+  const { id } = useParams();
+
   const { loading, error, data } = useQuery(GetProductQuery, {
     variables: { id }
   });
@@ -32,22 +34,17 @@ function DisplayProductDetails({ id, addItemToCart }) {
   };
 
   return (
-    <div className="productContainer">
+    <div className="container pb-3">
       <div className="row">
-        <div className="col-md-6">
-          <div className="productImg"><img src={data.product.imageLink} alt={data.product.description} /></div>
+        <div className="col-md-6 py-3">
+          <div className="productImg"><img className="w-100" src={data.product.imageLink} alt={data.product.description} /></div>
         </div>
         <div className="col-md-6">
-          <div className="p-3">
+          <div className="py-3">
             <div className="d-flex justify-content-between">
               <div>
                 <h5>{data.product.name}</h5>
                 <p>{data.product.description}</p>
-              </div>
-              <div>
-                <button type="button" className="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                  Delete
-                </button>
               </div>
             </div>
             <table className="table table-borderless table-sm">
@@ -67,14 +64,14 @@ function DisplayProductDetails({ id, addItemToCart }) {
         </div>
       </div>
 
-      <div className="p-3">
-        <h5 className="card-title">Review</h5>
+      <div className="reviewBox">
+        <h5 className="card-title p-3">Review</h5>
 
       </div>
 
-      <div className="p-3">
-        <h5 className="card-title">Similar Products</h5>
-        <div className="d-flex">
+      <div className="similarProductsBox">
+        <h5 className="card-title p-3">Similar Products</h5>
+        <div className="d-flex justify-content-between">
           {data.product.category.products.filter(item => (item.id !== data.product.id)).map(item => {
             return <ProductCard key={item.id} item={item} />
           })}
@@ -82,20 +79,6 @@ function DisplayProductDetails({ id, addItemToCart }) {
       </div>
     </div>
   );
-}
-
-function ProductDetails(props) {
-
-  const { id } = useParams();
-
-    return (
-      <div>
-        <div id="productDetailsBox">
-          <DisplayProductDetails id={id} addItemToCart={props.addItemToCart} />
-        </div>
-        <DeleteButton id={id} />
-      </div>
-    )
 }
 
 export default ProductDetails;
