@@ -214,7 +214,12 @@ const MutationType = new GraphQLObjectType({
 
           const user = new User(tempUser.value);
           const res = await user.save();
-          const token = jwt.sign({user}, process.env.JWT_SECRET_KEY);
+          const token = jwt.sign({
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin
+          }, process.env.JWT_SECRET_KEY);
 
           return { ...res._doc, id: res._id, token };
         }
@@ -239,7 +244,12 @@ const MutationType = new GraphQLObjectType({
           const checkPassword = await bcrypt.compare(password, user.password);
           if (!checkPassword) throw new Error('password is wrong');
 
-          const token = jwt.sign({user}, process.env.JWT_SECRET_KEY);
+          const token = jwt.sign({
+            id: user._id,
+            username: user.username,
+            email: user.email,
+            isAdmin: user.isAdmin
+          }, process.env.JWT_SECRET_KEY);
 
           return {...user._doc, id: user._id, token };
         }
