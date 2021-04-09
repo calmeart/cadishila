@@ -2,6 +2,10 @@
   --main-color: #d6b0b1;
 }
 
+body {
+  min-height: 100vh;
+}
+
 h5 {
   color: #8b5e83;
   font-family:'Oswald', sans-serif;
@@ -23,6 +27,23 @@ p, span {
   text-transform: uppercase;
   font-family:'Oswald', sans-serif;
   font-size: 1.25rem;
+}
+
+.profileNavbar {
+  background-color: var(--main-color);
+  position: relative;
+  text-transform: uppercase;
+  font-family:'Oswald', sans-serif;
+  display: inline-block;
+  height: 100%;
+}
+
+.profileNavbar a {
+  color: rgba(255, 255, 255, .55);
+}
+
+.profileNavbar a:hover {
+  color: rgb(255, 255, 255);
 }
 
 /*****HOME******/
@@ -125,6 +146,12 @@ h1 {
 }
 
 /*****PROFILE*****/
+
+#profileScreen {
+  width: 100%;
+  height: 100%;
+}
+
 
 /******ADMIN PORTAL*****/
 #adminPortal {
