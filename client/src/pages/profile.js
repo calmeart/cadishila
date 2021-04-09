@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Route, Switch, Link, useParams } from "react-r
 import { AuthContext } from "../context/auth";
 import AddCategory from "../components/AddCategory";
 import AddProduct from "../components/AddProduct";
+import UserList from "../components/UserList"
 
 function Profile() {
 
@@ -84,7 +85,20 @@ function Profile() {
                         <div className="tab-pane fade" id="pill-category" role="tabpanel" aria-labelledby="pill-category-tab">
                           <AddCategory />
                         </div>
-                        <div className="tab-pane fade" id="pill-users" role="tabpanel" aria-labelledby="pill-users-tab">User List</div>
+                        <div className="tab-pane fade" id="pill-users" role="tabpanel" aria-labelledby="pill-users-tab">
+                          <table>
+                            <thead>
+                              <tr>
+                                <th>Username</th>
+                                <th>Email</th>
+                                <th>Status</th>
+                              </tr>
+                            </thead>
+                            <tbody>
+                              <UserList />
+                            </tbody>
+                          </table>
+                        </div>
                         <div className="tab-pane fade" id="pill-orders" role="tabpanel" aria-labelledby="pill-orders-tab">Pending Orders</div>
                       </div>
                     </div>
