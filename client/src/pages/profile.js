@@ -4,7 +4,8 @@ import { BrowserRouter as Router, Route, Switch, Link, useParams } from "react-r
 import { AuthContext } from "../context/auth";
 import AddCategory from "../components/AddCategory";
 import AddProduct from "../components/AddProduct";
-import UserList from "../components/UserList"
+import UserList from "../components/UserList";
+import OrderTrack from "../components/OrderTrack";
 
 function Profile() {
 
@@ -99,7 +100,10 @@ function Profile() {
                             </tbody>
                           </table>
                         </div>
-                        <div className="tab-pane fade" id="pill-orders" role="tabpanel" aria-labelledby="pill-orders-tab">Pending Orders</div>
+                        <div className="tab-pane fade" id="pill-orders" role="tabpanel" aria-labelledby="pill-orders-tab">
+                          <h2>Order List</h2>
+                          <OrderTrack />
+                        </div>
                       </div>
                     </div>
                   </div>
