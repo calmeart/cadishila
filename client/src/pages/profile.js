@@ -87,18 +87,7 @@ function Profile(props) {
                           <CategoryList appointError={props.appointError} />
                         </div>
                         <div className="tab-pane fade" id="pill-users" role="tabpanel" aria-labelledby="pill-users-tab">
-                          <table>
-                            <thead>
-                              <tr>
-                                <th>Username</th>
-                                <th>Email</th>
-                                <th>Status</th>
-                              </tr>
-                            </thead>
-                            <tbody>
-                              <UserList />
-                            </tbody>
-                          </table>
+                          <UserList />
                         </div>
                         <div className="tab-pane fade" id="pill-orders" role="tabpanel" aria-labelledby="pill-orders-tab">
                           <h2>Order List</h2>

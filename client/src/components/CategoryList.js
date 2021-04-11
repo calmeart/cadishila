@@ -96,7 +96,7 @@ function CategoryList(props) {
             <td>{item.name}</td>
             <td>{item.createdAt ? item.createdAt.substr(0,10) : 'Not Given'}</td>
             <td className="text-center">{item.products.length}</td>
-            <td><button type="button" name={item.id} onClick={handleClick} class="btn-close" aria-label="Close"></button></td>
+            <td><button type="button" name={item.id} onClick={handleClick} className="btn-close" aria-label="Close"></button></td>
           </tr>
         ))
       }
