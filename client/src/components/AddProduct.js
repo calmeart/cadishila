@@ -1,6 +1,7 @@
 import React, { useState } from "react"
 import { useMutation, useQuery } from '@apollo/client';
-import { GetCategoriesQuery, ProductMutation, GetProductsQuery } from '../graphql/queries';
+import { ProductMutation, GetProductsQuery } from '../graphql/queries';
+import { GetCategoriesQuery } from "../graphql/category-queries";
 
 function unCheck() {
    var x = document.getElementsByClassName("btn-check");
@@ -10,14 +11,12 @@ function unCheck() {
  };
 
 function GetCategories({ audience }) {
-  const { loading, error, data } = useQuery(GetCategoriesQuery, {
-    variables: { audience }
-  });
+  const { loading, error, data } = useQuery(GetCategoriesQuery);
 
   if (loading) return <option disabled>Loading...</option>;
   if (error) return <option disabled>Error :( {error.message}</option>;
 
-  return data.categories.map(item => (
+  return data.categories.filter(item => item.audience === audience ).map(item => (
       <option key={item.id} value={item.id}>{item.name}</option>
   ));
 };

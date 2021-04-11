@@ -2,12 +2,12 @@ import React, { useContext } from "react";
 import { BrowserRouter as Router, Route, Switch, Link, useParams } from "react-router-dom";
 
 import { AuthContext } from "../context/auth";
-import AddCategory from "../components/AddCategory";
+import CategoryList from "../components/CategoryList";
 import AddProduct from "../components/AddProduct";
 import UserList from "../components/UserList";
 import OrderTrack from "../components/OrderTrack";
 
-function Profile() {
+function Profile(props) {
 
   const { id } = useParams();
   const { user } = useContext(AuthContext);
@@ -84,7 +84,7 @@ function Profile() {
                           <AddProduct />
                         </div>
                         <div className="tab-pane fade" id="pill-category" role="tabpanel" aria-labelledby="pill-category-tab">
-                          <AddCategory />
+                          <CategoryList appointError={props.appointError} />
                         </div>
                         <div className="tab-pane fade" id="pill-users" role="tabpanel" aria-labelledby="pill-users-tab">
                           <table>
