@@ -45,6 +45,7 @@ const CategoryType = new GraphQLObjectType({
     id: { type: GraphQLID },
     name: { type: GraphQLString },
     audience: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
     products: {
       type: new GraphQLList(ProductType),
       resolve(parent, args) {

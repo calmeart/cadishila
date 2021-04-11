@@ -47,9 +47,8 @@ const RootQuery = new GraphQLObjectType({
     },
     categories: {
       type: new GraphQLList(CategoryType),
-      args: {audience: {type: GraphQLString}},
       resolve(parent, args) {
-        return Category.find({audience: args.audience});
+        return Category.find({});
       }
     },
     users: {
@@ -114,13 +113,19 @@ const MutationType = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         audience: { type: new GraphQLNonNull(GraphQLString) },
       },
-      resolve(parent, args) {
+      async resolve(parent, args) {
         const { name, audience } = args;
         try {
           const tempCategory = categorySchema.validate({ name, audience });
           if (tempCategory.error) {
             throw new Error(tempCategory.error.details[0].message);
           }
+
+          const checkName = await Category.findOne({ audience, name });
+          console.log(checkName);
+          if (checkName) throw new Error('This category already exists')
+
+          tempCategory.value.createdAt = new Date().toISOString();
           return new Category(tempCategory.value).save();
         }
         catch (err) {

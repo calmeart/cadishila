@@ -15,7 +15,8 @@ const mongoCategorySchema = new mongoose.Schema({
     lowercase: true,
     get: v => _.capitalize(v),
     enum: [ "human", "pet" ]
-  }
+  },
+  createdAt: String
 });
 
 module.exports = new mongoose.model('Category', mongoCategorySchema);
