@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-import shilaProfile from "../images/shila-profile-circle.png";
+import shilaProfile from "../images/shila-profile-circle.jpg";
 import witchHat from "../images/witch-hat.jpg";
 
 import ProductList from "../components/ProductList";
