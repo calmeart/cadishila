@@ -43,29 +43,10 @@ query {
 }
 `;
 
-const GetCategoriesQuery = gql`
-  query ($audience: String!) {
-    categories(audience: $audience) {
-      id
-      name
-    }
-  }
-`;
-
 const DeleteProductMutation = gql`
   mutation ($id: ID!) {
     deleteProduct(id: $id) {
       id
-    }
-  }
-`;
-
-const CategoryMutation = gql`
-  mutation ($name: String!, $audience: String!) {
-    addCategory(name: $name, audience: $audience) {
-      id
-      name
-      audience
     }
   }
 `;
@@ -125,4 +106,4 @@ const RegisterUser = gql`
 `
 
 
-export {GetProductQuery, GetProductsQuery, GetCategoriesQuery, CategoryMutation, ProductMutation, DeleteProductMutation, EditProductMutation, LoginUser, RegisterUser};
+export {GetProductQuery, GetProductsQuery, ProductMutation, DeleteProductMutation, EditProductMutation, LoginUser, RegisterUser};
