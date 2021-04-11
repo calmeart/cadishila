@@ -16,6 +16,7 @@ const GetCategoriesQuery = gql`
       id
       name
       audience
+      createdAt
       products {
         id
         name
@@ -24,4 +25,14 @@ const GetCategoriesQuery = gql`
   }
 `;
 
-export { CategoryMutation, GetCategoriesQuery };
+const DeleteCategory = gql`
+  mutation ($id: ID!) {
+    deleteCategory(id: $id) {
+      id
+      name
+      audience
+    }
+  }
+`;
+
+export { CategoryMutation, DeleteCategory, GetCategoriesQuery };

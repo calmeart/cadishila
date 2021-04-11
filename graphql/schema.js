@@ -185,8 +185,17 @@ const MutationType = new GraphQLObjectType({
     deleteCategory: {
       type: CategoryType,
       args: { id: { type: GraphQLID }},
-      resolve( parents, args ) {
-        return Category.findByIdAndDelete(args.id)
+      async resolve( parents, args ) {
+        const { id } = args;
+        try {
+          const foundProduct = await Product.findOne({ categoryId: args.id });
+          if (foundProduct) throw new Error('There are products under this category. Please remove all the products before deleting.')
+
+          return Category.findByIdAndDelete(args.id)
+        }
+        catch(err) {
+          return err;
+        }
       }
     },
     registerUser: {
