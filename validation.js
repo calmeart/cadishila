@@ -15,8 +15,6 @@ const productSchema = Joi.object({
   categoryId: Joi.string()
     .required(),
   imageLink: Joi.string()
-    .required(),
-  userId: Joi.string()
     .required()
 });
 

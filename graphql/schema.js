@@ -90,8 +90,7 @@ const MutationType = new GraphQLObjectType({
         price: { type: new GraphQLNonNull(GraphQLString) },
         size: { type: new GraphQLList(GraphQLString) },
         categoryId: { type: new GraphQLNonNull(GraphQLString) },
-        imageLink: { type: new GraphQLNonNull(GraphQLString) },
-        userId: { type: new GraphQLNonNull(GraphQLString) }
+        imageLink: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
         const { name, description, price, size, categoryId, imageLink, userId } = args;
