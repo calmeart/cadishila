@@ -1,5 +1,6 @@
 import React, { useState } from "react"
 import { useMutation, useQuery } from '@apollo/client';
+
 import { ProductMutation, GetProductsQuery } from '../graphql/queries';
 import { GetCategoriesQuery } from "../graphql/category-queries";
 
@@ -32,7 +33,7 @@ function AddProduct(props) {
     price: "",
     size: [],
     categoryId: "",
-    imageLink:""
+    imageLink: ""
   })
 
   const [audience, setAudience] = useState("");
@@ -67,7 +68,6 @@ function AddProduct(props) {
       refetchQueries: [{query: GetProductsQuery }]
     });
     returnedPromise.then((result => {
-        console.log('success');
         setProduct({
             name: "",
             description: "",
@@ -85,19 +85,22 @@ function AddProduct(props) {
 
   return (
 
-      <div className="w-100" onClick={(e) => e.stopPropagation()}>
+      <div className="w-100">
         <form className="p-3 bg-light" onSubmit={handleSubmit}>
           <h5 className="mb-3 text-center">Add Product</h5>
           <div className="row mb-3">
             <div className="col-sm-4">
-              <input type="text" className="form-control" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
+              <div className="imagePort w-100 mb-3">
+                {product.imageLink && (<img src={product.imageLink} alt={product.description} />)}
+              </div>
+              <input type="text" className="form-control" id="inputImageLink" name="imageLink" value={product.imageLink} onChange={handleInputChange} placeholder="Image Link" />
             </div>
 
             <div className="col-sm-4">
-                <input type="text" className="form-control" id="inputPrice" name="price" value={product.price} onChange={handleInputChange} placeholder="Price "/>
-            </div>
-
-            <div className="col-sm-4 p-0">
+              <input type="text" className="form-control mb-3" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
+              <textarea type="text" className="form-control mb-3" id="inputDescription" name="description" value={product.description} onChange={handleInputChange} placeholder="Description" />
+              <input type="text" className="form-control mb-3" id="inputPrice" name="price" value={product.price} onChange={handleInputChange} placeholder="Price "/>
+              <div>
                 <input type="checkbox" className="btn-check" id="btnXS" name="size" value="XS" onClick={handleInputChange} autoComplete="off" />
                 <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnXS">XS</label>
 
@@ -109,35 +112,23 @@ function AddProduct(props) {
 
                 <input type="checkbox" className="btn-check" id="btnL" name="size" value="L" onClick={handleInputChange} autoComplete="off" />
                 <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnL">L</label>
+              </div>
             </div>
-          </div>
 
-          <div className="mb-3">
-            <input type="text" className="form-control" id="inputDescription" name="description" value={product.description} onChange={handleInputChange} placeholder="Description" />
-          </div>
-          <div className="row mb-3">
-            <div className="col-sm-6">
-            <select className="form-select" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange} required>
-              <option value="">Select Audience</option>
-              <option value="human">Human</option>
-              <option value="pet">Pet</option>
-            </select>
-            </div>
-            <div className="col-sm-6">
-              <select className="form-select" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange} required>
+            <div className="col-sm-4 p-0">
+              <select className="form-select mb-3" id="inputClass" aria-label="Select Audience" value={audience} onChange={handleAudienceChange} required>
+                <option value="">Select Audience</option>
+                <option value="Human">Human</option>
+                <option value="Pet">Pet</option>
+              </select>
+              <select className="form-select mb-3" id="inputCatType" name="categoryId" value={product.categoryId} aria-label="Select Type" onChange={handleInputChange} required>
                 <option value="">Select Type</option>
                 <GetCategories audience={audience}/>
               </select>
-            </div>
-          </div>
-          <div className="row">
-            <div className="col-sm-9">
-                <input type="text" className="form-control" id="inputImageLink" name="imageLink" value={product.imageLink} onChange={handleInputChange} placeholder="Image Link" />
-            </div>
-            <div className="col-sm-3">
               <button type="submit" className="btn btn-primary w-100">Submit</button>
             </div>
           </div>
+
         </form>
       </div>
 

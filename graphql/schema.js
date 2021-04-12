@@ -93,9 +93,9 @@ const MutationType = new GraphQLObjectType({
         imageLink: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        const { name, description, price, size, categoryId, imageLink, userId } = args;
+        const { name, description, price, size, categoryId, imageLink } = args;
         try {
-          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink, userId });
+          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink });
           if (tempProduct.error) {
             throw new Error(tempProduct.error.details[0].message);
           }

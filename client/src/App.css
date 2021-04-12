@@ -96,10 +96,12 @@ h1 {
 
 .cardImg {
   width: 100%;
+  text-align: center;
 }
 
-.cardImg img, .productImg img {
-  width: 100%;
+.cardImg img {
+  height: 160px;
+  width: auto;
 }
 
 .card button {
@@ -156,4 +158,22 @@ h1 {
 /******ADMIN PORTAL*****/
 #adminPortal {
   height: 500px;
+}
+
+/*****ADD PRODUCT*****/
+
+.imagePort {
+  background-color: gray;
+  height: 240px;
+  text-align: center;
+}
+
+.imagePort img {
+  width: auto;
+  height: 240px;
+}
+
+textarea {
+  height: 130px;
+  resize: none;
 }

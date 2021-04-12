@@ -81,7 +81,7 @@ function Profile(props) {
                       </div>
                       <div className="tab-content w-100" id="v-pills-tabContent">
                         <div className="tab-pane fade" id="pill-product" role="tabpanel" aria-labelledby="pill-product-tab">
-                          <AddProduct />
+                          <AddProduct appointError={props.appointError} />
                         </div>
                         <div className="tab-pane fade" id="pill-category" role="tabpanel" aria-labelledby="pill-category-tab">
                           <CategoryList appointError={props.appointError} />
