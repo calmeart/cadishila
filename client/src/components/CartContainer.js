@@ -50,7 +50,7 @@ if (cartContent.length > 0) {
         })}
 
         <p className="text-center"><strong>Total Price: TRY {totalPrice}</strong></p>
-        <button type="button" className="btn btn-primary w-100">Check Out</button>
+        <button type="button" className="btn btn-primary w-100 mb-5">Check Out</button>
       </div>
     </div>
   )

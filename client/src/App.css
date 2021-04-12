@@ -143,11 +143,18 @@ h1 {
   width: 30%;
   min-width: 400px;
   padding: .5rem;
+  padding-right: 1.5;
   z-index: 1000;
+  overflow: scroll;
+}
+
+.cartContainer::-webkit-scrollbar {
+  display: none;
 }
 
 .cartContainer .card {
   width: 100%;
+  margin: 0;
 }
 
 .cartButton {
