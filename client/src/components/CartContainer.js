@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 function CartContainer({ cartContent, increment, decrement, remove }) {
 
@@ -50,7 +51,7 @@ if (cartContent.length > 0) {
         })}
 
         <p className="text-center"><strong>Total Price: TRY {totalPrice}</strong></p>
-        <button type="button" className="btn btn-primary w-100 mb-5">Check Out</button>
+        <Link to="/checkout" type="button" className="btn btn-primary w-100 mb-5">Check Out</Link>
       </div>
     </div>
   )

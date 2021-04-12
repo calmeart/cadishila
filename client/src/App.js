@@ -10,6 +10,7 @@ import Home from "./pages/home";
 import About from "./pages/about";
 import Login from "./pages/login";
 import Profile from "./pages/profile";
+import Payment from "./pages/payment";
 import ErrorToast from "./components/ErrorToast";
 import ProductDetails from "./components/ProductDetails";
 import CartContainer from "./components/CartContainer";
@@ -127,6 +128,11 @@ function App() {
                   exact
                   path="/products/:id"
                   render={(props) => (<ProductDetails {...props} addItemToCart={addItemToCart} />)}
+                  />
+                <Route
+                  exact
+                  path="/checkout"
+                  render={(props) => (<Payment {...props} cartContent={cartContent} />)}
                   />
               </Switch>
               {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}

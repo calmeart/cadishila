@@ -163,6 +163,13 @@ h1 {
   margin: auto;
 }
 
+/******PAYMENT*****/
+
+#payment {
+  display: flex;
+  justify-content: flex-start;
+}
+
 /******LOGIN*****/
 
 .loginForm {
