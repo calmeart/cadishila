@@ -9,6 +9,9 @@ function ProductCard({ item }) {
       <div className="cardImg"><img src={item.imageLink} alt={item.description} /></div>
       <div className="card-body">
         <h5 className="card-title" >{item.name}</h5>
+        <p className="card-text">{item.description}</p>
+      </div>
+      <div className="card-footer text-center">
         <Link className="btn bg-transparent stretched-link" to={pathname}><p className="card-text">TRY {item.price}</p></Link>
       </div>
     </div>

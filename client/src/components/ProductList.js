@@ -16,7 +16,7 @@ function DisplayProducts({ audience, selectProduct }) {
 class ProductList extends Component {
   render() {
     return (
-      <div id="products" className="container p-3 d-flex justify-content-between">
+      <div id="products" className="container">
         <DisplayProducts audience={this.props.audience}/>
       </div>
     )

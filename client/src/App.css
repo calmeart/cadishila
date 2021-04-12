@@ -87,11 +87,14 @@ h1 {
 
 #products {
   position: relative;
+  display: flex;
   flex-wrap: wrap;
+  justify-content: center;
 }
 
 .card {
-  width: 15rem;
+  width: 20rem;
+  margin: 1.5rem;
 }
 
 .cardImg {
@@ -104,16 +107,30 @@ h1 {
   width: auto;
 }
 
-.card button {
+.card-body {
+  text-align: center;
+}
+
+.card a {
   padding: 0;
 }
 
-.card button:focus {
+.card a:focus {
   box-shadow: none;
 }
 
 /*****PRODUCT DETAILS******/
 
+.productImg {
+  height: 380px;
+  text-align: center;
+}
+
+.productImg img {
+  width: auto;
+  height: 380px;
+
+}
 
 /*****CART CONTAINER****/
 

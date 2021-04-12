@@ -37,7 +37,7 @@ function ProductDetails({ addItemToCart }) {
     <div className="container pb-3">
       <div className="row">
         <div className="col-md-6 py-3">
-          <div className="productImg w-100"><img className="w-100" src={data.product.imageLink} alt={data.product.description} /></div>
+          <div className="productImg w-100"><img src={data.product.imageLink} alt={data.product.description} /></div>
         </div>
         <div className="col-md-6">
           <div className="py-3">
@@ -71,7 +71,7 @@ function ProductDetails({ addItemToCart }) {
 
       <div className="similarProductsBox">
         <h5 className="card-title p-3">Similar Products</h5>
-        <div className="d-flex justify-content-between">
+        <div className="d-flex">
           {data.product.category.products.filter(item => (item.id !== data.product.id)).map(item => {
             return <ProductCard key={item.id} item={item} />
           })}
