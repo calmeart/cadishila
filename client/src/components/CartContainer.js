@@ -5,13 +5,13 @@ function CartContainer({ cartContent, increment, decrement, remove }) {
 
   let totalPrice = 0;
 
-if (cartContent.length > 0) {
-  function reducer(acc, cur) {
-    const curPrice = (Number(cur.productDetails.price) * cur.count);
-    return acc + curPrice;
+  if (cartContent.length > 0) {
+    function reducer(acc, cur) {
+      const curPrice = (Number(cur.productDetails.price) * cur.count);
+      return acc + curPrice;
+    }
+    totalPrice = cartContent.reduce(reducer, 0);
   }
-  totalPrice = cartContent.reduce(reducer, 0);
-}
 
   return (
     <div className="collapse cartContainer" id="collapseExample">

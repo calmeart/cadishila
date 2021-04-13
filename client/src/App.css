@@ -166,9 +166,43 @@ h1 {
 /******PAYMENT*****/
 
 #payment {
-  display: flex;
-  justify-content: flex-start;
+
 }
+
+#payment .card {
+  flex-wrap: wrap;
+  margin: .5rem;
+  height: 5rem;
+  width: 15rem;
+}
+
+#payment .cardImg {
+  height: 5rem;
+  width: auto;
+}
+
+#payment .cardImg img {
+  height: 5rem;
+  width: auto;
+}
+
+#payment .card-body {
+  padding: .5rem;
+}
+
+#payment .card-title {
+  font-size: 1rem;
+  margin: 0;
+}
+
+#payment .card-body .card-text {
+  display: none;
+}
+
+#payment .card-footer {
+  height: 2.5rem;
+}
+
 
 /******LOGIN*****/
 
