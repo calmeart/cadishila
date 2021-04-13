@@ -18,8 +18,19 @@ function Payment({ cartContent }) {
       <div id="payment">
         <div className="row">
           <div className="col-md-6">
-            <div>
-              <h2>Contact Info</h2>
+            <div className="container">
+              <h2 className="text-center">Contact Info</h2>
+              <h5>Personal Information</h5>
+              <input type="text" className="form-control mb-3" name="fname" placeholder="First Name" />
+              <input type="text" className="form-control mb-3" name="lname" placeholder="Last Name" />
+              <input type="text" className="form-control mb-3" name="phone" placeholder="Phone Number" />
+              <input type="email" className="form-control mb-3" name="email" placeholder="Contact Mail" />
+
+              <h5>Delivery Details</h5>
+              <input type="text" className="form-control mb-3" name="city" placeholder="City" />
+              <input type="text" className="form-control mb-3" name="neighborhood" placeholder="Neighborhood" />
+              <input type="text" className="form-control mb-3" name="addressLineOne" placeholder="Address Line 1" />
+              <input type="text" className="form-control mb-3" name="addressLineTwo" placeholder="Address Line 2" />
             </div>
           </div>
           <div className="col-md-6 text-center">
@@ -40,8 +51,9 @@ function Payment({ cartContent }) {
         </div>
 
 
-        <div>
+        <div className="text-center">
           <h2>Approve Order</h2>
+          <button className="btn btn-primary">Submit Order</button>
         </div>
       </div>
     )
