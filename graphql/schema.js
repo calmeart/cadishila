@@ -20,7 +20,7 @@ const User = require('../models/user-model');
 const Review = require('../models/review-model');
 const Order = require('../models/order-model');
 const { categorySchema, productSchema, userSchema } = require('../validation');
-const { CategoryType, OrderType, ProductType, ReviewType, UserType } = require('./typeDefs');
+const { CategoryType, OrderType, ProductType, ReviewType, UserType, CartContentInput, CustomerDetailsInput, DeliveryDetailsInput } = require('./typeDefs');
 
 const RootQuery = new GraphQLObjectType({
   name: 'RootQueryType',
@@ -267,6 +267,34 @@ const MutationType = new GraphQLObjectType({
           return {...user._doc, id: user._id, token };
         }
         catch (err) {
+          return err;
+        }
+      }
+    },
+    submitOrder: {
+      type: OrderType,
+      args: {
+        cartContent: { type: new GraphQLList(CartContentInput) },
+        customerDetails: { type: CustomerDetailsInput },
+        deliveryDetails: { type: DeliveryDetailsInput }
+      },
+      async resolve( parent, args ) {
+        const { cartContent, customerDetails, deliveryDetails } = args;
+        try {
+          const newOrder = new Order({
+              cartContent,
+              customerDetails,
+              deliveryDetails,
+              createdAt: new Date().toISOString(),
+              status: 'PENDING',
+              deliveredAt: 'NOT YET'
+          });
+
+          await newOrder.save();
+          return newOrder;
+        }
+        catch(err) {
+          console.log(err);
           return err;
         }
       }

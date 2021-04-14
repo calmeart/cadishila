@@ -3,6 +3,7 @@ const {
   GraphQLObjectType,
   GraphQLID,
   GraphQLString,
+  GraphQLInputObjectType,
   GraphQLInt,
   GraphQLBoolean,
   GraphQLSchema,
@@ -91,22 +92,104 @@ const OrderType = new GraphQLObjectType({
   name: 'Order',
   fields: () => ({
     id: { type: GraphQLID },
-    productName: { type: GraphQLString },
-    productSize: { type: GraphQLString },
-    productPrice: { type: GraphQLString },
+    cartContent: { type: new GraphQLList(CartContent) },
+    customerDetails: { type: CustomerDetails },
+    deliveryDetails: { type: DeliveryDetails },
     createdAt: { type: GraphQLString },
-    deliveryMethod: { type: GraphQLString },
-    deliveryAddress: { type: GraphQLString },
-    userId: { type: GraphQLID },
     status: { type: GraphQLString },
     deliveredAt: { type: GraphQLString }
   })
 });
 
+const ProductDetails = new GraphQLObjectType({
+  name: 'ProductDetails',
+  fields: () => ({
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+    price: { type: GraphQLString },
+    size: { type: GraphQLString },
+    imageLink: { type: GraphQLString }
+  })
+});
+
+const CartContent = new GraphQLObjectType({
+  name: 'CartContent',
+  fields: () => ({
+    productDetails: { type:ProductDetails },
+    count: { type: GraphQLInt }
+  })
+});
+
+const CustomerDetails = new GraphQLObjectType({
+  name: 'CustomerDetails',
+  fields: () => ({
+    username: { type: GraphQLString },
+    email:  { type: GraphQLString },
+    phone: { type: GraphQLString },
+  })
+});
+
+const DeliveryDetails = new GraphQLObjectType({
+  name: 'DeliveryDetails',
+  fields: () => ({
+    city: { type: GraphQLString },
+    neighborhood: { type: GraphQLString },
+    addressOne: { type: GraphQLString },
+    addressTwo: { type: GraphQLString },
+    zipCode: { type: GraphQLString }
+  })
+});
+
+const ProductDetailsInput = new GraphQLInputObjectType({
+  name: 'ProductDetailsInput',
+  fields: () => ({
+    id: { type: GraphQLString },
+    name: { type: GraphQLString },
+    description: { type: GraphQLString },
+    price: { type: GraphQLString },
+    size: { type: GraphQLString },
+    imageLink: { type: GraphQLString }
+  })
+});
+
+const CartContentInput = new GraphQLInputObjectType({
+  name: 'CartContentInput',
+  fields: () => ({
+    productDetails: { type: ProductDetailsInput },
+    count: { type: GraphQLInt }
+  })
+});
+
+const CustomerDetailsInput = new GraphQLInputObjectType({
+  name: 'CustomerDetailsInput',
+  fields: () => ({
+    username: { type: GraphQLString },
+    email:  { type: GraphQLString },
+    phone: { type: GraphQLString },
+  })
+});
+
+const DeliveryDetailsInput = new GraphQLInputObjectType({
+  name: 'DeliveryDetailsInput',
+  fields: () => ({
+    city: { type: GraphQLString },
+    neighborhood: { type: GraphQLString },
+    addressOne: { type: GraphQLString },
+    addressTwo: { type: GraphQLString },
+    zipCode: { type: GraphQLString }
+  })
+});
+
 module.exports = {
-  ProductType,
   CategoryType,
-  UserType,
+  OrderType,
+  ProductType,
   ReviewType,
-  OrderType
+  UserType,
+  CustomerDetails,
+  DeliveryDetails,
+  CartContentInput,
+  CustomerDetailsInput,
+  DeliveryDetailsInput
 }
