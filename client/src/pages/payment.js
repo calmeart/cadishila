@@ -1,9 +1,11 @@
 import React, { useContext, useState } from "react";
+import { useMutation } from '@apollo/client';
 
 import ProductCard from "../components/ProductCard";
 import { AuthContext } from "../context/auth";
+import { SubmitOrder } from "../graphql/order-queries";
 
-function Payment({ cartContent }) {
+function Payment({ appointError, cartContent }) {
 
     let totalPrice = 0;
 
@@ -16,8 +18,9 @@ function Payment({ cartContent }) {
     }
 
     const { user } = useContext(AuthContext);
+    const [submitOrder] = useMutation(SubmitOrder);
 
-    const [userDetails, setUserDetails] = useState({
+    const [customerDetails, setCustomerDetails] = useState({
       username: user ? user.username : "",
       email: user ? user.email : "",
       phone: ""
@@ -33,7 +36,7 @@ function Payment({ cartContent }) {
 
     function handleUserChange(e) {
       const { name, value } = e.target;
-      setUserDetails(prev => ({
+      setCustomerDetails(prev => ({
         ...prev,
         [name]: value
       }))
@@ -47,6 +50,23 @@ function Payment({ cartContent }) {
       }))
     }
 
+    function hanldleSubmitOrder(e) {
+      e.preventDefault();
+      const returnedPromise = submitOrder({
+        variables: {
+          cartContent,
+          deliveryDetails,
+          customerDetails
+        }
+      });
+      returnedPromise.then(result => {
+        console.log('success', result);
+      }).catch(err => {
+        console.log(err.extensions);
+        appointError(err.extensions);
+      })
+    }
+
     return (
       <div id="payment">
         <div className="row">
@@ -56,13 +76,13 @@ function Payment({ cartContent }) {
               <h5>Personal Information</h5>
               <div className="row">
                 <div className="col-md-12">
-                  <input type="text" className="form-control mb-3" name="username" value={userDetails.username} onChange={handleUserChange} placeholder="Name Surname" />
+                  <input type="text" className="form-control mb-3" name="username" value={customerDetails.username} onChange={handleUserChange} placeholder="Name Surname" />
                 </div>
                 <div className="col-md-6">
-                  <input type="email" className="form-control mb-3" name="email" value={userDetails.email} onChange={handleUserChange} placeholder="Contact Mail" />
+                  <input type="email" className="form-control mb-3" name="email" value={customerDetails.email} onChange={handleUserChange} placeholder="Contact Mail" />
                 </div>
                 <div className="col-md-6">
-                  <input type="text" className="form-control mb-3" name="phone" value={userDetails.phone} onChange={handleUserChange} placeholder="Phone Number" />
+                  <input type="text" className="form-control mb-3" name="phone" value={customerDetails.phone} onChange={handleUserChange} placeholder="Phone Number" />
                 </div>
 
               </div>
@@ -86,8 +106,8 @@ function Payment({ cartContent }) {
             <h2>Your Products</h2>
             <div>
               {cartContent.map(item =>
-                <div className="d-flex justify-content-around align-items-center">
-                  <ProductCard key={item.productDetails.id} item={item.productDetails} />
+                <div key={item.productDetails.id} className="d-flex justify-content-around align-items-center">
+                  <ProductCard item={item.productDetails} />
                   <h2>X</h2>
                   <h2>{item.count}</h2>
                   <h2>=</h2>
@@ -102,7 +122,7 @@ function Payment({ cartContent }) {
 
         <div className="text-center">
           <h2>Approve Order</h2>
-          <button className="btn btn-primary">Submit Order</button>
+          <button className="btn btn-primary" onClick={hanldleSubmitOrder} >Submit Order</button>
         </div>
       </div>
     )

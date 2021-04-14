@@ -132,7 +132,7 @@ function App() {
                 <Route
                   exact
                   path="/checkout"
-                  render={(props) => (<Payment {...props} cartContent={cartContent} />)}
+                  render={(props) => (<Payment {...props} cartContent={cartContent} appointError={appointError} />)}
                   />
               </Switch>
               {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}
