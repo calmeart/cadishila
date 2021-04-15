@@ -9,7 +9,6 @@ function Payment({ appointError, cartContent }) {
 
     useEffect(() => {
       const cartButton = document.getElementById('cartButton');
-      console.log(cartButton);
       cartButton.click();
     })
 
