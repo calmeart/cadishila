@@ -10,7 +10,7 @@ function Payment({ appointError, cartContent }) {
     useEffect(() => {
       const cartButton = document.getElementById('cartButton');
       cartButton.click();
-    })
+    }, []);
 
     let totalPrice = 0;
 
@@ -65,9 +65,8 @@ function Payment({ appointError, cartContent }) {
         }
       });
       returnedPromise.then(result => {
-        console.log('success', result);
+        appointError('Your order has been received. Our team will contact you throough your mail within 24 hours.');
       }).catch(err => {
-        console.log(err.extensions);
         appointError(err.extensions);
       })
     }
