@@ -6,6 +6,7 @@ import './App.css';
 import { AuthProvider } from './context/auth';
 import AuthRoute from './utils/AuthRoute';
 import NavBar from "./components//NavBar";
+import Footer from "./components/Footer";
 import Home from "./pages/home";
 import About from "./pages/about";
 import Login from "./pages/login";
@@ -136,7 +137,7 @@ function App() {
                   />
               </Switch>
               {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}
-
+              <Footer />
           </Router>
         </AuthProvider>
     );
