@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { useMutation } from '@apollo/client';
 
 import ProductCard from "../components/ProductCard";
@@ -6,6 +6,12 @@ import { AuthContext } from "../context/auth";
 import { SubmitOrder } from "../graphql/order-queries";
 
 function Payment({ appointError, cartContent }) {
+
+    useEffect(() => {
+      const cartButton = document.getElementById('cartButton');
+      console.log(cartButton);
+      cartButton.click();
+    })
 
     let totalPrice = 0;
 

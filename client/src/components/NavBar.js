@@ -30,7 +30,7 @@ function NavBar() {
                 <Link className="nav-link active" to={'/users/' + context.user.id} name={context.user.username} >{context.user.username}</Link>
               </li>
               <li className="nav-item">
-                <a className="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                <a id="cartButton" className="nav-link" data-bs-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
                   Cart
                 </a>
               </li>
