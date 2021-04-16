@@ -54,6 +54,22 @@ function NavBar() {
                     </li>
                     <li><hr className="dropdown-divider" /></li>
                     <li>
+                      <Link className="dropdown-item" to={'/users/' + context.user.id + "/products"} >Saved Products</Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to={'/users/' + context.user.id + "/orders"} >My Orders</Link>
+                    </li>
+                    <li>
+                      <Link className="dropdown-item" to={'/users/' + context.user.id + "/reviews"} >My Reviews</Link>
+                    </li>
+                    <li><hr className="dropdown-divider" /></li>
+                    {context.user.isAdmin && (
+                      <li>
+                        <Link className="dropdown-item" to={'/users/' + context.user.id + "/admin"} >Admin Portal</Link>
+                      </li>
+                    )}
+                    <li><hr className="dropdown-divider" /></li>
+                    <li>
                       <Link className="dropdown-item" to="/login" name="logout" onClick={context.logout} >Logout</Link>
                     </li>
                   </ul>

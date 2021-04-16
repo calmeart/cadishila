@@ -121,7 +121,6 @@ function App() {
                   render={(props) => (<Home {...props} appointError={appointError} />)}
                   />
                 <Route
-                  exact
                   path="/users/:id"
                   render={(props) => (<Profile {...props} appointError={appointError} />)}
                   />
