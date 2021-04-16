@@ -21,6 +21,11 @@ p, span {
 
 /*****NAVBAR*****/
 
+.navbar {
+  height: 62px;
+  background-color: #343434;
+}
+
 .navbar-nav {
   width: 100%;
   justify-content: space-around;
@@ -28,6 +33,7 @@ p, span {
   font-family:'Oswald', sans-serif;
   font-size: 1.25rem;
 }
+
 
 .profileNavbar {
   background-color: var(--main-color);
@@ -46,6 +52,36 @@ p, span {
   color: rgb(255, 255, 255);
 }
 
+@media (max-width: 576px) {
+  .navbar-collapse {
+    position: fixed;
+    top: 62px;
+    left: 0;
+    height: 100%;
+    z-index: 1;
+    background-color: #343434;
+  }
+
+  .navbar-nav {
+    background-color: #343434;
+    width: 200px;
+    padding-top: 20px;
+    padding-bottom: 100vh;
+  }
+
+  #cartButton {
+    text-transform: uppercase;
+    font-family:'Oswald', sans-serif;
+    font-size: 1.25rem;
+    color: rgba(255, 255, 255, .55);
+  }
+
+  #cartButton:hover {
+    color: rgb(255, 255, 255);
+  }
+}
+
+
 /*****HOME******/
 
 #header {
@@ -58,6 +94,7 @@ h1 {
   font-family: 'Ruthie', cursive;
   font-size: 9rem;
   padding: 25px 0;
+  margin-top: 62px;
   margin-bottom: 0;
 }
 
@@ -137,13 +174,12 @@ h1 {
 .cartContainer {
   background-color: rgba(255, 255, 255, .6);
   position: fixed;
-  top: 0;
+  top: 62px;
   right: 0;
   height: 100vh;
   width: 30%;
   min-width: 400px;
   padding: .5rem;
-  padding-right: 1.5;
   z-index: 1000;
   overflow: scroll;
 }
