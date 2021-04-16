@@ -103,38 +103,39 @@ function App() {
                 <h1>CadiShila</h1>
               </div>
               <CartContainer cartContent={cartContent} increment={incrementCountInCart} decrement={decrementCountInCart} remove={removeItemFromCart} />
-
-              <Switch>
-                <Route
-                  exact
-                  path="/about"
-                  component={About}
-                  />
-                <AuthRoute
-                  exact
-                  path="/login"
-                  component={Login}
-                  appointError={appointError}/>
-                <Route
-                  exact
-                  path="/"
-                  render={(props) => (<Home {...props} appointError={appointError} />)}
-                  />
-                <Route
-                  path="/users/:id"
-                  render={(props) => (<Profile {...props} appointError={appointError} />)}
-                  />
-                <Route
-                  exact
-                  path="/products/:id"
-                  render={(props) => (<ProductDetails {...props} addItemToCart={addItemToCart} />)}
-                  />
-                <Route
-                  exact
-                  path="/checkout"
-                  render={(props) => (<Payment {...props} cartContent={cartContent} appointError={appointError} />)}
-                  />
-              </Switch>
+              <div id="siteContent">
+                <Switch>
+                  <Route
+                    exact
+                    path="/about"
+                    component={About}
+                    />
+                  <AuthRoute
+                    exact
+                    path="/login"
+                    component={Login}
+                    appointError={appointError}/>
+                  <Route
+                    exact
+                    path="/"
+                    render={(props) => (<Home {...props} appointError={appointError} />)}
+                    />
+                  <Route
+                    path="/users/:id"
+                    render={(props) => (<Profile {...props} appointError={appointError} />)}
+                    />
+                  <Route
+                    exact
+                    path="/products/:id"
+                    render={(props) => (<ProductDetails {...props} addItemToCart={addItemToCart} />)}
+                    />
+                  <Route
+                    exact
+                    path="/checkout"
+                    render={(props) => (<Payment {...props} cartContent={cartContent} appointError={appointError} />)}
+                    />
+                </Switch>
+              </div>
               {errors.errorState && (<ErrorToast errorMessage={errors.errorMessage} dismissError={dismissError} />)}
               <Footer />
           </Router>

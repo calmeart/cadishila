@@ -2,12 +2,14 @@
   --main-color: #d6b0b1;
 }
 
-body {
-
+#root {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
 
-#root {
-  min-height: calc(100vh - 62px);
+#siteContent {
+  flex: 1;
 }
 
 h5 {
