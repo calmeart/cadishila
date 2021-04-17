@@ -117,6 +117,7 @@ h1 {
 #products {
   position: relative;
   display: flex;
+  justify-content: center;
   flex-wrap: wrap;
   flex: 1 1 auto;
 }
@@ -143,7 +144,7 @@ h1 {
 }
 
 .cardImg img {
-  height: 160px;
+  height: calc(318px * .75);
   width: auto;
 }
 
@@ -160,6 +161,11 @@ h1 {
 }
 
 /*****PRODUCT DETAILS******/
+
+#productDetails {
+  max-width: 960px;
+  margin: auto;
+}
 
 .productImg {
   height: 380px;
