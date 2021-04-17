@@ -19,7 +19,7 @@ function Home(props) {
           <img className="headerImage" src={witchHat} name="Human" onClick={handleAudienceClick} alt="Which hat" />
           <img className="headerImage" src={shilaProfile} name="Pet" onClick={handleAudienceClick} alt="Shila Profile" />
         </div>
-      <ProductList audience={audience}/>
+      <ProductList key={audience} audience={audience}/>
     </div>
   )
 }

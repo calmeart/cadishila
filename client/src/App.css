@@ -110,11 +110,23 @@ h1 {
 
 /*****PRODUCTS*****/
 
+#productList {
+  display: flex;
+}
+
 #products {
   position: relative;
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
+}
+
+.buttonGroup {
+  min-width: 130px;
+  margin: 1.5rem;
+  border: 1px solid rgba(0, 0, 0, .125);
+  border-radius: .25rem;
+  align-self: flex-start;
+  flex: 1 1 auto;
 }
 
 .card {
