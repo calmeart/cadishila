@@ -118,20 +118,23 @@ h1 {
   position: relative;
   display: flex;
   flex-wrap: wrap;
+  flex: 1 1 auto;
 }
 
 .buttonGroup {
-  min-width: 130px;
-  margin: 1.5rem;
+  position: relative;
+  width: 130px;
+  min-height: 200px;
+  margin: .75rem;
   border: 1px solid rgba(0, 0, 0, .125);
   border-radius: .25rem;
   align-self: flex-start;
-  flex: 1 1 auto;
+  flex: 0 0 auto;
 }
 
 .card {
   width: 20rem;
-  margin: 1.5rem;
+  margin: .75rem;
 }
 
 .cardImg {
