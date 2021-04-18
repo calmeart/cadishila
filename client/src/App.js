@@ -25,11 +25,11 @@ function App() {
 
   function addItemToCart(productObject) {
     const { id, name, description, size, price, imageLink } = productObject;
-    const isPresent = cartContent.find(item => item.productDetails.id === id)
+    const isPresent = cartContent.find(item => item.cartId === (id + size) );
     setCartContent(prev => {
       const tempArray = [...prev];
       if (isPresent) {
-        const indexOfPresent = cartContent.findIndex(item => item.productDetails.id === id);
+        const indexOfPresent = cartContent.findIndex(item => item.productDetails.id === (id + size) );
         tempArray.splice(indexOfPresent, 1);
         isPresent.count++;
         tempArray.push(isPresent);
@@ -39,11 +39,12 @@ function App() {
             id,
             name,
             description,
-            size,
             price,
             imageLink
           },
-          count: 1
+          count: 1,
+          size,
+          cartId: id + size
         })
       }
       return tempArray;
@@ -53,7 +54,7 @@ function App() {
   function incrementCountInCart(e) {
     const { name } = e.target;
     const tempArray = [...cartContent];
-    const foundProductIndex = tempArray.findIndex(item => item.productDetails.id === name);
+    const foundProductIndex = tempArray.findIndex(item => item.cartId === name );
     tempArray[foundProductIndex].count++;
     setCartContent(tempArray);
   };
@@ -61,7 +62,7 @@ function App() {
   function decrementCountInCart(e) {
     const { name } = e.target;
     const tempArray = [...cartContent];
-    const foundProductIndex = tempArray.findIndex(item => item.productDetails.id === name);
+    const foundProductIndex = tempArray.findIndex(item => item.cartId === name );
     if (tempArray[foundProductIndex].count === 0) {
       return;
     }
@@ -72,7 +73,7 @@ function App() {
   function removeItemFromCart(e) {
     const { name } = e.target;
     const tempArray = [...cartContent];
-    const foundProductIndex = tempArray.findIndex(item => item.productDetails.id === name);
+    const foundProductIndex = tempArray.findIndex(item => item.cartId === name );
     tempArray.splice(foundProductIndex, 1);
     setCartContent(tempArray);
   }
