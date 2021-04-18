@@ -29,7 +29,7 @@ function App() {
     setCartContent(prev => {
       const tempArray = [...prev];
       if (isPresent) {
-        const indexOfPresent = cartContent.findIndex(item => item.productDetails.id === (id + size) );
+        const indexOfPresent = cartContent.findIndex(item => item.cartId === (id + size) );
         tempArray.splice(indexOfPresent, 1);
         isPresent.count++;
         tempArray.push(isPresent);

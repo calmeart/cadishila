@@ -114,7 +114,7 @@ function ProductDetails({ addItemToCart, appointError }) {
 
             <div className="sizeBox d-flex flex-column mb-3">
               <p className="fw-bold">Select Size (in centimeters): </p>
-              <p className="fw-light">If you don't know your sizes please read our measurement guide.</p>
+              { isPet && <p className="fw-light">If you don't know your sizes please read our measurement guide.</p> }
               <div className="sizeButtons d-flex justify-content-between mb-3">
                 <button type="button" id="buttonxs" className="btn btn-outline-primary" name="xs" onClick={handleSizeClick}>XS</button>
                 <button type="button" id="buttons" className="btn btn-outline-primary" name="s" onClick={handleSizeClick}>S</button>

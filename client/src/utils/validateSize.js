@@ -6,6 +6,12 @@ function validateSize(sizeArray) {
   let state = true;
   let message = "";
 
+  if (sizeArray[0] === "") {
+    state = false;
+    message = "Please select size";
+    return { state, message };
+  }
+
   checkArray.forEach((measure,idx) => {
     const numberValue = Number(measure);
 
