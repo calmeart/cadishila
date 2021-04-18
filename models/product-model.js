@@ -32,7 +32,8 @@ const mongoProductSchema = new mongoose.Schema({
   imageLink: {
     type: String,
     required: true
-  }
+  },
+  createdAt: String
 });
 
 module.exports = new mongoose.model('Product', mongoProductSchema);

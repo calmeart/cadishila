@@ -23,8 +23,8 @@ const ProductType = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     price: { type: GraphQLString },
-    size: { type: new GraphQLList(GraphQLString) },
     imageLink: { type: GraphQLString },
+    createdAt: { type: GraphQLString },
     category: {
       type: CategoryType,
       resolve(parent, args) {
@@ -108,7 +108,6 @@ const ProductDetails = new GraphQLObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     price: { type: GraphQLString },
-    size: { type: GraphQLString },
     imageLink: { type: GraphQLString }
   })
 });
@@ -117,6 +116,7 @@ const CartContent = new GraphQLObjectType({
   name: 'CartContent',
   fields: () => ({
     productDetails: { type:ProductDetails },
+    size: { type: new GraphQLList(GraphQLString) },
     count: { type: GraphQLInt }
   })
 });
@@ -148,7 +148,6 @@ const ProductDetailsInput = new GraphQLInputObjectType({
     name: { type: GraphQLString },
     description: { type: GraphQLString },
     price: { type: GraphQLString },
-    size: { type: GraphQLString },
     imageLink: { type: GraphQLString }
   })
 });
@@ -157,6 +156,7 @@ const CartContentInput = new GraphQLInputObjectType({
   name: 'CartContentInput',
   fields: () => ({
     productDetails: { type: ProductDetailsInput },
+    size: { type: new GraphQLList(GraphQLString) },
     count: { type: GraphQLInt }
   })
 });

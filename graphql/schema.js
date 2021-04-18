@@ -88,17 +88,17 @@ const MutationType = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
         price: { type: new GraphQLNonNull(GraphQLString) },
-        size: { type: new GraphQLList(GraphQLString) },
         categoryId: { type: new GraphQLNonNull(GraphQLString) },
         imageLink: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve(parent, args) {
-        const { name, description, price, size, categoryId, imageLink } = args;
+        const { name, description, price, categoryId, imageLink } = args;
         try {
-          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink });
+          const tempProduct = productSchema.validate({ name, description, price, categoryId, imageLink });
           if (tempProduct.error) {
             throw new Error(tempProduct.error.details[0].message);
           }
+          tempProduct.value.createdAt = new Date().toISOString();
           return new Product(tempProduct.value).save();
         }
         catch (err) {
@@ -140,18 +140,17 @@ const MutationType = new GraphQLObjectType({
         name: { type: new GraphQLNonNull(GraphQLString) },
         description: { type: new GraphQLNonNull(GraphQLString) },
         price: { type: new GraphQLNonNull(GraphQLString) },
-        size: { type: new GraphQLList(GraphQLString) },
         categoryId: { type: new GraphQLNonNull(GraphQLString) },
         imageLink: { type: new GraphQLNonNull(GraphQLString) }
       },
       resolve( parents, args ) {
-        const { id, name, description, price, size, categoryId, imageLink } = args;
+        const { id, name, description, price, categoryId, imageLink } = args;
         try {
-          const tempProduct = productSchema.validate({ name, description, price, size, categoryId, imageLink });
+          const tempProduct = productSchema.validate({ name, description, price, categoryId, imageLink });
           if (tempProduct.error) {
             throw new Error(tempProduct.error.details[0].message);
           }
-          return Product.findByIdAndUpdate(id, { $set: { name, description, price, size, categoryId, imageLink }});
+          return Product.findByIdAndUpdate(id, { $set: { name, description, price, categoryId, imageLink }});
         }
         catch (err) {
           return err;
