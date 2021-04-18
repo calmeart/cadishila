@@ -7,8 +7,8 @@ query ($id: ID!) {
     name
     description
     price
-    size
     imageLink
+    createdAt
     category {
       id
       name
@@ -34,6 +34,7 @@ query {
     description
     price
     imageLink
+    createdAt
     category {
       id
       name
@@ -52,8 +53,8 @@ const DeleteProductMutation = gql`
 `;
 
 const ProductMutation = gql`
-  mutation ($name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!, $imageLink: String!) {
-    addProduct(name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId, imageLink: $imageLink) {
+  mutation ($name: String!, $description: String!, $price: String!, $categoryId: String!, $imageLink: String!) {
+    addProduct(name: $name, description: $description, price: $price, categoryId: $categoryId, imageLink: $imageLink) {
       id
       name
       price
@@ -67,8 +68,8 @@ const ProductMutation = gql`
 `;
 
 const EditProductMutation = gql`
-  mutation ($id: ID!, $name: String!, $description: String!, $price: String!, $size: [String!], $categoryId: String!, $imageLink: String!) {
-    addProduct(id: $id, name: $name, description: $description, price: $price, size: $size, categoryId: $categoryId, imageLink: $imageLink) {
+  mutation ($id: ID!, $name: String!, $description: String!, $price: String!, $categoryId: String!, $imageLink: String!) {
+    addProduct(id: $id, name: $name, description: $description, price: $price, categoryId: $categoryId, imageLink: $imageLink) {
       id
       name
       price
