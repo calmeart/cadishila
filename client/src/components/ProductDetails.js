@@ -5,8 +5,9 @@ import { useQuery } from '@apollo/client';
 import { GetProductQuery } from '../graphql/queries';
 import ProductCard from "./ProductCard";
 import CenteredSpinner from "../utils/CenteredSpinner";
+import validateSize from "../utils/validateSize";
 
-function ProductDetails({ addItemToCart }) {
+function ProductDetails({ addItemToCart, appointError }) {
 
   const designatedSizes = {
     xs: ["28", "26", "41"],
@@ -18,6 +19,7 @@ function ProductDetails({ addItemToCart }) {
   };
 
   const [size, setSize] = useState({
+    name: "",
     neck: "",
     chest: "",
     length: ""
@@ -25,7 +27,12 @@ function ProductDetails({ addItemToCart }) {
 
   function handleSizeClick(e) {
     const { name } = e.target;
+    const buttons = document.getElementsByClassName("btn-outline-primary");
+    const clicked = document.getElementById(`button${name}`);
+    Array.from(buttons).forEach(button => button.classList.remove("active"));
+    clicked.classList.add("active");
     setSize({
+      name,
       neck: designatedSizes[name][0],
       chest: designatedSizes[name][1],
       length: designatedSizes[name][2]
@@ -34,9 +41,14 @@ function ProductDetails({ addItemToCart }) {
 
   function handleSizeChange(e) {
     const { name, value } = e.target;
+    const buttons = document.getElementsByClassName("btn-outline-primary");
+    const customButton = document.getElementById("buttoncustom");
+    Array.from(buttons).forEach(button => button.classList.remove("active"));
+    customButton.classList.add("active");
     setSize(prev => ({
       ...prev,
-      [name]: value
+      [name]: value,
+      name: "custom"
     }))
   };
 
@@ -56,12 +68,22 @@ function ProductDetails({ addItemToCart }) {
     }
   }
 
+  const isPet = data.product.category.audience === "Pet" ? true : false;
+
   function handleAddToCartClick() {
+    let sizeArray = Object.values(size);
+    const isValidSize = validateSize(sizeArray);
+    if (!isValidSize.state) {
+      return appointError(isValidSize.message);
+    }
+    if (!isPet) {
+      sizeArray = sizeArray.slice(0, 1);
+    }
     addItemToCart({
       id: data.product.id,
       name: data.product.name,
       description: data.product.description,
-      size: "M",
+      size: sizeArray,
       price: data.product.price,
       imageLink: data.product.imageLink
     });
@@ -94,13 +116,14 @@ function ProductDetails({ addItemToCart }) {
               <p className="fw-bold">Select Size (in centimeters): </p>
               <p className="fw-light">If you don't know your sizes please read our measurement guide.</p>
               <div className="sizeButtons d-flex justify-content-between mb-3">
-                <button type="button" className="btn btn-outline-primary" name="xs" onClick={handleSizeClick}>XS</button>
-                <button type="button" className="btn btn-outline-primary" name="s" onClick={handleSizeClick}>S</button>
-                <button type="button" className="btn btn-outline-primary" name="m" onClick={handleSizeClick}>M</button>
-                <button type="button" className="btn btn-outline-primary" name="l" onClick={handleSizeClick}>L</button>
-                <button type="button" className="btn btn-outline-primary" name="xl" onClick={handleSizeClick}>XL</button>
-                <button type="button" className="btn btn-outline-primary" name="custom" onClick={handleSizeClick}>Custom</button>
+                <button type="button" id="buttonxs" className="btn btn-outline-primary" name="xs" onClick={handleSizeClick}>XS</button>
+                <button type="button" id="buttons" className="btn btn-outline-primary" name="s" onClick={handleSizeClick}>S</button>
+                <button type="button" id="buttonm" className="btn btn-outline-primary" name="m" onClick={handleSizeClick}>M</button>
+                <button type="button" id="buttonl" className="btn btn-outline-primary" name="l" onClick={handleSizeClick}>L</button>
+                <button type="button" id="buttonxl" className="btn btn-outline-primary" name="xl" onClick={handleSizeClick}>XL</button>
+                { isPet && <button type="button" id="buttoncustom" className="btn btn-outline-primary" name="custom" onClick={handleSizeClick}>Custom</button> }
               </div>
+              { isPet && (
               <div className="sizeInputs">
                 <div className="row g-3 align-items-center">
                   <div className="col-2">
@@ -126,7 +149,7 @@ function ProductDetails({ addItemToCart }) {
                     <input type="text" id="inputLength" className="form-control" name="length" value={size.length} onChange={handleSizeChange} />
                   </div>
                 </div>
-              </div>
+              </div> )}
             </div>
 
             <button type="button" className="btn btn-primary w-100" onClick={handleAddToCartClick}>Add to Cart</button>

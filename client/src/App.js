@@ -127,7 +127,7 @@ function App() {
                   <Route
                     exact
                     path="/products/:id"
-                    render={(props) => (<ProductDetails {...props} addItemToCart={addItemToCart} />)}
+                    render={(props) => (<ProductDetails {...props} addItemToCart={addItemToCart} appointError={appointError} />)}
                     />
                   <Route
                     exact

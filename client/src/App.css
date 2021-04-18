@@ -1,5 +1,7 @@
 :root {
   --main-color: #d6b0b1;
+  --font-color: #8b5e83;
+  --footer-color: #343434;
 }
 
 #root {
@@ -120,6 +122,11 @@ h1 {
   justify-content: center;
   flex-wrap: wrap;
   flex: 1 1 auto;
+}
+
+#products::after {
+  content: "";
+  width: 21.5rem;
 }
 
 .buttonGroup {
