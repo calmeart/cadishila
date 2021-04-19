@@ -9,7 +9,7 @@ const mongoOrderSchema = new mongoose.Schema({
   },
   deliveryDetails: {
     city: String,
-    neighborhood: String,
+    district: String,
     addressOne: String,
     addressTwo: String,
     zipCode: String

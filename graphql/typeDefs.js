@@ -134,7 +134,7 @@ const DeliveryDetails = new GraphQLObjectType({
   name: 'DeliveryDetails',
   fields: () => ({
     city: { type: GraphQLString },
-    neighborhood: { type: GraphQLString },
+    district: { type: GraphQLString },
     addressOne: { type: GraphQLString },
     addressTwo: { type: GraphQLString },
     zipCode: { type: GraphQLString }
@@ -174,7 +174,7 @@ const DeliveryDetailsInput = new GraphQLInputObjectType({
   name: 'DeliveryDetailsInput',
   fields: () => ({
     city: { type: GraphQLString },
-    neighborhood: { type: GraphQLString },
+    district: { type: GraphQLString },
     addressOne: { type: GraphQLString },
     addressTwo: { type: GraphQLString },
     zipCode: { type: GraphQLString }

@@ -59,7 +59,7 @@ function OrderCard({ item }) {
             <div>
               <h5>Delivery Address</h5>
               <p>City: {item.deliveryDetails.city}</p>
-              <p>District: {item.deliveryDetails.neighborhood}</p>
+              <p>District: {item.deliveryDetails.district}</p>
               <p>Address: {item.deliveryDetails.addressOne}</p>
               <p>{item.deliveryDetails.addressTwo}</p>
               <p>Zip Code: {item.deliveryDetails.zipCode}</p>

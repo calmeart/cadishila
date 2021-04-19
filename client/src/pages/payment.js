@@ -33,7 +33,7 @@ function Payment({ appointError, cartContent }) {
 
     const [deliveryDetails, setDeliveryDetails] = useState({
       city: "",
-      neighborhood: "",
+      district: "",
       addressOne: "",
       addressTwo: "",
       zipCode: ""
@@ -101,7 +101,7 @@ function Payment({ appointError, cartContent }) {
                   <input type="text" className="form-control mb-3" name="city" value={deliveryDetails.city} onChange={handleDeliveryChange} placeholder="City" />
                 </div>
                 <div className="col-md-6">
-                  <input type="text" className="form-control mb-3" name="neighborhood" value={deliveryDetails.neighborhood} onChange={handleDeliveryChange} placeholder="Neighborhood" />
+                  <input type="text" className="form-control mb-3" name="district" value={deliveryDetails.district} onChange={handleDeliveryChange} placeholder="District" />
                 </div>
                 <div className="col-md-12">
                   <input type="text" className="form-control mb-3" name="addressOne" value={deliveryDetails.addressOne} onChange={handleDeliveryChange} placeholder="Address Line 1" />

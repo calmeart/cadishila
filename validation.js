@@ -29,4 +29,12 @@ const userSchema = Joi.object({
   password: Joi.string().trim().min(8).max(50).required()
 });
 
-module.exports = { productSchema, categorySchema, userSchema };
+const addressSchema = Joi.object({
+  city: Joi.string().alphanum().trim().max(50).required(),
+  district: Joi.string().alphanum().trim().max(50).required(),
+  addressOne: Joi.string().required(),
+  addressTwo: Joi.string(),
+  zipCode: Joi.string().alphanum().min(4).max(10).required()
+});
+
+module.exports = { productSchema, categorySchema, userSchema, addressSchema };

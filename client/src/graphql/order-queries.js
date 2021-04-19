@@ -22,7 +22,7 @@ const GetOrders = gql`
       }
       deliveryDetails {
         city
-        neighborhood
+        district
         addressOne
         addressTwo
         zipCode
@@ -56,7 +56,7 @@ const GetUserOrders = gql`
       }
       deliveryDetails {
         city
-        neighborhood
+        district
         addressOne
         addressTwo
         zipCode
@@ -90,7 +90,7 @@ const SubmitOrder = gql`
       }
       deliveryDetails {
         city
-        neighborhood
+        district
         addressOne
         addressTwo
         zipCode
