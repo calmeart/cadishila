@@ -57,17 +57,22 @@ function Payment({ appointError, cartContent }) {
 
     function hanldleSubmitOrder(e) {
       e.preventDefault();
+      const cartContentInput = cartContent.map(cartItem => ({
+        productDetails: cartItem.productDetails,
+        size: cartItem.size,
+        count: cartItem.count
+      }));
       const returnedPromise = submitOrder({
         variables: {
-          cartContent,
+          cartContentInput,
           deliveryDetails,
           customerDetails
         }
       });
       returnedPromise.then(result => {
-        appointError('Your order has been received. Our team will contact you throough your mail within 24 hours.');
+        appointError('Your order has been received. Our team will contact you through your mail within 24 hours.');
       }).catch(err => {
-        appointError(err.extensions);
+        appointError(err.message);
       })
     }
 
@@ -110,7 +115,7 @@ function Payment({ appointError, cartContent }) {
             <h2>Your Products</h2>
             <div>
               {cartContent.map(item =>
-                <div key={item.productDetails.id} className="d-flex justify-content-around align-items-center">
+                <div key={item.cartId} className="d-flex justify-content-around align-items-center">
                   <ProductCard item={item.productDetails} />
                   <h2>X</h2>
                   <h2>{item.count}</h2>

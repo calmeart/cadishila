@@ -274,7 +274,7 @@ h1 {
 
 /******ADMIN PORTAL*****/
 #adminPortal {
-  height: 500px;
+  
 }
 
 /*****ADD PRODUCT*****/
@@ -293,6 +293,12 @@ h1 {
 textarea {
   height: 130px;
   resize: none;
+}
+
+/*****ORDER TRACK*****/
+
+.orderTrack .card {
+  width: 100%;
 }
 
 /*****FOOTER*****/

@@ -6,6 +6,7 @@ import CategoryList from "../components/CategoryList";
 import AddProduct from "../components/AddProduct";
 import UserList from "../components/UserList";
 import OrderTrack from "../components/OrderTrack";
+import OrderTrackAdmin from "../components/OrderTrackAdmin";
 
 function Profile(props) {
 
@@ -36,8 +37,9 @@ function Profile(props) {
                   </div>
                 </Route>
                 <Route path={"/users/" + user.id + "/orders"}>
-                  <div>
-                    <h2>Order Track</h2>
+                  <div className="orderTrack">
+                    <h5>My Orders</h5>
+                    <OrderTrack email={user.email} />
                   </div>
                 </Route>
                 {user.isAdmin && (
@@ -63,7 +65,9 @@ function Profile(props) {
                           </div>
                           <div className="tab-pane fade" id="pill-orders" role="tabpanel" aria-labelledby="pill-orders-tab">
                             <h2>Order List</h2>
-                            <OrderTrack />
+                            <div className="orderTrack">
+                              <OrderTrackAdmin />
+                            </div>
                           </div>
                         </div>
                       </div>
