@@ -63,6 +63,13 @@ const RootQuery = new GraphQLObjectType({
         return Order.find({});
       }
     },
+    getUserOrders: {
+      type: new GraphQLList(OrderType),
+      args: { email: { type: GraphQLString }},
+      resolve( parent, args ) {
+        return Order.find({ 'customerDetails.email': args.email });
+      }
+    },
     reviews: {
       type: new GraphQLList(ReviewType),
       resolve( parent, args ) {
@@ -273,15 +280,15 @@ const MutationType = new GraphQLObjectType({
     submitOrder: {
       type: OrderType,
       args: {
-        cartContent: { type: new GraphQLList(CartContentInput) },
+        cartContentInput: { type: new GraphQLList(CartContentInput) },
         customerDetails: { type: CustomerDetailsInput },
         deliveryDetails: { type: DeliveryDetailsInput }
       },
       async resolve( parent, args ) {
-        const { cartContent, customerDetails, deliveryDetails } = args;
+        const { cartContentInput, customerDetails, deliveryDetails } = args;
         try {
           const newOrder = new Order({
-              cartContent,
+              cartContent: cartContentInput,
               customerDetails,
               deliveryDetails,
               createdAt: new Date().toISOString(),
