@@ -31,7 +31,6 @@ function AddProduct(props) {
     name: "",
     description: "",
     price: "",
-    size: [],
     categoryId: "",
     imageLink: ""
   })
@@ -40,16 +39,6 @@ function AddProduct(props) {
 
   function handleInputChange(e) {
     let { name, value } = e.target;
-    if (name === "size") {
-      let array = [...product.size];
-      let index = array.indexOf(value);
-      if ( index > -1 ) {
-        array.splice(index, 1);
-      } else {
-        array.push(value);
-        value = [...array];
-      }
-    }
     setProduct(prev => ({
       ...prev,
       [name]: value
@@ -72,7 +61,6 @@ function AddProduct(props) {
             name: "",
             description: "",
             price: "",
-            size: [],
             categoryId: "",
             imageLink: ""
         });
@@ -100,19 +88,6 @@ function AddProduct(props) {
               <input type="text" className="form-control mb-3" id="inputName" name="name" value={product.name} onChange={handleInputChange} placeholder="Name" />
               <textarea type="text" className="form-control mb-3" id="inputDescription" name="description" value={product.description} onChange={handleInputChange} placeholder="Description" />
               <input type="text" className="form-control mb-3" id="inputPrice" name="price" value={product.price} onChange={handleInputChange} placeholder="Price "/>
-              <div>
-                <input type="checkbox" className="btn-check" id="btnXS" name="size" value="XS" onClick={handleInputChange} autoComplete="off" />
-                <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnXS">XS</label>
-
-                <input type="checkbox" className="btn-check" id="btnS" name="size" value="S" onClick={handleInputChange} autoComplete="off" />
-                <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnS">S</label>
-
-                <input type="checkbox" className="btn-check" id="btnM" name="size" value="M" onClick={handleInputChange} autoComplete="off" />
-                <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnM">M</label>
-
-                <input type="checkbox" className="btn-check" id="btnL" name="size" value="L" onClick={handleInputChange} autoComplete="off" />
-                <label className="btn btn-outline-primary m-1 p-1" htmlFor="btnL">L</label>
-              </div>
             </div>
 
             <div className="col-sm-4 p-0">

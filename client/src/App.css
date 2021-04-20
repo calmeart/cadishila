@@ -110,17 +110,33 @@ h1 {
   box-shadow: 0 0 10px 5px rgba(255, 183, 0, 0.6);
 }
 
+@media (max-width: 576px) {
+  h1 {
+    font-size: 5rem;
+  }
+
+  .headerButtons {
+    width: 300px;
+  }
+
+  .headerImage {
+    width: 50px;
+    height: 50px;
+  }
+}
+
 /*****PRODUCTS*****/
 
 #productList {
   display: flex;
+  justify-content: space-between;
 }
 
 #products {
   position: relative;
-  display: flex;
-  justify-content: center;
+  display: inline-flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   flex: 1 1 auto;
 }
 
@@ -132,12 +148,12 @@ h1 {
 .buttonGroup {
   position: relative;
   width: 130px;
-  min-height: 200px;
   margin: .75rem;
-  border: 1px solid rgba(0, 0, 0, .125);
-  border-radius: .25rem;
   align-self: flex-start;
-  flex: 0 0 auto;
+}
+
+.form-check {
+  text-align: left;
 }
 
 .card {
@@ -167,6 +183,16 @@ h1 {
   box-shadow: none;
 }
 
+@media (max-width: 576px) {
+  #productList {
+    flex-direction: column;
+  }
+
+  .buttonGroup {
+    width: 20rem;
+  }
+}
+
 /*****PRODUCT DETAILS******/
 
 #productDetails {
@@ -182,7 +208,28 @@ h1 {
 .productImg img {
   width: auto;
   height: 380px;
+}
 
+.similarProductsBox .card {
+  width: 10rem;
+  margin: .25rem;
+  padding: 0;
+}
+
+.similarProductsBox .cardImg {
+  height: calc(158px * .75);
+}
+
+.similarProductsBox img {
+  height: calc(158px * .75);
+}
+
+.similarProductsBox .card-body, .similarProductsBox .card-footer {
+  padding: .25rem;
+}
+
+.similarProductsBox .card-body h5, .similarProductsBox p {
+  font-size: .8rem;
 }
 
 /*****CART CONTAINER****/
@@ -213,6 +260,33 @@ h1 {
   width: 80%;
   padding-bottom: 1rem;
   margin: auto;
+}
+
+@media (max-width: 576px) {
+  .cartContainer {
+    min-width: 200px;
+    width: 80%;
+  }
+
+  .cartContainer .card {
+    padding: .5rem;
+  }
+
+  .cartContainer .cardImg {
+    width: 100%;
+  }
+
+  .cartContainer img {
+    height: calc(158px * .75);
+  }
+
+  .cartContainer .card-body, .cartContainer .card-footer {
+    padding: .25rem;
+  }
+
+  .cartContainer .card-body h5, .cartContainer p {
+    font-size: .8rem;
+  }
 }
 
 /******PAYMENT*****/
@@ -274,7 +348,7 @@ h1 {
 
 /******ADMIN PORTAL*****/
 #adminPortal {
-  
+
 }
 
 /*****ADD PRODUCT*****/
@@ -298,7 +372,7 @@ textarea {
 /*****ORDER TRACK*****/
 
 .orderTrack .card {
-  width: 100%;
+  width: auto;
 }
 
 /*****FOOTER*****/

@@ -6,11 +6,11 @@ function Footer() {
     <footer className="footer mt-5 py-3 bg-dark">
       <div className="container">
         <div id="footerLinks">
-          <div className="d-flex justify-content-between">
-            <div>
+          <div className="row justify-content-between">
+            <div className="col-sm-3 col-6">
               <h5 className="mb-4">Categories</h5>
             </div>
-            <div>
+            <div className="col-sm-3 col-6">
               <h5 className="mb-4">About Us</h5>
               <p>CadiShila</p>
               <p>How Do We Work</p>
@@ -18,12 +18,12 @@ function Footer() {
               <p>Size & Measurements</p>
               <p>Payment & Delivery</p>
             </div>
-            <div>
+            <div className="col-sm-3 col-6">
               <h5 className="mb-4">Social Media</h5>
               <p>Instagram</p>
               <p>Facebook</p>
             </div>
-            <div>
+            <div className="col-sm-3 col-6">
               <h5 className="mb-4">Contacts</h5>
               <p>Phone Number</p>
               <p>Email Address</p>

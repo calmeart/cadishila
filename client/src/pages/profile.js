@@ -46,8 +46,8 @@ function Profile(props) {
                   <Route path={"/users/" + user.id + "/admin"}>
                     <div id="adminPortal">
                       <h2>Admin Portal</h2>
-                      <div className="d-flex align-items-start">
-                        <div className="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+                      <div className="d-flex flex-column flex-sm-row align-items-start">
+                        <div className="nav flex-row flex-sm-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
                           <button className="nav-link" id="pill-product-tab" data-bs-toggle="pill" data-bs-target="#pill-product" type="button" role="tab" aria-controls="pill-product" aria-selected="true">Product</button>
                           <button className="nav-link" id="pill-category-tab" data-bs-toggle="pill" data-bs-target="#pill-category" type="button" role="tab" aria-controls="pill-category" aria-selected="false">Category</button>
                           <button className="nav-link" id="pill-users-tab" data-bs-toggle="pill" data-bs-target="#pill-users" type="button" role="tab" aria-controls="pill-users" aria-selected="false">Users</button>

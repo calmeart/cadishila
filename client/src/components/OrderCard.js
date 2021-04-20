@@ -6,16 +6,16 @@ function OrderCard({ item }) {
 
   return (
     <div key={item.id} className="card">
-      <div className="card-header d-flex justify-content-between">
+      <div className="card-header d-sm-flex justify-content-between">
         <div>
-          <p>Order Status: {item.status}</p>
+          <p className="mb-0">Order Status: {item.status}</p>
         </div>
         <div>
-          <p>Order Date: {item.createdAt.substr(0, 10)}</p>
-          <p>Delivery Date: {item.deliveredAt}</p>
+          <p className="mb-0">Order Date: {item.createdAt.substr(0, 10)}</p>
+          <p className="mb-0">Delivery Date: {item.deliveredAt}</p>
         </div>
       </div>
-      <div className="card-body">
+      <div className="card-body text-start">
         <div className="row m-3">
           <div className="col-md-6">
             <h5>Products</h5>
@@ -37,7 +37,7 @@ function OrderCard({ item }) {
                       <td>{cartItem.productDetails.name}</td>
                       <td>{cartItem.size[0]}</td>
                       <td>{cartItem.count}</td>
-                      <td>{Number(cartItem.productDetails.price) * cartItem.count}</td>
+                      <td>TRY {Number(cartItem.productDetails.price) * cartItem.count}</td>
                     </tr>
                   )
                 }
@@ -46,7 +46,7 @@ function OrderCard({ item }) {
                 <tr>
                   <th scope="row">#</th>
                   <td colSpan="3">Total Price</td>
-                  <td>{cartTotalPrice(item.cartContent)}</td>
+                  <td>TRY {cartTotalPrice(item.cartContent)}</td>
                 </tr>
               </tfoot>
             </table>

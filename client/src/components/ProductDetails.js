@@ -164,7 +164,7 @@ function ProductDetails({ addItemToCart, appointError }) {
 
       <div className="similarProductsBox">
         <h5 className="card-title p-3">Similar Products</h5>
-        <div className="d-flex">
+        <div className="row flex-nowrap overflow-auto mx-0">
           {data.product.category.products.filter(item => (item.id !== data.product.id)).map(item => {
             return <ProductCard key={item.id} item={item} />
           })}

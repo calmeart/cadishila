@@ -21,10 +21,10 @@ function DisplayProducts({ audience, propArray }) {
 
 function VerticalCheckButton({ item, onCheckBoxChange }) {
   return (
-    <>
-      <input type="checkbox" className="btn-check" name={item.name} id={"btncheck" + item.id} autoComplete="off" onChange={onCheckBoxChange} checked={item.isChecked}/>
-      <label className="btn btn-outline-secondary" htmlFor={"btncheck" + item.id}>{item.name}</label>
-    </>
+    <div className="form-check">
+      <input type="checkbox" className="form-check-input" name={item.name} id={"btncheck" + item.id} onChange={onCheckBoxChange} checked={item.isChecked}/>
+      <label className="form-check-label" htmlFor={"btncheck" + item.id}>{item.name}</label>
+    </div>
   )
 };
 
@@ -58,14 +58,14 @@ function DisplayCategories({ audience, categoryFilter, setCategoryFilter }) {
 
   return (
     <>
-      <input type="checkbox" className="btn-check" name="checkAll" id="btncheckAll" autoComplete="off" onChange={onCheckBoxChange} checked={selectAll} />
-      <label className="btn btn-outline-secondary w-100" htmlFor="btncheckAll">Select All</label>
+      <div className="form-check">
+        <input type="checkbox" className="form-check-input" name="checkAll" id="btncheckAll" autoComplete="off" onChange={onCheckBoxChange} checked={selectAll} />
+        <label className="form-check-label" htmlFor="btncheckAll">Select All</label>
+      </div>
       <hr className="dropdown-divider" />
-      <div className="btn-group-vertical w-100" role="group" aria-label="Vertical category button group">
         {
           categoryFilter.map(item => <VerticalCheckButton key={item.id} item={item} onCheckBoxChange={onCheckBoxChange} />)
         }
-      </div>
     </>
   )
 }
@@ -75,16 +75,25 @@ function ProductList({ audience }) {
 
   const [categoryFilter, setCategoryFilter] = useState([]);
 
-
+  const { innerWidth } = window;
+  const isMobile = (innerWidth < 576) ? true : false;
   const propArray = categoryFilter.filter(item => item.isChecked === true).map(item => item.name);
 
   return (
 
     <div id="productList" className="container">
       <div className="buttonGroup text-center">
-        <h5>Filter Categories</h5>
+        { isMobile ? (
+          <a className="text-decoration-none" data-bs-toggle="collapse" href="#collapseCategories" role="button" aria-expanded={isMobile} aria-controls="collapseCategories">
+            <h5>Filter Categories</h5>
+          </a>
+        ) : (
+          <h5>Filter Categories</h5>
+        )}
         <hr className="dropdown-divider" />
-        <DisplayCategories audience={audience} categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter} />
+        <div className={isMobile ? "collapse" : ""} id={isMobile ? "collapseCategories" : ""}>
+          <DisplayCategories audience={audience} categoryFilter={categoryFilter} setCategoryFilter={setCategoryFilter} />
+        </div>
       </div>
       <div id="products">
         <DisplayProducts audience={audience} propArray={propArray}/>
