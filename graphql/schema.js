@@ -80,7 +80,14 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ReviewType),
       args: { id: { type: GraphQLID }},
       resolve( parent, args ) {
-        return Review.find({ productId: args.productId })
+        return Review.find({ productId: args.id })
+      }
+    },
+    userReviews: {
+      type: new GraphQLList(ReviewType),
+      args: { id: { type: GraphQLID }},
+      resolve( parent, args ) {
+        return Review.find({ userId: args.id })
       }
     }
   }
@@ -306,7 +313,32 @@ const MutationType = new GraphQLObjectType({
           return newOrder;
         }
         catch(err) {
-          console.log(err);
+          return err;
+        }
+      }
+    },
+    addReview: {
+      type: ReviewType,
+      args: {
+        userId: { type: new GraphQLNonNull(GraphQLString)},
+        productId: { type: new GraphQLNonNull(GraphQLString)},
+        reviewBody: { type: new GraphQLNonNull(GraphQLString)},
+        score: { type: new GraphQLNonNull(GraphQLString)}
+      },
+      async resolve( parent, args ) {
+        const { userId, productId, reviewBody, score } = args;
+        try {
+          const newReview = new Review({
+            userId,
+            productId,
+            reviewBody,
+            score,
+            createdAt: new Date().toISOString()
+          });
+          await newReview.save();
+          return newReview;
+        }
+        catch(err) {
           return err;
         }
       }

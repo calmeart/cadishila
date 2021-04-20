@@ -79,11 +79,19 @@ const ReviewType = new GraphQLObjectType({
   name: 'Review',
   fields: () => ({
     id: { type: GraphQLID },
-    userId: { type: GraphQLID },
-    productId: { type: GraphQLID },
+    user: {
+      type: UserType,
+      resolve( parent, args ) {
+        return User.findById(parent.userId);
+    }},
+    product: {
+      type: ProductType,
+      resolve( parent, args ) {
+        return Product.findById(parent.productId);
+      }
+    },
     reviewBody: { type: GraphQLString },
     score: { type: GraphQLString },
-    images: { type: new GraphQLList(GraphQLString) },
     createdAt: { type: GraphQLString }
   })
 });
