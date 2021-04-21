@@ -67,7 +67,7 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(OrderType),
       args: { email: { type: GraphQLString }},
       resolve( parent, args ) {
-        return Order.find({ 'customerDetails.email': args.email });
+        return Order.find({ 'customerDetails.email': args.email }).sort({ createdAt: -1 });;
       }
     },
     reviews: {

@@ -101,7 +101,7 @@ function App() {
 
               <div id="header" className="text-center">
                 <NavBar />
-                <h1>CadiShila</h1>
+                <h1>ShilaBurda</h1>
               </div>
               <CartContainer cartContent={cartContent} increment={incrementCountInCart} decrement={decrementCountInCart} remove={removeItemFromCart} />
               <div id="siteContent">

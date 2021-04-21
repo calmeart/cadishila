@@ -70,7 +70,14 @@ function Payment({ appointError, cartContent }) {
         }
       });
       returnedPromise.then(result => {
-        appointError('Your order has been received. Our team will contact you through your mail within 24 hours.');
+        appointError('Your order has been received. You can view your orders from your profile, IF YOU HAVE ONE!!!!!');
+        setDeliveryDetails({
+          city: "",
+          district: "",
+          addressOne: "",
+          addressTwo: "",
+          zipCode: ""
+        });
       }).catch(err => {
         appointError(err.message);
       })
