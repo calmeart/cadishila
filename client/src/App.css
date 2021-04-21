@@ -137,7 +137,7 @@ h1 {
   display: inline-flex;
   flex-wrap: wrap;
   justify-content: center;
-  flex: 0 1 auto;
+  flex: 1 1 auto;
 }
 
 #products::after {
@@ -150,7 +150,7 @@ h1 {
   width: 130px;
   margin: .75rem;
   align-self: flex-start;
-  flex: 2 0 auto;
+  flex: 0 1 auto;
 }
 
 .form-check {
