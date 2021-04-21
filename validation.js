@@ -37,4 +37,10 @@ const addressSchema = Joi.object({
   zipCode: Joi.string().alphanum().min(4).max(10).required()
 });
 
-module.exports = { productSchema, categorySchema, userSchema, addressSchema };
+const reviewSchema = Joi.object({
+  score: Joi.string().required().messages({
+    'string.empty': "Rating cannot be empty."
+  }),
+})
+
+module.exports = { productSchema, categorySchema, userSchema, addressSchema, reviewSchema };

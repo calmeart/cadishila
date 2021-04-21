@@ -19,7 +19,7 @@ const Category = require('../models/category-model');
 const User = require('../models/user-model');
 const Review = require('../models/review-model');
 const Order = require('../models/order-model');
-const { categorySchema, productSchema, userSchema, addressSchema } = require('../validation');
+const { categorySchema, productSchema, userSchema, addressSchema, reviewSchema } = require('../validation');
 const { CategoryType, OrderType, ProductType, ReviewType, UserType, CartContentInput, CustomerDetailsInput, DeliveryDetailsInput } = require('./typeDefs');
 
 const RootQuery = new GraphQLObjectType({
@@ -80,14 +80,14 @@ const RootQuery = new GraphQLObjectType({
       type: new GraphQLList(ReviewType),
       args: { id: { type: GraphQLID }},
       resolve( parent, args ) {
-        return Review.find({ productId: args.id })
+        return Review.find({ productId: args.id }).sort({ createdAt: -1 });
       }
     },
     userReviews: {
       type: new GraphQLList(ReviewType),
       args: { id: { type: GraphQLID }},
       resolve( parent, args ) {
-        return Review.find({ userId: args.id })
+        return Review.find({ userId: args.id }).sort({ createdAt: -1 });
       }
     }
   }
@@ -328,6 +328,12 @@ const MutationType = new GraphQLObjectType({
       async resolve( parent, args ) {
         const { userId, productId, reviewBody, score } = args;
         try {
+
+          const tempReview = reviewSchema.validate({ score });
+          if (tempReview.error) {
+            throw new Error(tempReview.error.details[0].message);
+          }
+
           const newReview = new Review({
             userId,
             productId,
