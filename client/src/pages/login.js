@@ -18,7 +18,7 @@ function Login(props) {
   };
 
   return (
-    <div className="loginForm">
+    <div className="loginForm container">
       {method.login && <LoginForm history={props.history} appointError={props.appointError}/>}
       {method.register && <RegisterForm history={props.history} appointError={props.appointError}/>}
       <p className="pb-5" onClick={handleClick}> {method.login ? "Don't have an account? Click here to Register" : "Click here to return to the Login Page"} </p>

@@ -359,7 +359,7 @@ h1 {
 /******LOGIN*****/
 
 .loginForm {
-  width: 400px;
+  max-width: 400px;
   margin: auto;
   text-align: center;
 }
