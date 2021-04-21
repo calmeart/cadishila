@@ -320,8 +320,8 @@ const MutationType = new GraphQLObjectType({
     addReview: {
       type: ReviewType,
       args: {
-        userId: { type: new GraphQLNonNull(GraphQLString)},
-        productId: { type: new GraphQLNonNull(GraphQLString)},
+        userId: { type: new GraphQLNonNull(GraphQLID)},
+        productId: { type: new GraphQLNonNull(GraphQLID)},
         reviewBody: { type: new GraphQLNonNull(GraphQLString)},
         score: { type: new GraphQLNonNull(GraphQLString)}
       },

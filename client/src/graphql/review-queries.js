@@ -52,9 +52,9 @@ const GetProductReviews = gql`
   }
 `;
 
-const AddReviews = gql`
+const AddReview = gql`
   mutation ($userId: ID!, $productId: ID!, $score: String!, $reviewBody: String!) {
-    productReviews (userId: $userId, productId: $productId, score: $score, reviewBody: $reviewBody ) {
+    addReview (userId: $userId, productId: $productId, score: $score, reviewBody: $reviewBody ) {
       id
       user {
         id
@@ -67,4 +67,4 @@ const AddReviews = gql`
   }
 `;
 
-export { AddReviews, GetReviews, GetProductReviews, GetUserReviews };
+export { AddReview, GetReviews, GetProductReviews, GetUserReviews };
