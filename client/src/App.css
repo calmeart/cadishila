@@ -129,15 +129,15 @@ h1 {
 
 #productList {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
 }
 
 #products {
   position: relative;
   display: inline-flex;
   flex-wrap: wrap;
-  justify-content: space-between;
-  flex: 1 1 auto;
+  justify-content: center;
+  flex: 0 1 auto;
 }
 
 #products::after {
@@ -150,6 +150,7 @@ h1 {
   width: 130px;
   margin: .75rem;
   align-self: flex-start;
+  flex: 2 0 auto;
 }
 
 .form-check {
@@ -203,11 +204,36 @@ h1 {
 .productImg {
   height: 380px;
   text-align: center;
+  overflow: hidden;
 }
 
 .productImg img {
   width: auto;
   height: 380px;
+}
+
+#productReviews textarea {
+  height: auto;
+}
+
+#displayReviewsContainer {
+  position: relative;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: auto;
+  scroll-behavior: smooth;
+}
+
+#displayReviewsContainer::-webkit-scrollbar {
+  display: none;
+}
+
+.reviewCard:first-child .card {
+  margin-left: 0;
+}
+
+.reviewCard .card {
+  height: calc(100% - 1.5rem);
 }
 
 .similarProductsBox .card {

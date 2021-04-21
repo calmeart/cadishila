@@ -4,6 +4,7 @@ import { useQuery } from '@apollo/client';
 
 import { GetProductQuery } from '../graphql/queries';
 import ProductCard from "./ProductCard";
+import ProductReviews from "./ProductReviews";
 import CenteredSpinner from "../utils/CenteredSpinner";
 import validateSize from "../utils/validateSize";
 
@@ -158,8 +159,7 @@ function ProductDetails({ addItemToCart, appointError }) {
       </div>
 
       <div className="reviewBox">
-        <h5 className="card-title p-3">Review</h5>
-
+        <ProductReviews productId={id} appointError={appointError} />
       </div>
 
       <div className="similarProductsBox">
