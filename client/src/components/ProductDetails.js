@@ -159,7 +159,7 @@ function ProductDetails({ addItemToCart, appointError }) {
       </div>
 
       <div className="reviewBox">
-        <ProductReviews productId={id} appointError={appointError} />
+        <ProductReviews productId={id} reviews={data.product.reviews} appointError={appointError} />
       </div>
 
       <div className="similarProductsBox">

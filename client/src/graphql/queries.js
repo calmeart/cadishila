@@ -9,6 +9,11 @@ query ($id: ID!) {
     price
     imageLink
     createdAt
+    reviews {
+      id
+      score
+      reviewBody
+    }
     category {
       id
       name

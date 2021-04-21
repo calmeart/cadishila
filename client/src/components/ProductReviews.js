@@ -2,12 +2,13 @@ import React, { useContext, useState } from 'react';
 import { useMutation, useQuery } from '@apollo/client';
 
 import { AddReview, GetProductReviews } from "../graphql/review-queries";
+import { GetProductQuery } from "../graphql/queries";
 import { AuthContext } from "../context/auth";
 import ReviewCard from "./ReviewCard";
 import StarRating from "../utils/StarRating";
 import HorizontalScrollButton from "../utils/HorizontalScrollButton";
 
-function DisplayReviews({ productId, setAverageRating, setNumberOfReviews }) {
+function DisplayReviews({ productId }) {
   const { loading, error, data } = useQuery(GetProductReviews, {
     variables: {
       id: productId
@@ -17,20 +18,25 @@ function DisplayReviews({ productId, setAverageRating, setNumberOfReviews }) {
   if (loading) return <p className="errorMessage">Loading...</p>;
   if (error) return <p className="errorMessage">Error: {error.message}</p>;
 
-  const arrayOfRates = data.productReviews.map(review => Number(review.score));
-  const avg = Math.round(arrayOfRates.reduce((a, b) => a + b) / arrayOfRates.length *10) / 10;
-  setAverageRating(avg);
-  setNumberOfReviews(arrayOfRates.length);
-
-
   return data.productReviews.filter(review => review.reviewBody !== "").map(review => <ReviewCard key={review.id} review={review} /> );
 };
 
-function ProductReviews({productId, appointError}) {
+function ProductReviews({ appointError, productId, reviews }) {
   const [ reviewBody, setReviewBody ] = useState("");
   const [ rating, setRating ] = useState(0);
-  const [averageRating, setAverageRating] = useState(0);
-  const [numberOfReviews, setNumberOfReviews] = useState(0);
+
+  let averageScore = 0;
+  if (reviews.length > 0) {
+    const array = reviews.map(item => Number(item.score));
+    averageScore = Math.round( array.reduce((a, b) => a + b) / array.length *10 ) / 10;
+  };
+
+  let commentBox = false;
+  if (reviews.filter(review => review.reviewBody !== "").length > 0) {
+    commentBox = true;
+  };
+  console.log(reviews.filter(review => review.reviewBody !== "").length);
+  console.log(commentBox);
 
   const { user } = useContext(AuthContext);
   const [addReview] = useMutation(AddReview);
@@ -44,15 +50,17 @@ function ProductReviews({productId, appointError}) {
   };
 
   function handleSubmitClick() {
-    console.log(rating);
     const returnedPromise = addReview({
       variables: {
-        userId: user.id,
+        userId: user ? user.id : "60648735758b5ea1b880cdf9",
         productId,
         score: (rating !== 0) ? rating.toString() : "",
         reviewBody
       },
-      refetchQueries: [{query: GetProductReviews, variables: { id: productId }}]
+      refetchQueries: [
+        {query: GetProductReviews, variables: { id: productId }},
+        {query: GetProductQuery, variables: { id: productId }},
+      ]
     });
     returnedPromise.then(result => {
       setReviewBody("");
@@ -64,17 +72,17 @@ function ProductReviews({productId, appointError}) {
 
   return (
     <div id="productReviews" className="d-flex flex-column">
-      <h5 className="card-title p-3">Review Score: {averageRating} <i className="bi bi-star-fill"></i>
-        <span className="text-muted text-lowercase"> over {numberOfReviews} reviews</span>
+      <h5 className="card-title p-3">Review Score: {averageScore} <i className="bi bi-star-fill"></i>
+        <span className="text-muted text-lowercase"> over {reviews.length} reviews</span>
       </h5>
       <div className="position-relative">
         <div id="displayReviewsContainer">
-          <DisplayReviews key={numberOfReviews} productId={productId} setAverageRating={setAverageRating} setNumberOfReviews={setNumberOfReviews} />
+          { commentBox ? <DisplayReviews productId={productId} /> : <p>Be first to write a comment...</p> }
         </div>
-        {!isMobile && <HorizontalScrollButton targetContainer="displayReviewsContainer"/>}
+        { !isMobile && commentBox && <HorizontalScrollButton targetContainer="displayReviewsContainer"/> }
       </div>
       <div>
-        <textarea className="form-control mb-1" rows="2" value={reviewBody} onChange={handleReviewChange} placeholder="Add review..." />
+        <textarea className="form-control mb-1" rows="2" value={reviewBody} onChange={handleReviewChange} placeholder="Add a comment..." />
         <div className="d-flex align-items-end">
           <StarRating rating={rating} setRating={setRating} />
           <p className="my-0 mx-3">Rating: {rating}/5</p>
