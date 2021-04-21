@@ -1,0 +1,29 @@
+
+.scrollButton {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 1000;
+  background-color: transparent;
+  color: var(--font-color);
+  opacity: .6;
+  border: 0;
+  border-radius: 100%;
+}
+
+.scrollButton .bi {
+  font-size: 2.5rem;
+}
+
+.scrollButton:hover {
+  opacity: 1;
+}
+
+.buttonLeft {
+  left: 0;
+
+}
+
+.buttonRight {
+  right: 0;
+}

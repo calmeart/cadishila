@@ -62,11 +62,13 @@ function NavBar() {
                     <li>
                       <Link className="dropdown-item" to={'/users/' + context.user.id + "/reviews"} >My Reviews</Link>
                     </li>
-                    <li><hr className="dropdown-divider" /></li>
                     {context.user.isAdmin && (
+                      <>
+                      <li><hr className="dropdown-divider" /></li>
                       <li>
                         <Link className="dropdown-item" to={'/users/' + context.user.id + "/admin"} >Admin Portal</Link>
                       </li>
+                      </>
                     )}
                     <li><hr className="dropdown-divider" /></li>
                     <li>

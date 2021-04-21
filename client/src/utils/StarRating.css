@@ -1,21 +1,21 @@
 .starRating {
   display: flex;
-  width: 180px;
+  width: 140px;
   padding: 0;
 }
 
 .starBox {
   position: relative;
-  width: 36px;
-  height: 48px;
+  width: 28px;
+  height: 36px;
 }
 
 .starBox .starInputHalf {
   position: absolute;
   top: 0;
   left: 0;
-  width: 18px;
-  height: 48px;
+  width: 24px;
+  height: 36px;
   z-index: 1000;
   opacity: 0;
   cursor: pointer;
@@ -24,9 +24,9 @@
 .starBox .starInputFull {
   position: absolute;
   top: 0;
-  left: 18px;
-  width: 18px;
-  height: 48px;
+  left: 24px;
+  width: 24px;
+  height: 36px;
   z-index: 1000;
   opacity: 0;
   cursor: pointer;
@@ -38,7 +38,7 @@
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  font-size: 2rem;
+  font-size: 1.5rem;
   z-index: 0 !important;
   color: var(--font-color);
 }
