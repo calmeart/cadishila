@@ -35,8 +35,6 @@ function ProductReviews({ appointError, productId, reviews }) {
   if (reviews.filter(review => review.reviewBody !== "").length > 0) {
     commentBox = true;
   };
-  console.log(reviews.filter(review => review.reviewBody !== "").length);
-  console.log(commentBox);
 
   const { user } = useContext(AuthContext);
   const [addReview] = useMutation(AddReview);
