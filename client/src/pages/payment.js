@@ -1,7 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import { useMutation } from '@apollo/client';
 
-import ProductCard from "../components/ProductCard";
 import { AuthContext } from "../context/auth";
 import { SubmitOrder } from "../graphql/order-queries";
 
@@ -85,60 +84,104 @@ function Payment({ appointError, cartContent }) {
 
     return (
       <div id="payment">
-        <div className="row">
-          <div className="col-md-6">
-            <div className="container">
-              <h2 className="text-center">Contact Info</h2>
-              <h5>Personal Information</h5>
-              <div className="row">
-                <div className="col-md-12">
-                  <input type="text" className="form-control mb-3" name="username" value={customerDetails.username} onChange={handleUserChange} placeholder="Name Surname" />
-                </div>
-                <div className="col-md-6">
-                  <input type="email" className="form-control mb-3" name="email" value={customerDetails.email} onChange={handleUserChange} placeholder="Contact Mail" />
-                </div>
-                <div className="col-md-6">
-                  <input type="text" className="form-control mb-3" name="phone" value={customerDetails.phone} onChange={handleUserChange} placeholder="Phone Number" />
-                </div>
+        <div className="container">
+          <h2 className="text-center m-3">Delivery Info</h2>
+          <div className="row g-5">
 
-              </div>
-              <h5>Delivery Details</h5>
-              <div className="row">
-                <div className="col-md-6">
-                  <input type="text" className="form-control mb-3" name="city" value={deliveryDetails.city} onChange={handleDeliveryChange} placeholder="City" />
-                </div>
-                <div className="col-md-6">
-                  <input type="text" className="form-control mb-3" name="district" value={deliveryDetails.district} onChange={handleDeliveryChange} placeholder="District" />
-                </div>
-                <div className="col-md-12">
-                  <input type="text" className="form-control mb-3" name="addressOne" value={deliveryDetails.addressOne} onChange={handleDeliveryChange} placeholder="Address Line 1" />
-                  <input type="text" className="form-control mb-3" name="addressTwo" value={deliveryDetails.addressTwo} onChange={handleDeliveryChange} placeholder="Address Line 2" />
-                  <input type="text" className="form-control mb-3" name="zipCode" value={deliveryDetails.zipCode} onChange={handleDeliveryChange} placeholder="Zip Code" />
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-6 text-center">
-            <h2>Your Products</h2>
-            <div>
-              {cartContent.map(item =>
-                <div key={item.cartId} className="d-flex justify-content-around align-items-center">
-                  <ProductCard item={item.productDetails} />
-                  <h2>X</h2>
-                  <h2>{item.count}</h2>
-                  <h2>=</h2>
-                  <h2>TRY {Number(item.productDetails.price) * item.count}</h2>
-                </div>
+            <div className="col-md-5 col-lg-4 order-md-last">
+              <h5 className="d-flex justify-content-between align-items-center mb-3">
+                Your Cart
+                <span className="badge bg-secondary rounded-pill">{cartContent.length}</span>
+              </h5>
+              <ul className="list-group mb-3">
+                {cartContent.map(item =>
+                  <li key={item.cartId} className="list-group-item d-flex justify-content-between lh-sm">
+                    <div>
+                      <h6 className="my-0">{item.count} {item.productDetails.name}</h6>
+                      <small className="text-muted">Size: {item.size[0].toUpperCase()} </small>
+                    </div>
+                    <span className="text-muted">₺{Number(item.productDetails.price) * item.count}</span>
+                  </li>
                 )}
+                <li className="list-group-item d-flex justify-content-between">
+                  <span>Total (TRY)</span>
+                  <strong>₺{totalPrice}</strong>
+                </li>
+              </ul>
+
+              <form className="card p-2">
+                <div className="input-group">
+                  <input type="text" className="form-control" placeholder="Promo code" disabled />
+                  <button type="submit" className="btn btn-secondary disabled">Redeem</button>
+                </div>
+              </form>
             </div>
-            <h2>TOTAL PRICE = TRY {totalPrice}</h2>
+
+            <div className="col-md-7 col-lg-8">
+              <h5>Personal Details</h5>
+              <div className="row g-3">
+                <div className="col-sm-6">
+                  <label htmlFor="firstName" className="form-label">First name</label>
+                  <input type="text" className="form-control" id="firstName" disabled />
+                </div>
+                <div className="col-sm-6">
+                  <label htmlFor="lastName" className="form-label">Last name</label>
+                  <input type="text" className="form-control" id="lastName" disabled />
+                </div>
+
+                <div className="col-12">
+                  <label htmlFor="email" className="form-label">Email</label>
+                  <input type="email" className="form-control" id="email" name="email" value={customerDetails.email} onChange={handleUserChange} placeholder="you@example.com" />
+                </div>
+
+                <div className="col-sm-6">
+                  <label htmlFor="username" className="form-label">Username</label>
+                  <input type="text" className="form-control" id="username" name="username" value={customerDetails.username} onChange={handleUserChange} placeholder="Username" required />
+                </div>
+
+                <div className="col-sm-6">
+                  <label htmlFor="phone" className="form-label">Phone</label>
+                  <input type="text" className="form-control" id="phone" name="phone" value={customerDetails.phone} onChange={handleUserChange} placeholder="+90 (XXX) XX XX" />
+                </div>
+
+                <hr className="my-4" />
+
+                <h5>Address Details</h5>
+
+                <div className="col-12">
+                  <label htmlFor="addressOne" className="form-label">Address</label>
+                  <input type="text" className="form-control" id="addressOne" name="addressOne" value={deliveryDetails.addressOne} onChange={handleDeliveryChange} placeholder="Street and compound" required />
+                </div>
+
+                <div className="col-12">
+                  <label htmlFor="addressTwo" className="form-label">Address 2</label>
+                  <input type="text" className="form-control" id="addressTwo" name="addressTwo" value={deliveryDetails.addressTwo} onChange={handleDeliveryChange} placeholder="Apartment or suite" />
+                </div>
+
+                <div className="col-md-5">
+                  <label htmlFor="city" className="form-label">City</label>
+                  <input type="text" className="form-control" id="city" name="city" value={deliveryDetails.city} onChange={handleDeliveryChange} placeholder="City" />
+                </div>
+
+                <div className="col-md-4">
+                  <label htmlFor="district" className="form-label">District</label>
+                  <input type="text" className="form-control" id="distrit" name="district" value={deliveryDetails.district} onChange={handleDeliveryChange} placeholder="District" />
+                </div>
+
+                <div className="col-md-3">
+                  <label htmlFor="zipCode" className="form-label">Zip</label>
+                  <input type="text" className="form-control" id="zipCode" name="zipCode" value={deliveryDetails.zipCode} onChange={handleDeliveryChange} placeholder="06000" required />
+                </div>
+              </div>
+            </div>
           </div>
-        </div>
 
+          <hr className="my-4" />
 
-        <div className="text-center">
-          <h2>Approve Order</h2>
-          <button className="btn btn-primary" onClick={hanldleSubmitOrder} >Submit Order</button>
+          <div className="text-center">
+            <h2>Approve Order</h2>
+          <button className="btn btn-primary" onClick={hanldleSubmitOrder}>Submit Order</button>
+          </div>
         </div>
       </div>
     )
