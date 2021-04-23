@@ -19,7 +19,7 @@ const Category = require('../models/category-model');
 const User = require('../models/user-model');
 const Review = require('../models/review-model');
 const Order = require('../models/order-model');
-const { categorySchema, productSchema, userSchema, addressSchema, reviewSchema } = require('../validation');
+const { addressSchema, categorySchema, customerSchema, productSchema, reviewSchema, userSchema } = require('../validation');
 const { CategoryType, OrderType, ProductType, ReviewType, UserType, CartContentInput, CustomerDetailsInput, DeliveryDetailsInput } = require('./typeDefs');
 
 const RootQuery = new GraphQLObjectType({
@@ -294,7 +294,10 @@ const MutationType = new GraphQLObjectType({
       async resolve( parent, args ) {
         const { cartContentInput, customerDetails, deliveryDetails } = args;
         try {
-
+          const tempUser = customerSchema.validate({ email: customerDetails.email });
+          if (tempUser.error) {
+            throw new Error(tempUser.error.details[0].message);
+          }
           const tempAddress = addressSchema.validate(deliveryDetails);
           if (tempAddress.error) {
             throw new Error(tempAddress.error.details[0].message);
