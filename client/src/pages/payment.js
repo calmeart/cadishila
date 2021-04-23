@@ -4,11 +4,11 @@ import { useMutation } from '@apollo/client';
 import { AuthContext } from "../context/auth";
 import { SubmitOrder } from "../graphql/order-queries";
 
-function Payment({ appointError, cartContent }) {
+function Payment({ appointError, cartContent, setCartContent }) {
 
     useEffect(() => {
-      const cartButton = document.getElementById('cartButton');
-      cartButton.click();
+      const cartContainer = document.getElementById('collapseExample');
+      cartContainer.classList.remove('show');
     }, []);
 
     let totalPrice = 0;
@@ -77,6 +77,7 @@ function Payment({ appointError, cartContent }) {
           addressTwo: "",
           zipCode: ""
         });
+        setCartContent([]);
       }).catch(err => {
         appointError(err.message);
       })

@@ -133,7 +133,7 @@ function App() {
                   <Route
                     exact
                     path="/checkout"
-                    render={(props) => (<Payment {...props} cartContent={cartContent} appointError={appointError} />)}
+                    render={(props) => (<Payment {...props} cartContent={cartContent} setCartContent={setCartContent} appointError={appointError} />)}
                     />
                 </Switch>
               </div>
