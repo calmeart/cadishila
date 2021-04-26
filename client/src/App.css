@@ -365,6 +365,22 @@ textarea {
   width: auto;
 }
 
+/*****ABOUT PAGE*****/
+
+#about {
+  max-width: 960px;
+  text-align: justify;
+}
+
+#about section {
+  padding-top: 70px;
+}
+
+#about li {
+  font-family: 'Raleway', sans-serif;
+  margin-bottom: 10px;
+}
+
 /*****FOOTER*****/
 footer {
   color: #fff;
@@ -372,4 +388,12 @@ footer {
 
 #footerNote {
   color: #757575;
+}
+
+footer a {
+  color: rgba(255, 255, 255, .4);
+}
+
+footer a:hover {
+  color: rgb(255, 255, 255);
 }

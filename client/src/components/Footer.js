@@ -12,11 +12,11 @@ function Footer() {
             </div>
             <div className="col-sm-3 col-6">
               <h5 className="mb-4">About Us</h5>
-              <p>CadiShila</p>
-              <p>How Do We Work</p>
-              <p>Materials</p>
-              <p>Size & Measurements</p>
-              <p>Payment & Delivery</p>
+              <a className="nav-link" href="/about#shilaburda"><p>ShilaBurda</p></a>
+              <a className="nav-link" href="/about#howdowework"><p>How Do We Work</p></a>
+              <a className="nav-link" href="/about#material"><p>Material</p></a>
+              <a className="nav-link" href="/about#measurements"><p>Size & Measurements</p></a>
+              <p className="nav-link text-muted">Payment & Delivery</p>
             </div>
             <div className="col-sm-3 col-6">
               <h5 className="mb-4">Social Media</h5>
